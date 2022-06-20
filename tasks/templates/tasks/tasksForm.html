@@ -1,0 +1,97 @@
+{%block content%}
+{%load static%}
+{%include 'tasks/main.html'%}
+
+
+
+
+<!-- main -->
+
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+
+    <!-- cards -->
+
+
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Fill in your Task details </h2>
+            </div>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="">
+
+                    <div class="">
+                        <span class="title">Task Details</span>
+
+                        <div class="fields">
+                            <div class="input-field">
+                                {{form.client.label}}
+                                {{form.client}}
+                            </div>
+                            <div class="input-field">
+                                {{form.category.label}}
+                                {{form.category}}
+                            </div>
+
+                            <div class="input-field">
+                                {{form.title.label}}
+                                {{form.title}}
+                            </div>
+
+                            <div class="input-field">
+                                {{form.description.label}}
+                                {{form.description}}
+                            </div>
+                            <div class="input-field">
+                                {{form.Proposed_price.label}}
+                                {{form.Proposed_price}}
+                            </div>
+
+                            <div class="input-field">
+                                {{form.deadline.label}}
+                                {{form.deadline}}
+                            </div>
+                            <br>
+                            <div>
+                                {{form.file.label}}
+                                {{form.file}}
+                            </div>
+                        </div>
+
+                        <button class="nextBtn">
+                            <span class="btnText">Submit</span>
+                            <i class="uil uil-navigator"></i>
+                        </button>
+                        <br>
+
+
+
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script src="{%static 'js/script.js'%}"></script>
+
+
+
+
+{%endblock %}

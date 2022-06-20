@@ -1,0 +1,59 @@
+{%block content%}
+{%load static%}
+{%include 'tasks/main.html'%}
+
+
+<!-- main -->
+
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Work given/to do</h2>
+
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for task in tasks%}
+
+                    <tr class="tasks">
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td id="status">{{task.status}}</td>
+                        <td><a class="btn btn-info" id="view" href="{%url 'viewtasks' task.id %}">View</a></td>
+
+                    </tr>
+
+                    {%endfor%}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+{%endblock %}

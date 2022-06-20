@@ -1,0 +1,231 @@
+{%load static%}
+{%block content%}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nuno - Responsive Bootstrap Theme</title>
+	<link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+	<link rel="stylesheet" href="{%static 'css/style.css'%}">
+	<link rel="stylesheet" href="{%static 'css/fixed.css'%}">
+
+</head>
+
+<body data-spy="scroll" data-target="#navbarResponsive">
+
+	<!-- start home section -->
+	<div id="home">
+		<!-- navigation -->
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a href="#" class="navbar-brand"><img src="{%static 'images/nuno.png'%}"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-link"><a href="#home" class="nav-link">Home</a></li>
+					<li class="nav-link"><a href="#about" class="nav-link">About</a></li>
+					<li class="nav-link"><a href="#team-skills" class="nav-link">Team Skills</a></li>
+					<li class="nav-link"><a href="#contact" class="nav-link">Contact</a></li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-link"><a href="{% url 'login'%}" class="nav-link">Log In</a></li>
+					<li class="nav-link"><a href="{% url 'register'%}" class="nav-link">Sign Up</a></li>
+
+				</ul>
+			</div>
+
+		</nav>
+		<!-- end of navigation -->
+		<!-- start landing page section -->
+		<div class="landing">
+			<div class="home-wrap">
+				<div class="home-inner">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="caption text-center">
+			<h1>Welcome to SmallTasks</h1>
+			<h3>All your tasks sorted</h3>
+			<a href="#about" class="btn btn-outline-light btn-lg">Give us a task</a>
+		</div>
+
+		<!-- end landing page section -->
+	</div>
+	<!-- end home section -->
+	<!-- start about section -->
+	<div id="about" class="offset">
+
+		<!-- start of jumbotron -->
+		<div class="jumbotron">
+			<div class="narrow text-center">
+				<div class="col-12">
+					<h3 class="heading">About us</h3>
+					<div class="heading-underline"></div>
+				</div>
+
+				<div class="row text-center">
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="fas fa-sliders-h fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Assignment Writing</h3>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga incidunt dolore voluptatum.
+								Provident odit esse fuga pariatur suscipit dignissimos natus quam facere odio
+								voluptatum, eius eum dolores corrupti animi repellat!</p>
+						</div>
+					</div>
+
+
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="fas fa-play-circle fa-4x" data-fa-transform="shrink-4.5 up-4.5"></i>
+							<h3>Academic Writing</h3>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga incidunt dolore
+								voluptatum.
+								Provident odit esse fuga pariatur suscipit dignissimos natus quam facere odio
+								voluptatum, eius eum dolores corrupti animi repellat!</p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="feature">
+							<i class="fab fa-wpforms  fa-4x" data-fa-transform="shrink-4.5 up-4.5"></i>
+							<h3>Essay Writing</h3>
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga incidunt dolore
+								voluptatum.
+								Provident odit esse fuga pariatur suscipit dignissimos natus quam facere odio
+								voluptatum, eius eum dolores corrupti animi repellat!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<!-- end narrow -->
+	</div>
+
+	<!-- end jumbotron -->
+	</div>
+	<!-- end about section -->
+	<!-- start team-skills section -->
+	<div id="team-skills" class="offset">
+		<!-- start of fixed background -->
+		<div class="fixed-background">
+			<div class="row dark text-center">
+				<div class="col-12">
+					<h3 class="heading">Our Proficient stacks</h3>
+					<div class="heading-underline"> </div>
+				</div>
+				<div class="col-md-4">
+					<h3>Computer Programming</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Languages e.g Java,Python,Elixir,R</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Statistical Analysis</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Languages,R</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Business</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Business And all its environ</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Web Tasks</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Web development languages</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Android Tasks</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Mobile/android development languages</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Microsoft Office</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Microsoft office Package </p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Operating system tasks</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Operating system e.g Windows and Linux</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h3>Typing and Cyber services</h3>
+					<div class="feature">
+						<i class="fas fa-code fa-3x"></i>
+						<p class="lead">Music, Typing, KRA services</p>
+					</div>
+				</div>
+
+			</div>
+			<!-- end of row dark -->
+			<div class="fixed-wrap">
+				<div class="fixed"> </div>
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- end of fixed background -->
+
+	</div>
+	<!-- end team-skills section -->
+	<!-- start team-skills section -->
+	<div id="contact" class="offset">
+		<footer>
+			<div class="row justify-content-center">
+				<div class="col-md-5 text-center">
+					<img src="{%static 'images/nuno.png'%}" alt="">
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda modi accusamus magni dicta
+						velit et quis quo eligendi. Asperiores debitis eos totam labore!</p>
+					<strong>Contact info</strong>
+					<p>+254753100665 <br>SmallTasksonline@gmail.com</p>
+					<a href="" target="_blank"><i class="fab fa-facebook-square"></i></a>
+					<a href="" target="_blank"><i class="fab fa-twitter-square"></i></a>
+					<a href="" target="_blank"><i class="fab fa-instagram"></i></a>
+				</div>
+				<hr class="socket">
+				&copy;SmallTasks.
+
+			</div>
+		</footer>
+
+	</div>
+	<!-- end contact section -->
+
+</body>
+<!--- Script Source Files -->
+<script src="{%static 'js/jquery-3.3.1.min.js'%}"></script>
+<script src="{%static '/js/bootstrap.min.js'%}"></script>
+<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+<!--- End of Script Source Files -->
+
+</html>
+
+{%endblock%}

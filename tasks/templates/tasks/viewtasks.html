@@ -1,0 +1,64 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
+            </div>
+
+            <h1> {{task.title}}</h1>
+            <br>
+            <h2>TASK DESCRIPTION</h2>
+            {{task.description}}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Download documents</th>
+                        <th>Status</th>
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>
+                            <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
+
+
+                        </td>
+                        <td>{{task.status}}</td>
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <form action="{%url 'accept_task' task.id%}" method="POST">
+            {% csrf_token %}
+            <button type="submit">ACCEPT Task</button>
+        </form>
+
+    </div>
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+
+
+    {%endblock %}

@@ -1,0 +1,138 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+    <div style="margin-left:20px ;">
+        {% for message in messages %}
+        <h2 id="messages">{{message}}</h2>
+        {% endfor %}
+    </div>
+    {%include 'tasks/cardbox.html'%}
+    <div class="details">
+        <div class="recentOrders">
+
+            <div class="cardHeader">
+
+                <h2>Tasks Given</h2>
+
+
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="dashboardbuttons">
+                <a class="btn-2" href="{}">Tasks Given</a>
+                <a class="btn-2" href="{}">Tasks claimed</a>
+                <a class="btn-2" href="{}">tasks submitted</a>
+
+            </div>
+
+
+
+            <table>
+                <h2>Tasks Given</h2>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for task in tasks%}
+
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>{{task.status}}</td>
+                        <td><a class="btn btn-info" href="{%url 'update_Task' task.id %}">Edit</a></td>
+                        <td><a class="btn" href="{%url 'delete_Task' task.id %}">delete</a></td>
+
+                    </tr>
+
+                    {%endfor%}
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="recentOrders">
+
+            <div class="cardHeader">
+
+                <h2>Tasks Claimed</h2>
+
+
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="dashboardbuttons">
+                <a class="btn-2" href="{}">Tasks Given</a>
+                <a class="btn-2" href="{}">Tasks claimed</a>
+                <a class="btn-2" href="{}">tasks submitted</a>
+
+            </div>
+
+
+
+            <table>
+                
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for task in tasks%}
+
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>{{task.status}}</td>
+                        <td><a class="btn btn-info" href="{%url 'update_Task' task.id %}">Edit</a></td>
+                        <td><a class="btn" href="{%url 'delete_Task' task.id %}">delete</a></td>
+
+                    </tr>
+
+                    {%endfor%}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{%endblock %}

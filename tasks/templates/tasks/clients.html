@@ -1,0 +1,64 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+    <div style="margin-left:20px ;">
+        {% for message in messages %}
+        <h2 id="messages">{{message}}</h2>
+        {% endfor %}
+    </div>
+    {%include 'tasks/cardbox.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Work given/to do</h2>
+
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>user</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Number</th>
+                        <th>Email</th>
+
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for client in Clients%}
+
+                    <tr>
+                        <td>{{clients}}</td>
+                        <td>{{Clients.FirstName}}</td>
+                        <td>{{Clients.lastName}}</td>
+                        <td>{{Clients.Number}}</td>
+                        <td>{{Clients.user}}</td>
+                        <td>{{Clients.email}}</td>
+
+
+                    </tr>
+
+                    {%endfor%}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{%endblock %}

@@ -1,0 +1,129 @@
+{%load static%}
+{%block content%}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/style1.css'%}">
+
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">SMALL TASKS</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="{%url 'dashboard'%}">
+                        <span class="icon">
+                            <ion-icon name="planet-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="{%url 'taskpool'%}">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Tasks Pool</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="{% url 'create_Task'%}">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Give us a task</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Contact-Us</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="person-remove-outline"></ion-icon>
+                        </span>
+                        <span class="title">Profile</span>
+                    </a>
+
+                </li>
+                <li>
+                    <div class="cardbox">
+                        <div class="card">
+                            <div>
+                                <div class="numbers">15000 </div>
+                                <div class="cardName">Amount Owed due to task given</div>
+
+                            </div>
+                            <div class="iconBx">
+                                <ion-icon name="cash-outline"></ion-icon>
+                            </div>
+                        </div>
+                </li>
+                <li>
+                    <div class="cardbox">
+                        <div class="card">
+                            <div>
+                                <div class="numbers">15000 </div>
+                                <div class="cardName">Amount To be Paid due to task done</div>
+
+                            </div>
+                            <div class="iconBx">
+                                <ion-icon name="cash-outline"></ion-icon>
+                            </div>
+                        </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+
+
+
+        <!-- main -->
+
+
+
+    </div>
+
+
+  
+
+</body>
+
+
+</html>
+
+
+{%endblock %}

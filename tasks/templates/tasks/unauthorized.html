@@ -1,0 +1,57 @@
+{%block content%}
+{%load static%}
+
+
+<style>
+    .container {
+        text-align: center;
+    }
+
+
+    .container h1 {
+
+        font-size: 160px;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 20px;
+
+    }
+
+    .link {
+
+        text-decoration: none;
+        background: #0047AB;
+        padding: 12px 24px;
+        display: inline-block;
+        border-radius: 25px;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: 0.4s;
+
+    }
+
+    a {
+        margin-top: 15px;
+        color: #fff
+    }
+</style>
+
+
+{%include 'tasks/main.html'%}
+
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+    <div class="container">
+        <h2>Oops! You don't have clearance to see this page</h2>
+        <h1>403</h1>
+        <p>You are not allowed to access this page.</p>
+        <a class="link" href="{%url 'dashboard'%}">Go back home</a>
+    </div>
+
+</div>
+
+
+</html>
+
+{%endblock content%}
