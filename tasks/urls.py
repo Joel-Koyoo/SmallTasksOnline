@@ -15,6 +15,7 @@ urlpatterns = [
     path('delete_Task/<str:pk>/', views.deleteTask, name='delete_Task'),
 
     path('dashboard/', views.DashboardPage, name="dashboard"),
+    path('Admindashboard/', views.AdminDashboardPage, name="Admindashboard"),
     path('accept_task/<str:pk>/', views.acceptTask, name="accept_task"),
 
 

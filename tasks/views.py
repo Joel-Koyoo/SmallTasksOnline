@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from .models import *
-from .forms import CreateUserForm, SignUp, TaskForm
+from .forms import CreateUserForm, TaskForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -13,33 +13,39 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import get_user_model
 # Create your views here.
+
+User = get_user_model()
+
+
+def is_client(CustomUser):
+    if CustomUser.is_client == True or CustomUser.groups.filter(name="Client").exists():
+            CustomUser.is_client = True
+    if CustomUser.is_Taskhandler == True or CustomUser.groups.filter(name="Taskhandler").exists():
+            CustomUser.is_Taskhandler = True
 
 
 @unauthenticated_user
 def registerPage(request):
-
-    form = SignUp()
-    form2 = CreateUserForm()
+   
+    form = CreateUserForm()
 
     if request.method == 'POST':
-        form = SignUp(request.POST)
-        form2 = CreateUserForm(request.POST)
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
 
-        if form.is_valid() and form2.is_valid():
-            user = form.save()
-            form2.instance.user = user
-            user1 = form2.save()
-
-            username = form2.cleaned_data.get('username')
-
-            group = Group.objects.get(name="Clients")
-            user1.groups.add(group)
+            username = form.cleaned_data.get('username')
 
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')
 
-    context = {'form': form, 'form2': form2}
+        else:
+
+            print('error')
+
+    context = {'form': form}
     return render(request, 'tasks/register.html', context)
 
 
@@ -69,24 +75,44 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
 @login_required(login_url="login")
 def DashboardPage(request):
-    
     user = Client.objects.get_or_create(user=request.user)
     client = request.user.client
+    # client2 = request.user.TaskHandler
+    print(client)
+    # print(client2)
+    # print(client.group)
+
+
     tasks = client.task_set.all()
-   
+
     clients = Client.objects.all()
     tasks_submitted = client.task_set.all().count()
     
-
-
     # total_tasks_given = Client.task_set.all().count()
 
     return render(request, 'tasks/dashboard.html', {
         'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,
-      
+
     })
+
+@login_required(login_url="login")
+def AdminDashboardPage(request):
+    user = Client.objects.get_or_create(user=request.user)
+    client = request.user
+    clients = CustomUser.objects.all()
+    clientsNo = CustomUser.objects.all().count()
+    print(clientsNo)
+    
+    # total_tasks_given = Client.task_set.all().count()
+
+    return render(request, 'tasks/adminDashboard.html', {
+     'clients': clients, 'user':user,'client': client,' clientsNo': clientsNo
+
+    })
+
 
 def Clients(request, pk):
 
@@ -159,11 +185,13 @@ def deleteTask(request, pk):
     return render(request, 'tasks/delete.html', context)
 
 
-@allowed_users(allowed_roles=['task handlers', 'Admin'])
+@allowed_users(allowed_roles=['taskhandlers', 'Admin'])
 @login_required(login_url="login")
 def TaskPoolPage(request):
     clients = Client.objects.all()
     tasks = Task.objects.all()
+
+    print(request.user)
 
     return render(request, 'tasks/taskpool.html', {
         'tasks': tasks
@@ -186,11 +214,13 @@ def acceptTask(request, pk):
 
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
+        task.taskHandler = request.user.taskhandler.user
         task.status = 'Claimed'
-        currentUser=request.user
-        task.taskHandler=currentUser
         task.save()
-
+       
+            
+    else:
+        print("error")
     #    messages.success(
     #             request, 'Below is the list of task that you have selected ')
         # return redirect('/dashboard')

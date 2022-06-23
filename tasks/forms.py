@@ -1,9 +1,9 @@
 from django.forms import ModelForm, model_to_dict
-from .models import Client, Task
+from .models import Client, Task,CustomUser
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.forms import Form, ModelForm, DateField, widgets
+from django.contrib.auth import get_user_model
 
 
 class DateInput(forms.DateInput):
@@ -21,13 +21,6 @@ class TaskForm(ModelForm):
 
 class CreateUserForm(UserCreationForm):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = CustomUser
+        fields = ['username','email', 'password1', 'password2']
 
-
-class SignUp(ModelForm):
-    birth_date = forms.DateField(widget=DateInput)
-
-    class Meta:
-        model = Client
-        fields = '__all__'
