@@ -1,0 +1,53 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+    <div style="margin-left:20px ;">
+        {% for message in messages %}
+        <h2 id="messages">{{message}}</h2>
+        {% endfor %}
+    </div>
+    {%include 'tasks/cardbox.html'%}
+    <div class="details">
+    
+        <div class="recentOrders">
+
+
+            <table>
+                
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>LastName</th>
+                        <th>is_client</th>
+                        <th>is_Taskhandler</th>
+                
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {%for client in clients%}
+
+                    <tr>
+                        <td>{{clients.username}}</td>
+                        <td>{{clients.FirstName}}</td>
+                        <td>{{clients.is_client}}</td>
+                        <td>{{user.is_Taskhandler}}</td>
+                    </tr>
+
+                    {%endfor%}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{%endblock %}
