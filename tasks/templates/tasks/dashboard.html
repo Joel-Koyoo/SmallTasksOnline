@@ -105,8 +105,7 @@
                         <th>Deadline</th>
                         <th>Proposed Price</th>
                         <th>Status</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                      
 
                     </tr>
                 </thead>
@@ -115,14 +114,12 @@
                     {%for task in tasks%}
 
                     <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" href="{%url 'update_Task' task.id %}">Edit</a></td>
-                        <td><a class="btn" href="{%url 'delete_Task' task.id %}">delete</a></td>
-
+                        <td>{{tasks_claimed_2.title}}</td>
+                        <td>{{tasks_claimed_2.category}}</td>
+                        <td>{{tasks_claimed_2.deadline}}</td>
+                        <td>{{tasks_claimed_2.Proposed_price}}</td>
+                        <td>{{tasks_claimed_2.status}}</td>
+                      
                     </tr>
 
                     {%endfor%}

@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import auto
 from ssl import create_default_context
 from django.db import models
@@ -12,48 +13,33 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-
-class CustomUser(AbstractUser):
-    FirstName = models.CharField(max_length=200, null=True)
-    LastName = models.CharField(max_length=200, null=True)
-    is_client = models.BooleanField(default=True,null=True)
-    is_TaskHandler = models.BooleanField(default=False,null=True)
-    phone = models.CharField(max_length=60, blank=True, null=True)
-    address = models.CharField(max_length=60, blank=True, null=True)
-    picture = models.ImageField(upload_to="pictures/", blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    birth_date = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return str(self.username)
-
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class Client(models.Model):
     user = models.OneToOneField(
-        CustomUser, null=True, blank=True, on_delete=models.CASCADE)
+        User, null=True, blank=True, on_delete=models.CASCADE)
     FirstName = models.CharField(max_length=200, null=True)
     LastName = models.CharField(max_length=200, null=True)
-
+    email = models.EmailField(blank=True, null=True)
+    # birth_date = models.DateTimeField(null=True, blank=True)
+    phone = models.CharField(max_length=60, blank=True, null=True)
+    picture = models.ImageField(  default="profile_pic.jpg",upload_to="pictures/", blank=True, null=True)
+    is_taskhandler=models.BooleanField(default=False)
+    is_admin=models.BooleanField(default=False)
+    birth_date = forms.DateField(widget=DateInput)
+    
     def __str__(self):
         return str(self.user)
     
     
-class Taskhandler(models.Model):
-    user = models.OneToOneField(
-        CustomUser, null=True, blank=True, on_delete=models.CASCADE)
-    FirstName = models.CharField(max_length=200, null=True)
-    LastName = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return str(self.FirstName)
     
 class Task(models.Model):
     client = models.ForeignKey(
         Client,null=True,on_delete=models.SET_NULL)
-    taskHandler = models.ForeignKey(
-        Taskhandler,null=True,on_delete=models.SET_NULL)
+    taskhandler = models.ForeignKey(
+        Client,related_name='+',null=True,on_delete=models.SET_NULL)
+   
 
     CATEGORY = (
         ('Computer Science', 'Computer Science'),

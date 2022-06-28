@@ -1,43 +1,43 @@
 {%block content%}
 {%load static%}
-
 {%include 'tasks/main.html'%}
-<!-- cards -->
+
+
+<!-- main -->
+
 <div class="main">
     {%include 'tasks/topbar.html'%}
-
-    <div style="margin-left:20px ;">
-        {% for message in messages %}
-        <h2 id="messages">{{message}}</h2>
-        {% endfor %}
-    </div>
-    {%include 'tasks/cardbox.html'%}
     <div class="details">
-    
         <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>Welcome</h2>
 
-
+            </div>
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
             <table>
-                
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>First Name</th>
+                        <th>FirstName</th>
                         <th>LastName</th>
-                        <th>is_client</th>
-                        <th>is_Taskhandler</th>
-                
+                        <th>Status</th>
+                        <th>View</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {%for client in clients%}
+                    {%for client in Clients%}
 
                     <tr>
-                        <td>{{clients.username}}</td>
-                        <td>{{clients.FirstName}}</td>
-                        <td>{{clients.is_client}}</td>
-                        <td>{{user.is_Taskhandler}}</td>
+                        <td>{{client.FirstName}}</td>
+                        <td>{{client.LastName}}</td>
+                        <td>{{client.is_taskhandler}}</td>
+                        <td><a class="btn btn-info" id="view" href="{%url 'ClientsDetail' client.id%}">View</a></td>
+
                     </tr>
 
                     {%endfor%}
@@ -48,6 +48,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 {%endblock %}
