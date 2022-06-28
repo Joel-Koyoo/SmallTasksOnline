@@ -1,30 +1,20 @@
 from django.shortcuts import render, redirect
-from .decorators import unauthenticated_user, allowed_users, admin_only
+from .decorators import unauthenticated_user
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
-from .decorators import unauthenticated_user, allowed_users, admin_only
+from .decorators import unauthenticated_user
 from .models import *
-from .forms import CreateUserForm, TaskForm
+from .forms import CreateUserForm, TaskForm,ClientForm
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group,User
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import get_user_model
 # Create your views here.
-
-User = get_user_model()
-
-
-def is_client(CustomUser):
-    if CustomUser.is_client == True or CustomUser.groups.filter(name="Client").exists():
-            CustomUser.is_client = True
-    if CustomUser.is_Taskhandler == True or CustomUser.groups.filter(name="Taskhandler").exists():
-            CustomUser.is_Taskhandler = True
-
 
 @unauthenticated_user
 def registerPage(request):
@@ -80,67 +70,67 @@ def logoutUser(request):
 def DashboardPage(request):
     user = Client.objects.get_or_create(user=request.user)
     client = request.user.client
-    # client2 = request.user.TaskHandler
-    print(client)
-    # print(client2)
-    # print(client.group)
-
-
     tasks = client.task_set.all()
-
     clients = Client.objects.all()
     tasks_submitted = client.task_set.all().count()
+
+    tasks_claimed = Task.objects.all().filter(status="Claimed")
+    tasks_claimed_2=tasks_claimed.objects.filter(taskhandler=client)
+    print(tasks_claimed_2)
+
     
     # total_tasks_given = Client.task_set.all().count()
 
     return render(request, 'tasks/dashboard.html', {
-        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,
+        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,'tasks_claimed_2':tasks_claimed_2
 
     })
 
 @login_required(login_url="login")
 def AdminDashboardPage(request):
-    user = Client.objects.get_or_create(user=request.user)
-    client = request.user
-    clients = CustomUser.objects.all()
-    clientsNo = CustomUser.objects.all().count()
-    print(clientsNo)
-    
-    # total_tasks_given = Client.task_set.all().count()
 
-    return render(request, 'tasks/adminDashboard.html', {
-     'clients': clients, 'user':user,'client': client,' clientsNo': clientsNo
+    if (request.user.client.is_admin==True):
+        Clients = Client.objects.all()
+        
+        # total_tasks_given = Client.task_set.all().count()
 
-    })
+        return render(request, 'tasks/adminDashboard.html', {
+        'Clients':Clients,
+        })
+    else:
+         return render(request, 'tasks/unauthorized.html')
 
 
-def Clients(request, pk):
-
+def updateClientDetail(request, pk):
     client = Client.objects.get(id=pk)
-    clients = Client.objects.all()
+    form=ClientForm(instance=client)
+    clients=Client.objects.all()
+    if request.method == 'POST':
+        form = ClientForm(request.POST, request.FILES, instance=client)
+        if form.is_valid():
+            print('success')
+            form.save()
+            return redirect('Admindashboard')
+        else:
+            print('error1')
+    else:
+        print('error')
+  
 
-    tasks = client.task_set.all()
-    tasks_count = tasks.count()
 
-    context = {'client': client, 'clients': clients,
-               'tasks': tasks, 'tasks_count': tasks_count}
-
-    return render(request, 'tasks/clients.html', context)
+    context = {'client': client, 'clients': clients,'form':form}
+    return render(request, 'tasks/clientsDetail.html', context)
 
 
 @login_required(login_url='login')
-# @allowed_users(allowed_roles=['Admin'])
 def createTask(request):
-
     form = TaskForm()
-
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
 
-        if form.is_valid:
+        if form.is_valid():
             task = form.save(commit=False)
-            # form.save(commit=False)
-            task.client = request.user.client
+            task.client = request.user.client   
             task.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
@@ -157,7 +147,6 @@ def updateTask(request, pk):
 
     task = Task.objects.get(id=pk)
     form = TaskForm(instance=task)
-    print('pending', request.POST)
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
@@ -185,18 +174,20 @@ def deleteTask(request, pk):
     return render(request, 'tasks/delete.html', context)
 
 
-@allowed_users(allowed_roles=['taskhandlers', 'Admin'])
+
 @login_required(login_url="login")
 def TaskPoolPage(request):
-    clients = Client.objects.all()
-    tasks = Task.objects.all()
+    if (request.user.client.is_taskhandler==True):
+        clients = Client.objects.all()
+        tasks = Task.objects.all()
 
-    print(request.user)
+        print(request.user)
 
-    return render(request, 'tasks/taskpool.html', {
-        'tasks': tasks
-    })
-
+        return render(request, 'tasks/taskpool.html', {
+            'tasks': tasks
+        })
+    else:
+         return render(request, 'tasks/unauthorized.html')
 
 def viewtasks(request, pk):
     task = Task.objects.get(id=pk)
@@ -208,22 +199,18 @@ def viewtasks(request, pk):
 
 @login_required(login_url="login")
 def acceptTask(request, pk):
-
     task = Task.objects.get(id=pk)
     form = TaskForm(instance=task)
 
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
-        task.taskHandler = request.user.taskhandler.user
+        task.taskhandler=request.user.client
+        print(task.taskhandler)
         task.status = 'Claimed'
         task.save()
-       
-            
     else:
         print("error")
-    #    messages.success(
-    #             request, 'Below is the list of task that you have selected ')
-        # return redirect('/dashboard')
+
 
     context = {'form': form, 'task': task}
 
@@ -231,8 +218,21 @@ def acceptTask(request, pk):
 
 
 def userPage(request):
+    person=request.user.client
+    form=ClientForm(instance=person)
+    form.fields['is_taskhandler'].widget = forms.HiddenInput()
+    form.fields['is_admin'].widget = forms.HiddenInput()
 
-    context = {}
+    if request.method == 'POST':
+        form = ClientForm(request.POST, request.FILES, instance=person)
+        
+        if form.is_valid:
+            form.save()
+            print("success")
+        else:
+         print("error")
+
+    context = {'form':form,'person':person}
     return render(request, 'tasks/user.html', context)
 
 

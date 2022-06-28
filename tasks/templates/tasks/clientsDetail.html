@@ -1,0 +1,92 @@
+{%block content%}
+{%load static%}
+{%include 'tasks/main.html'%}
+
+
+
+
+<!-- main -->
+
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+
+
+    <!-- cards -->
+
+
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <a href="{%url 'Admindashboard'%}" class="btn btn-warning">&#8592;Back to dashboard</a>
+            </div>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="">
+
+
+                    <span class="title">Client Details</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            {{form.FirstName.label}}
+                            {{form.FirstName}}
+                        </div>
+                        <div class="input-field">
+                            {{form.LastName.label}}
+                            {{form.LastName}}
+                        </div>
+
+                        <div class="input-field">
+                            {{form.email.label}}
+                            {{form.email}}
+                        </div>
+
+                        <div class="input-field">
+                            {{form.phone.label}}
+                            {{form.phone}}
+                        </div>
+                        <div class="input-field">
+                            {{form.birth_date.label}}
+                            {{form.birth_date}}
+                        </div>
+                        <div class="input-field">
+                            {{form.is_taskhandler.label}}
+                            {{form.is_taskhandler}}
+                        </div>
+
+                    </div>
+
+                    <button class="nextBtn">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                    <br>
+
+
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script src="{%static 'js/script.js'%}"></script>
+
+
+
+
+{%endblock %}
