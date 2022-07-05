@@ -7,9 +7,6 @@ from django.contrib.auth.models import Group
 
 def client_profile(sender, instance, created, **kwargs):
     if created:
-        group = Group.objects.get(name="Clients")
-        instance.groups.add(group)
-
         Client.objects.create(
             user=instance,
             FirstName=instance.username,

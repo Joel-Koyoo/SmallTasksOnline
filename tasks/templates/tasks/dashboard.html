@@ -2,6 +2,15 @@
 {%load static%}
 
 {%include 'tasks/main.html'%}
+
+
+
+<style>
+    form {
+        all: initial;
+    }
+</style>
+
 <!-- cards -->
 <div class="main">
     {%include 'tasks/topbar.html'%}
@@ -13,29 +22,26 @@
     </div>
     {%include 'tasks/cardbox.html'%}
     <div class="details">
+        <form action="" method="get">
+            {{myFilter.form}}
+            <input type="submit" value="Search" class="btn btn-primary">
+        </form>
+
+
         <div class="recentOrders">
+            {%if client.is_taskhandler == True%}
+            <div class="dashboardbuttons" style="margin-bottom: 25px;">
+                <a class="btn-2" href="#">Tasks Given</a>
 
-            <div class="cardHeader">
+                <a class="btn-2" href="{% url 'ClaimedTasks'%}">Tasks claimed</a>
 
-                <h2>Tasks Given</h2>
-
-
+                <a class="btn-2" href="{% url 'SubmittedTasks'%}">tasks submitted</a>
             </div>
-            <div class="search">
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <ion-icon name="search-outline"></ion-icon>
-                </label>
+            {%else%}
+            <div class="dashboardbuttons" style="margin-bottom: 25px;">
+                <a class="btn-2" href="#">Tasks Given</a>
             </div>
-
-            <div class="dashboardbuttons">
-                <a class="btn-2" href="{}">Tasks Given</a>
-                <a class="btn-2" href="{}">Tasks claimed</a>
-                <a class="btn-2" href="{}">tasks submitted</a>
-
-            </div>
-
-
+            {%endif%}
 
             <table>
                 <h2>Tasks Given</h2>
@@ -48,23 +54,67 @@
                         <th>Status</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>View</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
                     {%for task in tasks%}
+                    {%if task.status == "Claimed"%}
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td id="status">{{task.status}}</td>
+                        <td><a class="btn btn-info" style="background:red;">In-Progress</a></td>
+                        <td><a class="btn btn-info" style="background:red;">In-Progress</a></td>
+                        <td><a class="btn btn-info" style="background:red;">In-Progress</a></td>
 
+                    </tr>
+                    {%elif task.status == "Submitted"%}
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td id="status">{{task.status}}</td>
+                        <td><a class="btn btn-info" style="background:green;">Submitted</a></td>
+                        <td><a class="btn btn-info" style="background:green;">Submitted</a></td>
+                        <td><a class="btn btn-info" style="background:green;" id="edit"
+                                href="{%url 'ViewSubmittedTask' task.id %}">View-Task</a></td>
+
+
+                    </tr>
+                    {%elif task.status == "Paid"%}
+                    <tr>
+                        <td>{{task.title}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td id="status">{{task.status}}</td>
+                        <td><a class="btn btn-info" style="background:green;">Paid</a></td>
+                        <td><a class="btn" style="background:green;" href="{%url 'delete_Task' task.id %}">delete
+                                Task</a></td>
+                        <td><a class="btn btn-info" style="background:green;" id="edit"
+                                href="{%url 'ViewSubmittedTask' task.id %}">View-Task</a></td>
+                    </tr>
+
+                    {%else%}
                     <tr>
                         <td>{{task.title}}</td>
                         <td>{{task.category}}</td>
                         <td>{{task.deadline}}</td>
                         <td>{{task.Proposed_price}}</td>
                         <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" href="{%url 'update_Task' task.id %}">Edit</a></td>
-                        <td><a class="btn" href="{%url 'delete_Task' task.id %}">delete</a></td>
+                        <td><a class="btn btn-info" href="{%url 'update_Task' task.id %}">Edit-Task</a></td>
+                        <td><a class="btn" href="{%url 'delete_Task' task.id %}">delete Task</a></td>
+                        <td><a class="btn btn-info" style="background:red;">Pending</a></td>
 
                     </tr>
+
+                    {% endif %}
 
                     {%endfor%}
                 </tbody>
@@ -72,62 +122,7 @@
 
             </table>
         </div>
-        <div class="recentOrders">
 
-            <div class="cardHeader">
-
-                <h2>Tasks Claimed</h2>
-
-
-            </div>
-            <div class="search">
-                <label>
-                    <input type="text" placeholder="Search here">
-                    <ion-icon name="search-outline"></ion-icon>
-                </label>
-            </div>
-
-            <div class="dashboardbuttons">
-                <a class="btn-2" href="{}">Tasks Given</a>
-                <a class="btn-2" href="{}">Tasks claimed</a>
-                <a class="btn-2" href="{}">tasks submitted</a>
-
-            </div>
-
-
-
-            <table>
-                
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Deadline</th>
-                        <th>Proposed Price</th>
-                        <th>Status</th>
-                      
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {%for task in tasks%}
-
-                    <tr>
-                        <td>{{tasks_claimed_2.title}}</td>
-                        <td>{{tasks_claimed_2.category}}</td>
-                        <td>{{tasks_claimed_2.deadline}}</td>
-                        <td>{{tasks_claimed_2.Proposed_price}}</td>
-                        <td>{{tasks_claimed_2.status}}</td>
-                      
-                    </tr>
-
-                    {%endfor%}
-                </tbody>
-
-
-            </table>
-        </div>
     </div>
 </div>
 

@@ -2,27 +2,20 @@
 {%load static%}
 {%include 'tasks/main.html'%}
 
-<style>
-
-form{
-    all: initial;
-}
-</style>
-
 
 <!-- main -->
 
 <div class="main">
     {%include 'tasks/topbar.html'%}
     <div class="details">
-        <form action="" method="get">
-            {{myFilter.form}}
-            <input type="submit" value="Search" class="btn btn-primary">
-        </form>
         <div class="recentOrders">
             <div class="cardHeader">
-                <h2>Work given/to do</h2>
+                <h2>Tasks Claimed</h2>
+                <br>
+                <a href="{%url 'dashboard'%}" class="btn btn-warning">&#8592;Back to dashboard</a>
+
             </div>
+           
             <table>
                 <thead>
                     <tr>
@@ -31,23 +24,15 @@ form{
                         <th>Deadline</th>
                         <th>Proposed Price</th>
                         <th>Status</th>
-                        <th>View</th>
+                        <th>Submit Task</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {%for task in tasks%}
-                    {%if task.status == "Claimed"%}
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" style="background:red;">In-Progress</a></td>
-                    </tr>
+                    {%for task in tasks_1%}
 
-                    {%elif task.status == "Submitted"%}
+
+                    {%if task.status == "Submitted"%}
                     <tr>
                         <td>{{task.title}}</td>
                         <td>{{task.category}}</td>
@@ -64,26 +49,29 @@ form{
                         <td>{{task.deadline}}</td>
                         <td>{{task.Proposed_price}}</td>
                         <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" style="background:green;">Paid-Task</a></td>
+                        <td><a class="btn btn-info" style="background:green;">Completed</a></td>
                     </tr>
+
 
                     {%else%}
 
-                    <tr>
-                        <td>{{task.title}}</td>
+
+                    <tr class="tasks">
+                        <td>{{task}}</td>
                         <td>{{task.category}}</td>
                         <td>{{task.deadline}}</td>
                         <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'viewtasks' task.id %}">View-Task</a></td>
+                        <td id="status">{{task.status}}</td>
+                        <td><a class="btn btn-info" id="view" href="{%url 'submit_task' task.id %}">Submit Task</a></td>
 
                     </tr>
-                    {% endif %}
+                    {%endif%}
                     {%endfor%}
                 </tbody>
 
-
             </table>
+
+            <h1>TOTAL AMOUNT: {{Total_amount.total}} </h1>
         </div>
     </div>
 </div>

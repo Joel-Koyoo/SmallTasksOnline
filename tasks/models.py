@@ -7,8 +7,8 @@ from django import forms
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import Group
-from datetime import datetime
 from django.contrib.auth.models import AbstractUser
+import sys
 
 
 
@@ -24,7 +24,7 @@ class Client(models.Model):
     email = models.EmailField(blank=True, null=True)
     # birth_date = models.DateTimeField(null=True, blank=True)
     phone = models.CharField(max_length=60, blank=True, null=True)
-    picture = models.ImageField(  default="profile_pic.jpg",upload_to="pictures/", blank=True, null=True)
+    picture = models.ImageField( default="profile_pic.jpg",upload_to="pictures/", blank=True, null=True)
     is_taskhandler=models.BooleanField(default=False)
     is_admin=models.BooleanField(default=False)
     birth_date = forms.DateField(widget=DateInput)
@@ -51,21 +51,31 @@ class Task(models.Model):
     STATUS = (
         ('Available', 'Available'),
         ('Claimed', 'Claimed'), 
-
-        ('Completed', 'Completed'),
-        ('submitted', 'submitted'),
+        ('Submitted', 'Submitted'),
+        ('Paid', 'Paid'),
     )
     title = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    deadline = models.DateTimeField()
+    deadline= models.DateTimeField(blank=True, null=True)   
     Proposed_price = models.FloatField(null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     status = models.CharField(
         max_length=200, null=True, choices=STATUS, default='Available')
     file = models.FileField(null=True, blank=True, upload_to="files")
 
+    # FILES FOR SUBMIT
+    Submit_Files= models.FileField(null=True, blank=True, upload_to="files")
+    Submit_Image= models.ImageField(default="profile_pic.jpg",null=True, blank=True, upload_to="files")
+    Submit_Description=models.TextField(null=True, blank=True)
+ 
+  
+
     def __str__(self):
         return self.title
-    
+
+ 
+
+
+
 

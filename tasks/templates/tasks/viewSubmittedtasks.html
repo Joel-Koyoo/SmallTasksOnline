@@ -1,0 +1,208 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
+            </div>
+
+            <h1> {{task.title}}</h1>
+            <br>
+            <h2>TASK DESCRIPTION</h2>
+            {{task.description}}
+
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>Download documents</th>
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>{{task.status}}</td>
+                        <td>
+                            <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <br />
+        <div class="cardHeader">
+            <h2> Below is an image preview of your task, Pay the task via Paypal to download your documents</h2>
+        </div>
+    </div>
+    <center style="margin-top: 10px;">
+        <img height="40%" width="30%" src="{{task.Submit_Image.url}}" alt="Task Image">
+    </center>
+    <hr />
+
+
+    <!-- PAYPAL PAYMENT -->
+
+    {%if task.status == "Submitted"%}
+    <br />
+    <center>
+        <div>
+            <h1>Simple Checkout</h1>
+            <h2>Kindly submit payment for the download button to appear</h2>
+
+            <div id="paypal-button-container"></div>
+
+        </div>
+
+    </center>
+    {%else%}
+    <br />
+    <center>
+        <div>
+
+            <br />
+            <h1 style="text-decoration:underline">Description from the taskhandler</h1>
+            <br />
+    </center>
+    <p>{{task.Submit_Description}}</p>
+    <center>
+        <br />
+        <h1>Download Your Task Below</h1>
+        <br />
+        <a href=" {{task.Submit_Files.url}}" class="btn">Donwload Documents</a>
+    </center>
+    {% endif %}
+
+</div>
+
+
+
+<script
+    src="https://www.paypal.com/sdk/js?client-id=ARgCdj-loGTyM-6IoJQFjE8EEIpGnq4E99z4IAcqGr8vywPOoB_yWT6aufldOSlfEfWMIv3bBQ7TfDxE&currency=USD"></script>
+
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    var total = '{{task.Proposed_price}}'
+    var TaskID = '{{task.id}}'
+
+    function completeTask() {
+        var url = "{%url 'complete'%}"
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ 'TaskID': TaskID })
+        })
+
+    }
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        style: {
+            color: 'blue',
+            shape: 'pill',
+            label: 'pay',
+            height: 40
+        },
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: total
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                completeTask()
+                alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- END OF PAYPAL PAYMENT -->
+
+
+
+</div>
+
+<script src="{%static 'js/script.js'%}"></script>
+
+
+
+{%endblock %}
