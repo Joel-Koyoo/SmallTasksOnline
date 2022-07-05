@@ -9,8 +9,6 @@ window.onload = function () {
     main.classList.toggle("active");
   };
 
- 
-
 
 
 };

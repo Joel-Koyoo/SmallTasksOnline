@@ -12,8 +12,8 @@
     </div>
     <div class="card">
         <div>
-            <div class="numbers">0 </div>
-            <div class="cardName">Number of submitted tasks</div>
+            <div class="numbers">{{tasks_total.total}}</div>
+            <div class="cardName">Total Task Amount</div>
         </div>
 
         <div class="iconBx">
@@ -23,7 +23,7 @@
     <div class="card">
 
         <div>
-            <a href="{%url 'create_Task'%}">
+            <a href="{% url 'create_Task'%}">
                 <div class="numbers"> + </div>
                 <div class="cardName">Give us a task</div>
             </a>

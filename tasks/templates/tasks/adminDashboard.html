@@ -13,12 +13,24 @@
                 <h2>Welcome</h2>
 
             </div>
+
+            <div class="dashboardbuttons">
+                <a class="btn-2" href="">client list</a>
+
+                <a class="btn-2" href="">Task List</a>
+
+                <a class="btn-2" href="">paid task list</a>
+
+            </div>
+            
             <div class="search">
                 <label>
                     <input type="text" placeholder="Search here">
                     <ion-icon name="search-outline"></ion-icon>
                 </label>
             </div>
+
+            {%if Client_List %}
             <table>
                 <thead>
                     <tr>
@@ -45,6 +57,11 @@
 
 
             </table>
+        
+            {%else%}
+            <h1>This is the real deal</h1>
+
+            {%endif%}
         </div>
     </div>
 </div>

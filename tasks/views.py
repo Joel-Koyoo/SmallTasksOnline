@@ -1,7 +1,8 @@
+from pickle import FALSE
 from django.shortcuts import render, redirect
 from .decorators import unauthenticated_user
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.forms import inlineformset_factory
 from .decorators import unauthenticated_user
 from .models import *
@@ -14,6 +15,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group,User
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
+import json
+
+from .filters import TaskFilter
 # Create your views here.
 
 @unauthenticated_user
@@ -72,30 +77,60 @@ def DashboardPage(request):
     client = request.user.client
     tasks = client.task_set.all()
     clients = Client.objects.all()
+    print(client.is_taskhandler)
     tasks_submitted = client.task_set.all().count()
 
-    tasks_claimed = Task.objects.all().filter(status="Claimed")
-    tasks_claimed_2=tasks_claimed.objects.filter(taskhandler=client)
-    print(tasks_claimed_2)
+    myFilter=TaskFilter(request.GET,queryset=tasks)
+    tasks=myFilter.qs.order_by('status','created')
 
+
+    tasks_total = client.task_set.all().aggregate(total=Sum('Proposed_price'))
     
-    # total_tasks_given = Client.task_set.all().count()
 
     return render(request, 'tasks/dashboard.html', {
-        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,'tasks_claimed_2':tasks_claimed_2
-
+        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,'tasks_total':tasks_total, "myFilter": myFilter,"client":client
     })
+
+def ClaimedTasks(request):
+
+    if (request.user.client.is_taskhandler==True):
+        tasks=Task.objects.all()
+        tasks_1=tasks.filter(taskhandler=request.user.client)
+        Total_amount= tasks_1.aggregate(total=Sum('Proposed_price'))
+        context={"tasks_1":tasks_1,'Total_amount':Total_amount}
+        return render(request, 'tasks/claimed_tasks.html', context)
+    else:
+         return render(request, 'tasks/unauthorized.html')
+
+def SubmittedTasks(request):
+
+    if (request.user.client.is_taskhandler==True):
+        tasks=Task.objects.all()
+
+        tasks_1=tasks.filter(status="Submitted",taskhandler=request.user.client)
+        Total_amount= tasks_1.aggregate(total=Sum('Proposed_price'))
+        context={"tasks_1":tasks_1,'Total_amount':Total_amount}
+        return render(request, 'tasks/Submitted_tasks.html', context)
+    else:
+         return render(request, 'tasks/unauthorized.html')
+
 
 @login_required(login_url="login")
 def AdminDashboardPage(request):
 
     if (request.user.client.is_admin==True):
         Clients = Client.objects.all()
-        
+        Task_1=Task.objects.all()
+        Tasks=Task.objects.filter(status='Paid')
+
+        client_list=request.GET.get('Client_List')
+        Task_List=request.GET.get('Task_List')
+        paid_task_list=request.GET.get('paid_task_list')
+
         # total_tasks_given = Client.task_set.all().count()
 
         return render(request, 'tasks/adminDashboard.html', {
-        'Clients':Clients,
+        'Clients':Clients,"Tasks":Tasks,"Task_1":Task_1,'client_list':client_list
         })
     else:
          return render(request, 'tasks/unauthorized.html')
@@ -104,6 +139,7 @@ def AdminDashboardPage(request):
 def updateClientDetail(request, pk):
     client = Client.objects.get(id=pk)
     form=ClientForm(instance=client)
+
     clients=Client.objects.all()
     if request.method == 'POST':
         form = ClientForm(request.POST, request.FILES, instance=client)
@@ -127,14 +163,18 @@ def createTask(request):
     form = TaskForm()
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
-
         if form.is_valid():
             task = form.save(commit=False)
             task.client = request.user.client   
             task.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
-        return redirect('/dashboard')
+            return redirect('/dashboard')
+
+        else:
+            print("errorrrrrrrr")
+            print(form.errors) 
+
     else:
         form = TaskForm()
 
@@ -151,17 +191,17 @@ def updateTask(request, pk):
         form = TaskForm(request.POST, request.FILES, instance=task)
 
         if form.is_valid():
-            print('success')
             form.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
             return redirect('dashboard')
         else:
+            form = TaskForm()
             print('error1')
-    else:
-        print('error')
+   
     context = {'form': form}
     return render(request, 'tasks/tasksForm.html', context)
+
 
 
 def deleteTask(request, pk):
@@ -181,10 +221,13 @@ def TaskPoolPage(request):
         clients = Client.objects.all()
         tasks = Task.objects.all()
 
-        print(request.user)
+        myFilter=TaskFilter(request.GET,queryset=tasks)
+        tasks=myFilter.qs.order_by('status','created')
 
+
+        
         return render(request, 'tasks/taskpool.html', {
-            'tasks': tasks
+            'tasks': tasks,'myFilter':myFilter
         })
     else:
          return render(request, 'tasks/unauthorized.html')
@@ -194,7 +237,52 @@ def viewtasks(request, pk):
 
     context = {'task': task}
 
+
+
     return render(request, 'tasks/viewtasks.html', context)
+
+def ViewSubmittedTask(request, pk):
+    
+    task = Task.objects.get(id=pk)
+
+    context = {'task': task}
+    
+    return render(request, 'tasks/viewSubmittedtasks.html', context)
+
+
+def paymentComplete(request):
+    body=json.loads(request.body)
+    task=Task.objects.get(id=body['TaskID'])
+    print(task.status)
+    task.status='Paid'
+    print("Body",body)
+    print(task.status)
+    task.save()
+    return JsonResponse('Payment Completed!', safe=False)
+
+
+
+def SubmitTask(request, pk):
+
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
+        if form.is_valid():
+            task.status="Submitted"
+            form.save()
+            messages.success(
+                request, 'Your task has been submitted  check Your dashboard for progress ')
+            return redirect('dashboard')
+        else:
+            form = TaskForm()
+            print('error1')
+   
+    context = {'form': form,'task':task}
+    return render(request, 'tasks/task_submission.html', context)
+
+
 
 
 @login_required(login_url="login")
@@ -205,13 +293,9 @@ def acceptTask(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
         task.taskhandler=request.user.client
-        print(task.taskhandler)
         task.status = 'Claimed'
         task.save()
-    else:
-        print("error")
-
-
+   
     context = {'form': form, 'task': task}
 
     return render(request,  'tasks/viewtasks.html', context)
@@ -239,3 +323,4 @@ def userPage(request):
 def launchPage(request):
     context = {}
     return render(request, 'tasks/launchPage.html', context)
+

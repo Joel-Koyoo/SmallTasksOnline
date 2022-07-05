@@ -22,62 +22,62 @@
 
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
+
+
                 <div class="">
+                    <span class="title">Task Details</span>
 
-                    <div class="">
-                        <span class="title">Task Details</span>
-
-                        <div class="fields">
-                            <div class="input-field">
-                                {{form.client.label}}
-                                {{form.client}}
-                            </div>
-                            <div class="input-field">
-                                {{form.category.label}}
-                                {{form.category}}
-                            </div>
-
-                            <div class="input-field">
-                                {{form.title.label}}
-                                {{form.title}}
-                            </div>
-
-                            <div class="input-field">
-                                {{form.description.label}}
-                                {{form.description}}
-                            </div>
-                            <div class="input-field">
-                                {{form.Proposed_price.label}}
-                                {{form.Proposed_price}}
-                            </div>
-
-                            <div class="input-field">
-                                {{form.deadline.label}}
-                                {{form.deadline}}
-                            </div>
-                            <br>
-                            <div>
-                                {{form.file.label}}
-                                {{form.file}}
-                            </div>
+                    <div class="fields">
+                        <div class="input-field">
+                            {{form.client.label}}
+                            {{form.client}}
+                        </div>
+                        <div class="input-field">
+                            {{form.category.label}}
+                            {{form.category}}
                         </div>
 
-                        <button class="nextBtn">
-                            <span class="btnText">Submit</span>
-                            <i class="uil uil-navigator"></i>
-                        </button>
+                        <div class="input-field">
+                            {{form.title.label}}
+                            {{form.title}}
+                        </div>
+
+                        <div class="input-field">
+                            {{form.description.label}}
+                            {{form.description}}
+                        </div>
+                        <div class="input-field">
+                            {{form.Proposed_price.label}}
+                            {{form.Proposed_price}}
+                        </div>
+
+                        <div class="input-field">
+                            {{form.deadline.label}}
+                            {{form.deadline}}
+                        </div>
+
                         <br>
-
-
-
+                        <div>
+                            {{form.file.label}}
+                            {{form.file}}
+                        </div>
                     </div>
+
+                    <button class="nextBtn">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                    <br>
+
+
+                    {{form.errors}}
                 </div>
 
-
             </form>
-
         </div>
+
     </div>
+</div>
 
 
 </div>
