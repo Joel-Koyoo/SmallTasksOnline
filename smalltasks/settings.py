@@ -27,9 +27,10 @@ SECRET_KEY = 'django-insecure-u=)jnx53m#lzn3v0guapit8iu!(uf-*r4yrby0szl)+(f3_x@2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['174.138.3.166','smalltasksonline.works']
+ALLOWED_HOSTS = ['174.138.3.166', 'smalltasksonline.works']
 
-# Application definition  
+# Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,12 +77,25 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'SmallTasksOnline',
+            'USER': 'Joel',
+            'PASSWORD': '112358@Joel#',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
@@ -101,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 
 # Internationalization
@@ -132,5 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
