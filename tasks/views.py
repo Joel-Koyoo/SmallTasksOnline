@@ -322,5 +322,4 @@ def userPage(request):
 
 def launchPage(request):
     context = {}
-    return render(request, 'tasks/launchPage.html', context)
-
+    return render(request, 'tasks/LaunchPage.html', context)
