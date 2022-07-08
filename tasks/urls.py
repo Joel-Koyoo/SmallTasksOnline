@@ -27,6 +27,7 @@ urlpatterns = [
     path('viewtasks/<str:pk>/', views.viewtasks, name='viewtasks'),
     path('ViewSubmittedTask/<str:pk>/', views.ViewSubmittedTask, name='ViewSubmittedTask'),
     path('user/', views.userPage, name='user-page'),
+    path('ContactUs/', views.ContactUs, name='ContactUs'),
 
 
     path('complete/', views.paymentComplete, name='complete'),

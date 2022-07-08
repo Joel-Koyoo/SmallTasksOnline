@@ -1,4 +1,5 @@
 from pickle import FALSE
+from this import d
 from django.shortcuts import render, redirect
 from .decorators import unauthenticated_user
 from django.shortcuts import render, redirect
@@ -77,7 +78,6 @@ def DashboardPage(request):
     client = request.user.client
     tasks = client.task_set.all()
     clients = Client.objects.all()
-    print(client.is_taskhandler)
     tasks_submitted = client.task_set.all().count()
 
     myFilter=TaskFilter(request.GET,queryset=tasks)
@@ -85,11 +85,11 @@ def DashboardPage(request):
 
 
     tasks_total = client.task_set.all().aggregate(total=Sum('Proposed_price'))
-    
+    context= {
+        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,'tasks_total':tasks_total, "myFilter": myFilter,"client":client,'navbar':'dashboard'
+    }
 
-    return render(request, 'tasks/dashboard.html', {
-        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted,'tasks_total':tasks_total, "myFilter": myFilter,"client":client
-    })
+    return render(request, "tasks/dashboard.html",context)
 
 def ClaimedTasks(request):
 
@@ -178,7 +178,7 @@ def createTask(request):
     else:
         form = TaskForm()
 
-    context = {'form': form}
+    context = {'form': form,'navbar':'create_Task'}
 
     return render(request, 'tasks/tasksForm.html', context)
 
@@ -225,10 +225,10 @@ def TaskPoolPage(request):
         tasks=myFilter.qs.order_by('status','created')
 
 
-        
-        return render(request, 'tasks/taskpool.html', {
-            'tasks': tasks,'myFilter':myFilter
-        })
+        context={
+            'tasks': tasks,'myFilter':myFilter,'navbar':'taskpool'
+        }
+        return render(request, 'tasks/taskpool.html',context)
     else:
          return render(request, 'tasks/unauthorized.html')
 
@@ -316,10 +316,15 @@ def userPage(request):
         else:
          print("error")
 
-    context = {'form':form,'person':person}
+    context = {'form':form,'person':person,'navbar':'user-page'}
     return render(request, 'tasks/user.html', context)
+
+def ContactUs(request):
+    client = request.user.client
+    context={'client':client,'navbar':'ContactUs'}
+    return render(request,'tasks/ContactUs.html',context)
 
 
 def launchPage(request):
     context = {}
-    return render(request, 'tasks/LaunchPage.html', context)
+    return render(request, 'tasks/LaunchPage.html' , context)

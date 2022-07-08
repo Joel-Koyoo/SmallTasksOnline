@@ -26,8 +26,6 @@
             {{myFilter.form}}
             <input type="submit" value="Search" class="btn btn-primary">
         </form>
-
-
         <div class="recentOrders">
             {%if client.is_taskhandler == True%}
             <div class="dashboardbuttons" style="margin-bottom: 25px;">
@@ -42,9 +40,11 @@
                 <a class="btn-2" href="#">Tasks Given</a>
             </div>
             {%endif%}
+            <div class="cardHeader">
+                <h2>Tasks Given</h2>
+            </div>
 
             <table>
-                <h2>Tasks Given</h2>
                 <thead>
                     <tr>
                         <th>Title</th>

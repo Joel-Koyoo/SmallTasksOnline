@@ -1,0 +1,386 @@
+{%block content%}
+{%load static%}
+{%include 'tasks/main.html'%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wgzht@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Playfair Display", serif;
+
+    }
+
+
+    .contact {
+        width: 90%;
+        position: relative;
+        min-height: 100vh;
+        padding: 50px 100px;
+        justify-content: center;
+        align-items: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    }
+
+
+    .contact .content {
+        max-width: 800px;
+        text-align: center;
+
+    }
+
+    .contact .content h2 {
+        font-size: 36px;
+        font-weight: 500;
+        /* color: #fff; */
+    }
+
+    .contact .content p {
+        font-weight: 300;
+        /* color: #fff; */
+    }
+
+
+
+    .container_Info {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .container_Info .contactInfo {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_Info .contactForm {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_Info .contactInfo .box {
+        position: relative;
+        padding: 20px 0;
+        display: flex;
+    }
+
+    .container_Info .contactInfo .box .icon {
+        min-width: 60px;
+        height: 60px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 22px;
+    }
+
+    .container_Info .contactInfo .box .text {
+        display: flex;
+        margin-left: 25px;
+        font: 16px;
+        color: #fff;
+        flex-direction: column;
+        font-weight: 300;
+    }
+
+    .container_Info .contactInfo .box .text {
+        font-weight: 500;
+        color: #00bcd4;
+
+    }
+
+    .contactForm {
+        margin-top: 150px;
+        width: 40%;
+        padding: 40px;
+        background: #fff;
+
+    }
+
+    .contactForm h2 {
+        font-size: 30px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .contactForm .inputBox {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .contactForm .inputBox input,
+    .contactForm .inputBox textarea {
+        width: 100%;
+        padding: 5px;
+        font-style: 16px;
+        margin: 10px 0;
+        border: none;
+        border-bottom: 2px solid #333;
+        outline: none;
+        resize: none;
+    }
+
+    .contactForm .inputBox span {
+        position: relative;
+        left: 0;
+        padding: 5px 0;
+        font-size: 16px;
+        margin: 10px 0;
+        pointer-events: none;
+        transition: 0.5s;
+        color: #666;
+    }
+
+    .contactForm .inputBox input:focus~span,
+    .contactForm .inputBox input:valid~span,
+    .contactForm .inputBox textarea:valid~span,
+    .contactForm .inputBox textarea:valid~span {
+        color: blue;
+        font-size: 12px;
+        transform: translateY(-20px);
+
+    }
+
+    .contactForm .inputBox input[type="submit"] {
+        width: 100px;
+        background: #00bcd4;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        font-size: 18px;
+    }
+
+
+
+
+    /* This is for the box */
+
+
+
+    .underline--magical {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 0.2em;
+        background-position: 0 88%;
+        transition: background-size 0.25s ease-in;
+
+
+    }
+
+    .underline--magical:hover {
+        background-size: 100% 88%;
+    }
+
+
+
+
+
+
+    /* This is for the box */
+
+
+    @media(max-width:991px) {
+        .contact {
+            padding: 50px;
+        }
+
+        .container_Info_Info {
+            flex-direction: column;
+        }
+
+        .container_Info_Info .contactInfo,
+        .contactForm {
+            width: 100%;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+    <div class="main">
+        {%include 'tasks/topbar.html'%}
+        <div class="details">
+
+            <div class="recentOrders">
+                <section class="contact">
+                    <div class="content">
+
+                        <div class="box">
+                            <div class="box-inner">
+                                <h1 class="underline--magical">Contact Us</h1>
+                                <div class="introtext">
+                                    <h2 class="underline--magical" id="Intro"></h2>
+                                </div>
+                                <br />
+                                <br />
+                                <p style="font-size: 14pt;"> We are so excited to have you onboard with us and we aim to
+                                    help you.
+                                    We are interested in ensuring all Your tasks are completed in the shortest time
+                                    possible
+                                    and
+                                    provide quality work. We have proffesionals all around the globe all with vast
+                                    qualifications in the fields provided and we would appreciate if you spread the word
+                                    to
+                                    your
+                                    colleague or friend and allow us to help them achieve all those miniature task fast.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container_Info">
+                        <div class="contactInfo">
+                            <div class="box">
+                                <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                                <div class="text">
+                                    <h3>Address</h3>
+                                    <p>4555 Sugar Camo Road,<br>Owatonna,Minesotta,<br>55055</p>
+                                </div>
+                            </div>
+
+                            <div class="box">
+                                <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                                <div class="text">
+                                    <h3>Phone</h3>
+                                    <p>12113121423</p>
+                                </div>
+
+                            </div>
+
+                            <div class="box">
+                                <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div class="text">
+                                    <h3>Email</h3>
+                                    <p>nyambok@gmail.com</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="contactForm">
+                            <form action="">
+                                <h2>Send Message</h2>
+                                <div class="inputBox">
+                                    <input type="text" name="" id="" required="required">
+                                    <span>Full Name</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="text" name="" id="" required="required">
+                                    <span>Email</span>
+                                </div>
+                                <div class="inputBox">
+                                    <textarea required="required"></textarea>
+                                    <span>Type Your Message...</span>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="submit" value="Send">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+
+
+        // VARIABLES
+        const magicalUnderlines = Array.from(document.querySelectorAll('.underline--magical'));
+
+        const gradientAPI = 'https://gist.githubusercontent.com/wking-io/3e116c0e5675c8bcad8b5a6dc6ca5344/raw/4e783ce3ad0bcd98811c6531e40256b8feeb8fc8/gradient.json';
+
+        // HELPER FUNCTIONS
+
+        // 1. Get random number in range. Used to get random index from array.
+        const randNumInRange = max => Math.floor(Math.random() * (max - 1));
+
+        // 2. Merge two separate array values at the same index to 
+        // be the same value in new array.
+        const mergeArrays = (arrOne, arrTwo) => arrOne
+            .map((item, i) => `${item} ${arrTwo[i]}`)
+            .join(', ');
+
+        // 3. Curried function to add a background to array of elms
+        const addBackground = (elms) => (color) => {
+            elms.forEach(el => {
+                el.style.backgroundImage = color;
+            });
+        }
+        // 4. Function to get data from API
+        const getData = async (url) => {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.data;
+        }
+
+        // 5. Partial Application of addBackground to always apply 
+        // background to the magicalUnderlines constant
+        const addBackgroundToUnderlines = addBackground(magicalUnderlines);
+
+        // GRADIENT FUNCTIONS
+
+        // 1. Build CSS formatted linear-gradient from API data
+        const buildGradient = (obj) => `linear-gradient(${obj.direction}, ${mergeArrays(obj.colors, obj.positions)})`;
+
+        // 2. Get single gradient from data pulled in array and
+        // apply single gradient to a callback function
+        const applyGradient = async (url, callback) => {
+            const data = await getData(url);
+            const gradient = buildGradient(data[randNumInRange(data.length)]);
+            callback(gradient);
+        }
+
+        // RESULT
+        applyGradient(gradientAPI, addBackgroundToUnderlines);
+    </script>
+
+</body>
+
+{%endblock%}
