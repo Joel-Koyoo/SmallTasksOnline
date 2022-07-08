@@ -29,8 +29,8 @@ SECRET_KEY = 'django-insecure-u=)jnx53m#lzn3v0guapit8iu!(uf-*r4yrby0szl)+(f3_x@2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['174.138.3.166', 'smalltasksonline.works']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['174.138.3.166', 'smalltasksonline.works']
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -82,23 +82,23 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'smalltasksonline',
-#             'USER': 'joel',
-#             'PASSWORD': '112358@Joel#',
-#             'HOST': 'localhost',
-#             'PORT': '',
-#         }
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
+# }
+
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'smalltasksonline',
+            'USER': 'joel',
+            'PASSWORD': '112358@Joel#',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
