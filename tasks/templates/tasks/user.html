@@ -1,6 +1,9 @@
-{% extends 'tasks/main1.html'%}
 {%load static%}
+
 {%block content%}
+
+{%include 'tasks/main.html'%}
+n="anonymous">
 
 
 <style>
@@ -9,35 +12,55 @@
         max-height: 200px;
         margin: 0 auto;
         border-radius: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+    .profile {
+
+        margin-left: 35%;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border-radius: 15px;
+
     }
 </style>
 
-<br>
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <h3 style="text-align:center">Account Settings</h3>
+    {% if request.user.client.picture %}
+    <img src="{{request.user.client.picture.url}}" alt="" class="profile-pic">
 
+    {%else%}
 
-<div class="row">
-    <div class="col-md-3">
-        <div class="card card-body">
-            <a href="{%url 'dashboard'%}" class="btn btn-warning">&#8592;Back to dashboard</a>
-            <hr>
-            <h3 style="text-align:center">Account Settings</h3>
-            <hr>
-            <img src="{{request.user.client.picture.url}}" alt="" class="profile-pic">
-        </div>
-    </div>
-    <div class="col-md-">
-        <div class="card card-body">
-            
-            <form action="" method="POST" enctype="multipart/form-data">
+    <img src="{{profile_pic.jpg}}" alt="" class="profile-pic">
+
+    {%endif%}
+    <div class="profile">
+        <form action="" method="POST" enctype="multipart/form-data" class="">
+            {%csrf_token%}
+
+            <form method="POST" action="">
                 {%csrf_token%}
-                {{form.as_p}}
+                <div class="input-group">
 
-                <input type="submit" name="Update Information" class="btn btn-primary">
-            </form>
-        </div>
+                    {{form.as_p}}
+                    <input type="submit" name="Update Information" class="btn btn-primary">
+
+
+                </div>
     </div>
 </div>
+</div>
+
+</form>
 
 
 
-{%endblock %}
+{%endblock%}

@@ -2,145 +2,192 @@
 {%block content%}
 
 
-
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-        <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
-
-
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-image: url("/static/images/JOEL.png") !important;
-        }
-
-
-        .user_card {
-            width: 350px;
-            margin-top: auto;
-            margin-bottom: auto;
-            background: #0047AB;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding: 10px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            border-radius: 5px;
-
-        }
-
-        .form_container {
-            margin-top: 20px;
-        }
-
-        #form-title {
-            color: #fff;
-        }
-
-        .login_btn {
-            width: 100%;
-            background: #0000FF !important;
-            color: white !important;
-        }
-
-        .login_btn:focus {
-            box-shadow: none !important;
-            outline: 0px !important;
-        }
-
-        .login_container {
-            padding: 0 2rem;
-        }
-
-        .input-group-text {
-            background: #f7ba5b !important;
-            color: white !important;
-            border: 0 !important;
-            border-radius: 0.25rem 0 0 0.25rem !important;
-        }
-
-        .navbar-brand img {
-            height: 2rem;
-            margin-left: 30%;
-        }
-
-        .input_user,
-        .input_pass:focus {
-            box-shadow: none !important;
-            outline: 0px !important;
-
-        }
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{%static 'css/style2.css'%}">
+  <title>
+    Animated login signup
+  </title>
 </head>
 
 <body>
-    <div class="container h-100">
-        <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
-                <div class="d-flex justify-content-center">
-
-
-                    <h3 id="form-title">LOGIN</h3>
-                </div>
-                <div class="d-flex justify-content-center form_container">
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text" name="username" placeholder="User name..." class="form-control">
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append" >
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" name="password" placeholder="Password..." class="form-control">
-                        </div>
-
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <input class="btn login_btn" type="submit" value="Login">
-                        </div>
-                    </form>
-
-                </div>
-                {% for message in messages %}
-                <p id="messages">{{message}}</p>
-                {% endfor %}
-
-                <div class="mt-4">
-                    <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
-                    </div>
-                    <div class="d-flex justify-content-center links">
-
-                    </div>
-
-                </div>
+  <div id="container" class="container">
+    <!-- FORM SECTION -->
+    <div class="row">
+      <!-- SIGN UP -->
+      <div class="col align-items-center flex-col sign-up">
+        <div class="form-wrapper align-items-center">
+          <div class="form sign-up">
+            <div class="input-group">
+              <i class='bx bxs-user'></i>
+              <input type="text" placeholder="Username">
             </div>
+            <div class="input-group">
+              <i class='bx bx-mail-send'></i>
+              <input type="email" placeholder="Email">
+            </div>
+            <div class="input-group">
+              <i class='bx bxs-lock-alt'></i>
+              <input type="password" placeholder="Password">
+            </div>
+            <div class="input-group">
+              <i class='bx bxs-lock-alt'></i>
+              <input type="password" placeholder="Confirm password">
+            </div>
+            <button>
+              Sign up
+            </button>
+            <p>
+              <span>
+                Already have an account?
+              </span>
+              <b onclick="toggle()" class="pointer">
+
+                <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
+              </b>
+            </p>
+          </div>
         </div>
+        <div class="form-wrapper">
+          <div class="social-list align-items-center sign-up">
+            <div class="align-items-center facebook-bg">
+              <i class='bx bxl-facebook'></i>
+            </div>
+            <div class="align-items-center google-bg">
+              <i class='bx bxl-google'></i>
+            </div>
+            <div class="align-items-center twitter-bg">
+              <i class='bx bxl-twitter'></i>
+            </div>
+            <div class="align-items-center insta-bg">
+              <i class='bx bxl-instagram-alt'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END SIGN UP -->
+      <!-- SIGN IN -->
+
+
+      <div class="col align-items-center flex-col sign-in">
+        <div class="form-wrapper align-items-center">
+          <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form sign-in">
+              <img class="image" src="{%static 'images/SmallTasksLogo.png'%}">
+              <div class="input-group">
+                <i class='bx bxs-user'></i>
+                <input type="text" name="username" placeholder="Username">
+              </div>
+              <div class="input-group">
+                <i class='bx bxs-lock-alt'></i>
+                <input type="password" name="password" placeholder="Password">
+              </div>
+              <button>
+                <input style="background-color:  #0047AB;" type="submit" value="Login">
+              </button>
+              <p>
+                <b>
+                  Forgot password?
+                </b>
+              </p>
+              <p>
+                <span>
+                  Don't have an account?
+                </span>
+                <b onclick="toggle()" class="pointer">
+
+                  <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                </b>
+              </p>
+              {% for message in messages %}
+              <p id="messages">{{message}}</p>
+              {% endfor %}
+              {{form.errors}}
+            </div>
+          </form>
+        </div>
+        <div class="form-wrapper">
+          <div class="social-list align-items-center sign-in">
+            <div class="align-items-center facebook-bg">
+              <i class='bx bxl-facebook'></i>
+            </div>
+            <div class="align-items-center google-bg">
+              <i class='bx bxl-google'></i>
+            </div>
+            <div class="align-items-center twitter-bg">
+              <i class='bx bxl-twitter'></i>
+            </div>
+            <div class="align-items-center insta-bg">
+              <i class='bx bxl-instagram-alt'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END SIGN IN -->
     </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+      <!-- SIGN IN CONTENT -->
+      <div class="col align-items-center flex-col">
+        <div class="text sign-in">
+          <h2>
+            Welcome back
+          </h2>
+          <p>
+            We are glad you are back!!&#128151 Join us aboard and allow us to give you quality work. You are definately
+            in the right place
+          </p>
+        </div>
+        <div class="img sign-in">
+          <img src="{%static 'images/undraw_different_love_a3rg.svg'%}" alt="welcome">
+        </div>
+      </div>
+      <!-- END SIGN IN CONTENT -->
+      <!-- SIGN UP CONTENT -->
+      <div class="col align-items-center flex-col">
+        <div class="img sign-up">
+          <img src="{%static 'images/undraw_creative_team_r90h.svg'%}" alt="welcome">
+        </div>
+        <div class="text sign-up">
+          <h2>
+            Join with us
+          </h2>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit obcaecati, accusantium
+            molestias, laborum, aspernatur deserunt officia voluptatum tempora dicta quo ab ullam. Assumenda
+            enim harum minima possimus dignissimos deserunt rem.
+          </p>
+        </div>
+      </div>
+      <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
+  </div>
+
+
+  <script>
+    let container = document.getElementById('container')
+
+    toggle = () => {
+      container.classList.toggle('sign-in')
+      container.classList.toggle('sign-up')
+    }
+
+    setTimeout(() => {
+      container.classList.add('sign-in')
+    }, 200)
+  </script>
 </body>
 
-
-
 </html>
+
 
 {%endblock %}
