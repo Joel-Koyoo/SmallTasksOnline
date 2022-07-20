@@ -69,7 +69,7 @@ class Task(models.Model):
     Submit_Image= models.ImageField(default="profile_pic.jpg",null=True, blank=True, upload_to="files")
     Submit_Description=models.TextField(null=True, blank=True)
  
-  
+    
 
     def __str__(self):
         return self.title

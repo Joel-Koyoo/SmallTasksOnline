@@ -2,6 +2,8 @@
 {%block content%}
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +13,7 @@
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="{%static 'css/style2.css'%}">
   <title>
-    Animated login signup
+    SmallTasksOnline
   </title>
 </head>
 
@@ -20,6 +22,7 @@
     <!-- FORM SECTION -->
     <div class="row">
       <!-- SIGN UP -->
+      <img class="image" src="{%static 'images/SmallTasksLogo.png'%}">
       <div class="col align-items-center flex-col sign-up">
         <div class="form-wrapper align-items-center">
           <div class="form sign-up">
@@ -39,18 +42,6 @@
               <i class='bx bxs-lock-alt'></i>
               <input type="password" placeholder="Confirm password">
             </div>
-            <button>
-              Sign up
-            </button>
-            <p>
-              <span>
-                Already have an account?
-              </span>
-              <b onclick="toggle()" class="pointer">
-
-                <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
-              </b>
-            </p>
           </div>
         </div>
         <div class="form-wrapper">
@@ -72,45 +63,34 @@
       </div>
       <!-- END SIGN UP -->
       <!-- SIGN IN -->
-
-
       <div class="col align-items-center flex-col sign-in">
         <div class="form-wrapper align-items-center">
-          <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form sign-in">
-              <img class="image" src="{%static 'images/SmallTasksLogo.png'%}">
-              <div class="input-group">
-                <i class='bx bxs-user'></i>
-                <input type="text" name="username" placeholder="Username">
-              </div>
-              <div class="input-group">
-                <i class='bx bxs-lock-alt'></i>
-                <input type="password" name="password" placeholder="Password">
-              </div>
-              <button>
-                <input style="background-color:  #0047AB;" type="submit" value="Login">
-              </button>
-              <p>
-                <b>
-                  Forgot password?
-                </b>
-              </p>
-              <p>
-                <span>
-                  Don't have an account?
-                </span>
-                <b onclick="toggle()" class="pointer">
-
-                  <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
-                </b>
-              </p>
-              {% for message in messages %}
-              <p id="messages">{{message}}</p>
-              {% endfor %}
-              {{form.errors}}
+          <div class="form sign-in">
+            <div class="input-group">
+              <i class='bx bxs-user'></i>
+              <input type="text" placeholder="Username">
             </div>
-          </form>
+            <div class="input-group">
+              <i class='bx bxs-lock-alt'></i>
+              <input type="password" placeholder="Password">
+            </div>
+            <button>
+              Sign in
+            </button>
+            <p>
+              <b>
+                Forgot password?
+              </b>
+            </p>
+            <p>
+              <span>
+                Don't have an account?
+              </span>
+              <b>
+                <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+              </b>
+            </p>
+          </div>
         </div>
         <div class="form-wrapper">
           <div class="social-list align-items-center sign-in">
@@ -129,7 +109,6 @@
           </div>
         </div>
       </div>
-
       <!-- END SIGN IN -->
     </div>
     <!-- END FORM SECTION -->
@@ -142,8 +121,7 @@
             Welcome back
           </h2>
           <p>
-            We are glad you are back!!&#128151 Join us aboard and allow us to give you quality work. You are definately
-            in the right place
+            We are glad you are back!!&#128151  Join us aboard and allow us to give you quality work. You are definately in the right place
           </p>
         </div>
         <div class="img sign-in">
@@ -151,40 +129,18 @@
         </div>
       </div>
       <!-- END SIGN IN CONTENT -->
-      <!-- SIGN UP CONTENT -->
-      <div class="col align-items-center flex-col">
-        <div class="img sign-up">
-          <img src="{%static 'images/undraw_creative_team_r90h.svg'%}" alt="welcome">
-        </div>
-        <div class="text sign-up">
-          <h2>
-            Join with us
-          </h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit obcaecati, accusantium
-            molestias, laborum, aspernatur deserunt officia voluptatum tempora dicta quo ab ullam. Assumenda
-            enim harum minima possimus dignissimos deserunt rem.
-          </p>
-        </div>
-      </div>
-      <!-- END SIGN UP CONTENT -->
+
     </div>
-    <!-- END CONTENT SECTION -->
-  </div>
+
+    <script>
+      let container = document.getElementById('container')
+
+      setTimeout(() => {
+        container.classList.add('sign-in')
+      }, 200)
 
 
-  <script>
-    let container = document.getElementById('container')
-
-    toggle = () => {
-      container.classList.toggle('sign-in')
-      container.classList.toggle('sign-up')
-    }
-
-    setTimeout(() => {
-      container.classList.add('sign-in')
-    }, 200)
-  </script>
+    </script>
 </body>
 
 </html>
