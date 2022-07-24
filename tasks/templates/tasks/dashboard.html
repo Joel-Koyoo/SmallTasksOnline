@@ -45,6 +45,13 @@
             </div>
 
             <table>
+
+                {%if not tasks%}
+                <thead>
+                    <h2>No Tasks Given at the moment <a href="{% url 'create_Task'%}" style="text-decoration:none;">
+                            Click Here </a>to submit a task and the task progress will display here</h2>
+                </thead>
+                {%else%}
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -57,6 +64,7 @@
                         <th>View</th>
 
                     </tr>
+                    {%endif%}
                 </thead>
 
                 <tbody>

@@ -33,6 +33,7 @@ n="anonymous">
 
 <div class="main">
     {%include 'tasks/topbar.html'%}
+   
     <h3 style="text-align:center">Account Settings</h3>
     {% if request.user.client.picture %}
     <img src="{{request.user.client.picture.url}}" alt="" class="profile-pic">
