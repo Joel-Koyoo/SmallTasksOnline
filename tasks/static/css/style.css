@@ -50,7 +50,7 @@ body {
 
 .navbar-dark .navbar-nav .nav-link.active,
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #12bba3;
+    color: #0047AB;
 }
 
 
@@ -118,12 +118,12 @@ h3.heading {
 .heading-underline {
     width: 3rem;
     height: 0.2rem;
-    background-color: #1ebba3;
+    background-color: #0047AB;
     margin: 0 auto 2rem;
 }
 
 .feature svg.svg-inline--fa {
-    color: #1ebba3;
+    color: #0047AB;
 }
 
 .feature h3 {
@@ -180,7 +180,7 @@ footer svg.svg-inline--fa {
 }
 
 footer svg.svg-inline--fa:hover {
-    color: #1ebba3 !important;
+    color: #0047AB !important;
 }
 
 hr.socket {
@@ -197,7 +197,7 @@ hr.socket {
         letter-spacing: .15rem;
         padding-bottom: .5rem;
     }
-
+about
     .caption h3 {
         font-size: 1.2rem;
         padding-bottom: 1.2rem;
