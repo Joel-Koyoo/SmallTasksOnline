@@ -51,6 +51,7 @@ class Task(models.Model):
     STATUS = (
         ('Available', 'Available'),
         ('Claimed', 'Claimed'), 
+        ('Under Review', 'Under Review'), 
         ('Submitted', 'Submitted'),
         ('Paid', 'Paid'),
     )
@@ -63,6 +64,9 @@ class Task(models.Model):
     status = models.CharField(
         max_length=200, null=True, choices=STATUS, default='Available')
     file = models.FileField(null=True, blank=True, upload_to="files")
+
+    #data for any complaints
+    Submit_Description_report=models.TextField(null=True, blank=True)
 
     # FILES FOR SUBMIT
     Submit_Files= models.FileField(null=True, blank=True, upload_to="files")

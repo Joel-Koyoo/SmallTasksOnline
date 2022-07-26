@@ -1,0 +1,153 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
+            </div>
+            <h1> {{task.title}}</h1>
+            <br>
+            <h2>Hello {{request.user}}, The report given by the person handling your task is written in blue.</h2>
+
+            {{task.description}}
+
+            <h2>TASK REPORT DESCRIPTION</h2>
+            <div style="color: blue;  font-weight: bold;">
+                {{task.Submit_Description_report}}
+
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>Download documents</th>
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>{{task.status}}</td>
+                        <td>
+                            {% if task.file %}
+                            <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
+                            {% else %}
+                            <p>The work has no files attached</p>
+                            {%endif%}
+
+
+                        </td>
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <div>
+            <b style="color:red ;">
+                Below, You can disregard the complaint and send the task back to our team or edit the task
+                in edit page then submit
+
+            </b>
+        </div>
+        <br>
+        <br>
+        <br>
+        <button class="report">
+
+            <td><a style="text-decoration:none ; color: white;" href="{%url 'update_Task' task.id %}">Edit-Task</a></td>
+        </button>
+
+
+
+
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="cardHeader">
+
+            </div>
+
+            <div class="">
+
+
+                <div class="fields">
+
+                    <div class="input-field">
+                        {{form.category.label.as_hidden}}
+                        {{form.category.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.title.label.as_hidden}}
+                        {{form.title.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.description.label.as_hidden}}
+                        {{form.description.as_hidden}}
+                    </div>
+                    <div class="input-field">
+                        {{form.Proposed_price.label.as_hidden}}
+                        {{form.Proposed_price.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.deadline.label.as_hidden}}
+                        {{form.deadline.as_hidden}}
+                    </div>
+                    <div class="input-field">
+
+                        {{ form.Submit_Description_report.as_hidden}}
+                    </div>
+
+                    <br>
+                    <div>
+                        {{form.file.label.as_hidden}}
+                        {{form.file.as_hidden}}
+                    </div>
+                    <br>
+
+                </div>
+
+                <button class="nextBtn">
+                    <span class="btnText">Ignore Complaint</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+                <br>
+
+
+                {{form.errors}}
+            </div>
+
+        </form>
+
+
+    </div>
+
+
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+
+
+
+    {%endblock %}
