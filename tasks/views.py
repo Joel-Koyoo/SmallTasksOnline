@@ -23,6 +23,9 @@ from .filters import TaskFilter
 # Create your views here.
 
 
+
+
+
 @unauthenticated_user
 def registerPage(request):
 
@@ -72,6 +75,30 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+def valueTasks(user):
+    tasks = user.task_set.all().filter(status='Under Review')
+
+    tasks_reported_total=tasks.count()
+    return tasks_reported_total, tasks
+
+
+@login_required(login_url="login")
+def ReportPoolPage(request):
+    if (request.user.client.is_taskhandler == True):
+        client = request.user.client
+        
+        
+        total, tasks = valueTasks(client)
+     
+        myFilter = TaskFilter(request.GET, queryset=tasks)
+        tasksFilter = myFilter.qs.order_by('deadline', 'created')
+
+
+        context = {'total':total,'tasks': tasks,'tasksFilter': tasksFilter, 'myFilter': myFilter, 'navbar': 'taskpool'
+        }
+        return render(request, 'tasks/ReportPoolPage.html', context)
+   
+
 
 @login_required(login_url="login")
 def DashboardPage(request):
@@ -81,11 +108,19 @@ def DashboardPage(request):
     clients = Client.objects.all()
     tasks_submitted = client.task_set.all().count()
 
+    total, tasks = valueTasks(client)
+    print(total)
+
+    if tasks:
+         messages.success(
+                request, 'You have problems flagged  on your tasks, click the flag to sort them ')
+
+
     myFilter = TaskFilter(request.GET, queryset=tasks)
     tasks = myFilter.qs.order_by('status', 'created')
 
     tasks_total = client.task_set.all().aggregate(total=Sum('Proposed_price'))
-    context = {
+    context = {'total':total,
         'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted, 'tasks_total': tasks_total, "myFilter": myFilter, "client": client, 'navbar': 'dashboard'
     }
 
@@ -98,7 +133,10 @@ def ClaimedTasks(request):
         tasks = Task.objects.all()
         tasks_1 = tasks.filter(taskhandler=request.user.client)
         Total_amount = tasks_1.aggregate(total=Sum('Proposed_price'))
-        context = {"tasks_1": tasks_1, 'Total_amount': Total_amount}
+
+        myFilter = TaskFilter(request.GET, queryset=tasks)
+        tasksFilter = myFilter.qs.order_by('status')
+        context = {' tasksFilter': tasksFilter,'tasks_1': tasks_1,  'myFilter': myFilter,'Total_amount': Total_amount}  
         return render(request, 'tasks/claimed_tasks.html', context)
     else:
         return render(request, 'tasks/unauthorized.html')
@@ -167,6 +205,7 @@ def createTask(request):
         if form.is_valid():
             task = form.save(commit=False)
             task.client = request.user.client
+            task.deadline.strftime("%Y-%m-%d %H:%M")
             task.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
@@ -191,7 +230,9 @@ def updateTask(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
+
         if form.is_valid():
+            task.status = 'Available'
             form.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
@@ -218,12 +259,13 @@ def deleteTask(request, pk):
 def TaskPoolPage(request):
     if (request.user.client.is_taskhandler == True):
         clients = Client.objects.all()
-        tasks = Task.objects.all()
+        tasks = Task.objects.filter(status='Available')
 
         myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasks = myFilter.qs.order_by('status', 'created')
+        tasksFilter = myFilter.qs.order_by('deadline', 'created')
 
-        context = {
+
+        context = {'tasksFilter':tasksFilter,
             'tasks': tasks, 'myFilter': myFilter, 'navbar': 'taskpool'
         }
         return render(request, 'tasks/taskpool.html', context)
@@ -327,3 +369,53 @@ def ContactUs(request):
 def launchPage(request):
     context = {}
     return render(request, 'tasks/LaunchPage.html', context)
+
+def reportPage(request, pk):
+
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
+        if form.is_valid():
+            task.status = 'Under Review'
+            form.save()
+            messages.success(
+                request, 'Your complaint has been submitted. Kindly go to taskpool for more tasks')
+            return redirect('dashboard')
+          
+        else:
+            form = TaskForm()
+            print('error1')
+
+    context = {'form': form, 'task': task}
+    return render(request,  'tasks/ReportPage.html', context)
+   
+    
+
+def Reportviewtasks(request, pk):
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
+        if form.is_valid():
+            task.status = 'Available'
+            task.Submit_Description_report=None
+            form.save()
+            messages.success(
+                request, 'Your Task has been submitted, check the dashboard for progress')
+            return redirect('dashboard')
+          
+        else:
+            form = TaskForm()
+            print('error1')
+
+
+
+
+    context = {'form': form,'task': task}
+
+    return render(request, 'tasks/ReportViewtasks.html', context)
+
+

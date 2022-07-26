@@ -10,10 +10,17 @@
             <div class="cardHeader">
                 <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
             </div>
+           
+
+            <div>
+                <a style="text-decoration: none;" id="view" href="{%url 'reportPage' task.id %}"> <i style="color:red;"
+                            class="fa fa-flag fa-3x" aria-hidden="true"></i>Click Flag to Report problem with Task</a>
+            </div>
 
             <h1> {{task.title}}</h1>
             <br>
             <h2>TASK DESCRIPTION</h2>
+
             {{task.description}}
 
             <table>
@@ -37,7 +44,11 @@
                         <td>{{task.Proposed_price}}</td>
                         <td>{{task.status}}</td>
                         <td>
+                            {% if task.file %}
                             <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
+                            {% else %}
+                            <p>The work has no files attached</p>
+                            {%endif%}
 
 
                         </td>
@@ -52,12 +63,21 @@
         </div>
         <form action="{%url 'accept_task' task.id%}" method="POST">
             {% csrf_token %}
+            <h2 style="color:red;">
+                <P>WARNING!!!</P> KINDLY ENSURE YOU CAN HANDLE THE TASK BEFORE CLICKING ACCEPT. THE ACTION IS NOT
+                REVERSABLE
+            </h2>
             <button type="submit">ACCEPT Task</button>
         </form>
 
     </div>
 
+
+
     <script src="{%static 'js/script.js'%}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
 
 
 

@@ -1,0 +1,132 @@
+{%block content%}
+{%load static%}
+
+{%include 'tasks/main.html'%}
+<!-- cards -->
+<div class="main">
+    {%include 'tasks/topbar.html'%}
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
+            </div>
+            <div class="cardHeader">
+                <h2> Report Page</h2>
+            </div>
+            <div class="cardHeader">
+                <h2> Hello, Kindly fill below stating the reason for your report</h2>
+             </div>
+
+            <h1> {{task.title}}</h1>
+            <br>
+            <h2>TASK DESCRIPTION</h2>
+            {{task.description}}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deadline</th>
+                        <th>Proposed Price</th>
+                        <th>Status</th>
+                        <th>Download documents</th>
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>{{task.deadline}}</td>
+                        <td>{{task.Proposed_price}}</td>
+                        <td>{{task.status}}</td>
+                        <td>
+                            {% if task.file %}
+                            <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
+                            {% else %}
+                            <p>The work has no files attached</p>
+                            {%endif%}
+
+
+                        </td>
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="cardHeader">
+                <h2>Explain the Complaint below </h2>
+            </div>
+
+            <div class="">
+        
+
+                <div class="fields">
+
+                    <div class="input-field">
+                        {{form.category.label.as_hidden}}
+                        {{form.category.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.title.label.as_hidden}}
+                        {{form.title.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.description.label.as_hidden}}
+                        {{form.description.as_hidden}}
+                    </div>
+                    <div class="input-field">
+                        {{form.Proposed_price.label.as_hidden}}
+                        {{form.Proposed_price.as_hidden}}
+                    </div>
+
+                    <div class="input-field">
+                        {{form.deadline.label.as_hidden}}
+                        {{form.deadline.as_hidden}}
+                    </div>
+                    <div class="input-field">
+                     
+                      {{ form.Submit_Description_report}}
+                    </div>
+
+                    <br>
+                    <div>
+                        {{form.file.label.as_hidden}}
+                        {{form.file.as_hidden}}
+                    </div>
+                    <br>
+                  
+                </div>
+
+                <button class="nextBtn">
+                    <span class="btnText">Submit</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+                <br>
+
+
+                {{form.errors}}
+            </div>
+
+        </form>
+ 
+    </div>
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+
+
+
+    {%endblock %}

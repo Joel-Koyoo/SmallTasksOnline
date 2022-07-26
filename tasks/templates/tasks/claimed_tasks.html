@@ -7,6 +7,7 @@
 
 <div class="main">
     {%include 'tasks/topbar.html'%}
+    {{myFilter.form}}
     <div class="details">
         <div class="recentOrders">
             <div class="cardHeader">
@@ -15,7 +16,7 @@
                 <a href="{%url 'dashboard'%}" class="btn btn-warning">&#8592;Back to dashboard</a>
 
             </div>
-          
+
             <table>
                 <thead>
                     <tr>

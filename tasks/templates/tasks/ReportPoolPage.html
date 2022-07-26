@@ -16,19 +16,14 @@
 <div class="main">
     {%include 'tasks/topbar.html'%}
     <div class="details">
-        <form action="" method="get">
-            {{myFilter.form}}
-            <input type="submit" value="Search" class="btn btn-primary">
-        </form>
+     
         <div class="recentOrders">
-            <div class="cardHeader">
-                <h2>Welcome to the TaskPool {{request.user}}, Below are available tasks</h2>
-            </div>
+        
             <table class="table-1">
 
                 {%if not tasks%}
                 <thead>
-                    <h2>We apologize, there are no tasks as of the moment, Do check back in a short while, they will appear here</h2>
+                    <h2>None of your tasks has any complaint. If any they will appear here</h2>
                 </thead>
                 {%else%}
                 <thead>
@@ -52,7 +47,7 @@
                         <td>{{task.deadline}}</td>
                         <td>{{task.Proposed_price}}</td>
                         <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'viewtasks' task.id %}">View-Task</a></td>
+                        <td><a class="btn btn-info" id="view" href="{%url 'Reportviewtasks' task.id %}">View-Task</a></td>
 
                     </tr>
 

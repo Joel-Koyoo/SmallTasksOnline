@@ -102,9 +102,13 @@
                         <td>{{task.deadline}}</td>
                         <td>{{task.Proposed_price}}</td>
                         <td id="status">{{task.status}}</td>
+
+                        
                         <td><a class="btn btn-info" style="background:green;">Paid</a></td>
                         <td><a class="btn" style="background:green;" href="{%url 'delete_Task' task.id %}">delete
                                 Task</a></td>
+
+
                         <td><a class="btn btn-info" style="background:green;" id="edit"
                                 href="{%url 'ViewSubmittedTask' task.id %}">View-Task</a></td>
                     </tr>

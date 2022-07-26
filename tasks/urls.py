@@ -24,7 +24,10 @@ urlpatterns = [
 
 
     path('taskpool/', views.TaskPoolPage, name="taskpool"),
+    path('ReportPoolPage/', views.ReportPoolPage, name="ReportPoolPage"),
     path('viewtasks/<str:pk>/', views.viewtasks, name='viewtasks'),
+    path('Reportviewtasks/<str:pk>/', views.Reportviewtasks, name='Reportviewtasks'),
+    path('reportPage/<str:pk>/', views.reportPage, name='reportPage'),  
     path('ViewSubmittedTask/<str:pk>/', views.ViewSubmittedTask, name='ViewSubmittedTask'),
     path('user/', views.userPage, name='user-page'),
     path('ContactUs/', views.ContactUs, name='ContactUs'),

@@ -27,9 +27,10 @@ class TaskForm(ModelForm):
     )
     Submit_Image =forms.ImageField(required=False,
     widget=forms.ClearableFileInput(attrs={'multiple': True})
-    )
+    )   
     Submit_Description = forms.CharField(widget=forms.Textarea,required=False)
-    file = forms.FileField(required=False)
+    Submit_Description_report = forms.CharField(widget=forms.Textarea,required=False)
+    # file = forms.FileField(required=False)
    
     class Meta:
         model = Task
