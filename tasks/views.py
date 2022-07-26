@@ -135,8 +135,8 @@ def ClaimedTasks(request):
         Total_amount = tasks_1.aggregate(total=Sum('Proposed_price'))
 
         myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasks = myFilter.qs.order_by('status')
-        context = {"tasks_1": tasks_1,  'myFilter': myFilter,'Total_amount': Total_amount}  
+        tasksFilter = myFilter.qs.order_by('status')
+        context = {' tasksFilter': tasksFilter,'tasks_1': tasks_1,  'myFilter': myFilter,'Total_amount': Total_amount}  
         return render(request, 'tasks/claimed_tasks.html', context)
     else:
         return render(request, 'tasks/unauthorized.html')
@@ -262,10 +262,10 @@ def TaskPoolPage(request):
         tasks = Task.objects.filter(status='Available')
 
         myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasks = myFilter.qs.order_by('deadline', 'created')
+        tasksFilter = myFilter.qs.order_by('deadline', 'created')
 
 
-        context = {
+        context = {'tasksFilter':tasksFilter,
             'tasks': tasks, 'myFilter': myFilter, 'navbar': 'taskpool'
         }
         return render(request, 'tasks/taskpool.html', context)
