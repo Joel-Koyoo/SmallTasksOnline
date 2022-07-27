@@ -114,7 +114,8 @@ def DashboardPage(request):
     if tasks:
          messages.success(
                 request, 'You have problems flagged  on your tasks, click the flag to sort them ')
-
+    else:
+        pass
 
     myFilter = TaskFilter(request.GET, queryset=tasks)
     tasks = myFilter.qs.order_by('status', 'created')
