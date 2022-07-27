@@ -108,10 +108,10 @@ def DashboardPage(request):
     clients = Client.objects.all()
     tasks_submitted = client.task_set.all().count()
 
-    total, tasks = valueTasks(client)
+    total, tasks_complaints = valueTasks(client)
     print(total)
 
-    if tasks:
+    if tasks_complaints:
          messages.success(
                 request, 'You have problems flagged  on your tasks, click the flag to sort them ')
     else:
@@ -121,7 +121,7 @@ def DashboardPage(request):
     tasks = myFilter.qs.order_by('status', 'created')
 
     tasks_total = client.task_set.all().aggregate(total=Sum('Proposed_price'))
-    context = {'total':total,
+    context = {'total':total,'tasks_complaints':tasks_complaints,
         'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted, 'tasks_total': tasks_total, "myFilter": myFilter, "client": client, 'navbar': 'dashboard'
     }
 
