@@ -84,10 +84,8 @@ def valueTasks(user):
 
 @login_required(login_url="login")
 def ReportPoolPage(request):
-    if (request.user.client.is_taskhandler == True):
+  
         client = request.user.client
-        
-        
         total, tasks = valueTasks(client)
      
         myFilter = TaskFilter(request.GET, queryset=tasks)
