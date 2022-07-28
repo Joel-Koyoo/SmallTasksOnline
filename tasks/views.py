@@ -85,16 +85,14 @@ def valueTasks(user):
 @login_required(login_url="login")
 def ReportPoolPage(request):
   
-        client = request.user.client
-        total, tasks = valueTasks(client)
-     
-        myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasksFilter = myFilter.qs.order_by('deadline', 'created')
+    client = request.user.client
+    total, tasks = valueTasks(client)
+    myFilter = TaskFilter(request.GET, queryset=tasks)
+    tasksFilter = myFilter.qs.order_by('deadline', 'created')
 
-
-        context = {'total':total,'tasks': tasks,'tasksFilter': tasksFilter, 'myFilter': myFilter, 'navbar': 'taskpool'
+    context = {'total':total,'tasks': tasks,'tasksFilter': tasksFilter, 'myFilter': myFilter, 'navbar': 'taskpool'
         }
-        return render(request, 'tasks/ReportPoolPage.html', context)
+    return render(request, 'tasks/ReportPoolPage.html', context)
    
 
 
