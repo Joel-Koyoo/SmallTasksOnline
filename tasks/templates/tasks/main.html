@@ -43,6 +43,7 @@
 
                 </li>
 
+                {% if request.user.client.is_taskhandler == True%}
                 <li>
                     <a class="btn {%if navbar == 'taskpool'%} active {%endif%}" href="{%url 'taskpool'%}">
                         <span class="icon">
@@ -52,6 +53,22 @@
                     </a>
 
                 </li>
+
+                {%else%}
+                <li>
+                    <a class="btn {%if navbar == 'taskpool'%} active {%endif%}" href="{%url 'ReportPoolPage'%}">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Reported Tasks</span>
+                    </a>
+                </li>
+
+
+
+                {%endif%}
+
+
 
                 <li>
                     <a class="btn {%if navbar == 'create_Task'%} active {%endif%}" href="{% url 'create_Task'%}">
@@ -102,9 +119,10 @@
 
 
 
- 
+
 <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""
+        referrerpolicy="no-referrer-when-downgrade" /></noscript>
 
 
 {%endblock %}
