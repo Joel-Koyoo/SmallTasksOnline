@@ -255,6 +255,8 @@
                                     <h2 class="underline--magical" id="Intro"></h2>
                                 </div>
                                 <br />
+
+                                
                                 <br />
                                 <p style="font-size: 14pt;"> We are so excited to have you onboard with us and we aim to
                                     help you.
@@ -270,14 +272,23 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
+                    <br>
+                    <br>
+                    <button style="display:flex; justify-content: center;"><sa href="" target="_blank" rel="noopener noreferrer"></a>JOIN OUR TEAM</button>
                     <div class="container_Info">
                         <div class="contactInfo">
                             <div class="box">
-                                <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                                <div class="icon"><i class="fa-solid fa-hashtag"></i></div>
                                 <div class="text">
-                                    <h3>Address</h3>
-                                    <p>4555 Sugar Camo Road,<br>Owatonna,Minesotta,<br>55055</p>
+                                    <h3>Social Media</h3>
+                                    <br />
+                                    <a style="text-decoration:none;" href="" target="_blank"><i
+                                            class="fab fa-facebook-square"></i> Facebook</a>
+                                    <a style="text-decoration:none;" href="" target="_blank"><i
+                                            class="fab fa-twitter-square"></i> Twitter</a>
+                                    <a style="text-decoration:none;" href="" target="_blank"><i
+                                            class="fab fa-instagram"></i> Instagram</a>
                                 </div>
                             </div>
 
@@ -285,7 +296,7 @@
                                 <div class="icon"><i class="fa-solid fa-phone"></i></div>
                                 <div class="text">
                                     <h3>Phone</h3>
-                                    <p>12113121423</p>
+                                    <p>+254727243892</p>
                                 </div>
 
                             </div>
@@ -294,32 +305,43 @@
                                 <div class="icon"><i class="fa-solid fa-envelope"></i></div>
                                 <div class="text">
                                     <h3>Email</h3>
-                                    <p>nyambok@gmail.com</p>
+                                    <a href="mailto: support@smalltasksonline.com">Send Mail</a>
+                                    <p></p>
                                 </div>
 
                             </div>
                         </div>
                         <div class="contactForm">
-                            <form action="">
+                            <form style="width:100% ;" method="POST">
+                                {%csrf_token%}>
                                 <h2>Send Message</h2>
                                 <div class="inputBox">
-                                    <input type="text" name="" id="" required="required">
+                                    <input type="text" name="full-name" id="" required="required">
                                     <span>Full Name</span>
                                 </div>
                                 <div class="inputBox">
-                                    <input type="text" name="" id="" required="required">
+                                    <input type="email" name="email" id="" required="required">
                                     <span>Email</span>
                                 </div>
                                 <div class="inputBox">
-                                    <textarea required="required"></textarea>
+                                    <input type="text" name="subject" id="">
+                                    <span>Message</span>
+                                </div>
+                                <div class="inputBox">
+                                    <textarea name="message" required="required"></textarea>
                                     <span>Type Your Message...</span>
                                 </div>
                                 <div class="inputBox">
                                     <input type="submit" value="Send">
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
+                 
+                       
+                    
                 </section>
 
 

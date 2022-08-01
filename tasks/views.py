@@ -1,5 +1,7 @@
 from pickle import FALSE
 from this import d
+import django
+from django.conf import settings
 from django.shortcuts import render, redirect
 from .decorators import unauthenticated_user
 from django.shortcuts import render, redirect
@@ -18,6 +20,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 import json
+from django.core.mail import send_mail
 
 from .filters import TaskFilter
 # Create your views here.
@@ -358,6 +361,36 @@ def userPage(request):
 
 
 def ContactUs(request):
+
+    if request.method =='POST':
+
+        name=request.POST.get('full-name') 
+        email=request.POST.get('email')
+        subject=request.POST.get('subject')
+        message=request.POST.get('message')
+
+        data={
+            'name':name,
+            'email':email,
+            'subject':subject,
+            'message':message
+        }
+
+        message='''
+        New message:{}
+        
+
+        From:{}
+        
+        '''.format(data['message'],data['email'])
+
+
+        send_mail(data['message'],message,'',['support@smalltasksonline.com'])
+        messages.success(
+                request, 'Thank you for submitting the form, we will be in touch soon ')
+        return redirect('/dashboard')
+      
+    
     client = request.user.client
     context = {'client': client, 'navbar': 'ContactUs'}
     return render(request, 'tasks/ContactUs.html', context)

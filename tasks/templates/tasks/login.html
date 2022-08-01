@@ -89,11 +89,13 @@
                 <input type="password" name="password" placeholder="Password">
               </div>
               <button>
-                <input style="background-color:  #0047AB;" type="submit" value="Login">
+                <input style="background-color:  #0047AB; border: none; " type="submit" value="Login">
               </button>
               <p>
                 <b>
                   Forgot password?
+                </b>
+                  <a href="{% url 'reset_password' %}" class="ml-2">Reset Password</a>
                 </b>
               </p>
               <p>
@@ -106,9 +108,9 @@
                 </b>
               </p>
               {% for message in messages %}
-              <p id="messages">{{message}}</p>
+              <p id="messages" style="color: red; font-weight: bold;">{{message}}</p>
               {% endfor %}
-              {{form.errors}}
+            
             </div>
           </form>
         </div>
