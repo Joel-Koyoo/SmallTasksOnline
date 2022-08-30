@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "postcss-import": "^14.1.0"
+  }
+}

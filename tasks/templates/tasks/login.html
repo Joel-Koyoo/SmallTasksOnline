@@ -1,6 +1,6 @@
+
 {%load static%}
 {%block content%}
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +9,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="{%static 'css/style2.css'%}">
-  
+  <link rel="stylesheet" href="{%static 'css/style.css'%}">
   <title>SmallTasksOnline</title>
-	<link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
 </head>
 
 <body>
@@ -48,7 +46,7 @@
               </span>
               <b onclick="toggle()" class="pointer">
 
-                <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
+                <a href="" class="ml-2">Sign Up</a>
               </b>
             </p>
           </div>
@@ -89,8 +87,8 @@
                 <input type="password" name="password" placeholder="Password">
               </div>
               <button>
-                <input style="background-color:  #0047AB; border: none; " type="submit" value="Login">
-              </button>
+                Login
+            </button>
               <p>
                 <b>
                   Forgot password?
@@ -104,13 +102,13 @@
                 </span>
                 <b onclick="toggle()" class="pointer">
 
-                  <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                  <a href="{%url 'register'%}" class="ml-2">Sign Up</a>
                 </b>
               </p>
-              {% for message in messages %}
-              <p id="messages" style="color: red; font-weight: bold;">{{message}}</p>
-              {% endfor %}
-            
+            </p>
+            {% for message in messages %}
+            <p id="messages" style="color: red; font-weight: bold;">{{message}}</p>
+            {% endfor %}
             </div>
           </form>
         </div>
@@ -150,12 +148,13 @@
         </div>
         <div class="img sign-in">
           <img src="{%static 'images/undraw_different_love_a3rg.svg'%}" alt="welcome">
-        </div>
       </div>
-      <!-- END SIGN IN CONTENT -->
-      <!-- SIGN UP CONTENT -->
-      <div class="col align-items-center flex-col">
-        <div class="img sign-up">
+  </div>
+  <!-- END SIGN IN CONTENT -->
+
+  <!-- SIGN UP CONTENT -->
+  <div class="col align-items-center flex-col">
+      <div class="img sign-up">
           <img src="{%static 'images/undraw_creative_team_r90h.svg'%}" alt="welcome">
         </div>
         <div class="text sign-up">
@@ -192,4 +191,4 @@
 </html>
 
 
-{%endblock %}
+{%endblock%}

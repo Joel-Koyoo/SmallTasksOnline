@@ -29,8 +29,8 @@ SECRET_KEY = 'django-insecure-u=)jnx53m#lzn3v0guapit8iu!(uf-*r4yrby0szl)+(f3_x@2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['164.92.157.113', 'smalltasksonline.works' ,'smalltasksonline.com','www.smalltasksonline.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['164.92.157.113', 'smalltasksonline.works' ,'smalltasksonline.com','www.smalltasksonline.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -44,7 +44,38 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tasks.apps.TasksConfig',
     'django_filters',
+    'mathfilters',
+    'ckeditor',
+    'tailwind',
+    'theme',
+    'crispy_forms',                     
+    'crispy_tailwind',  
+    'django_browser_reload',
+
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+
+CRISPY_TEMPLATE_PACK = "tailwind"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Undo', 'Redo',
+             '-', 'Bold', 'Italic', 'Underline',
+             '-', 'Link', 'Unlink', 'Anchor',
+             '-', 'Format',
+             
+             '-', 'Maximize',
+             
+            ],
+        ],  
+        'width': 'auto',
+        'toolbarCanCollapse': True,
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'smalltasks.urls'
@@ -82,23 +114,12 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'smalltasksonline',
-            'USER': 'joel',
-            'PASSWORD': '112358@Joel#',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
 
 # Password validation
@@ -137,7 +158,7 @@ USE_TZ = True
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media')
+    os.path.join(BASE_DIR, 'static')
 ]
 
 # Default primary key field type
@@ -145,11 +166,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = 'media/'
 
@@ -161,3 +180,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'smalltasksonline@gmail.com'
 EMAIL_HOST_PASSWORD = 'crozgqqdkqhxbfqs'
+
+
+TAILWIND_APP_NAME='theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+NPM_BIN_PATH =r"C:/Program Files/nodejs/npm.cmd"

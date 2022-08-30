@@ -1,99 +1,78 @@
-{%block content%}
 {%load static%}
-{%include 'tasks/main.html'%}
+{%block content%}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
 
 
 
 
-<!-- main -->
 
-<div class="main">
+
+<body>
+    {%include 'tasks/main.html'%} -->
     {%include 'tasks/topbar.html'%}
 
 
-    <!-- cards -->
+
+    <!--Contact form-->
+
+    <div class="w-5/6 mx-2 my-2 md:w-1/2 mt-12 mx-auto md:ml-[310px]">
+
+        <h2 class="text-center text-2xl">Fill in your Task details </h2>
 
 
-    <div class="details">
-        <div class="recentOrders">
-            <div class="cardHeader">
-                <h2>Fill in your Task details </h2>
+        <form method="POST" enctype="multipart/form-data" class="w=5/6">
+
+            {% csrf_token %}
+            <div>
+                {{form.category|as_crispy_field}}
+            </div>
+            <div>
+                {{form.title|as_crispy_field}}
+            </div>
+            
+        
+            <div class="">
+                {{form.media}}
+                {{form.description|as_crispy_field}}
             </div>
 
-            <form method="POST" action="" enctype="multipart/form-data">
-                {% csrf_token %}
+        
+            <div>
+                Currency($) i.e dollars
+                {{form.Proposed_price|as_crispy_field}}
+            </div>
+            <div>
+                E.g mm/dd/yyyy hh:mm:(AM/PM)
+                {{form.deadline|as_crispy_field}}
+            </div>
+            <div>
+                <h3 class="text-xl underline">Attach any files or image necessary to do the work effeciently Below</h3>
+                {{form.file|as_crispy_field}}
+            </div>
+
+            <button
+                class="bg-brightRedLight hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                Submit
+            </button>
 
 
-                <div class="">
-                    <span class="title">Task Details</span>
-
-                    <div class="fields">
-                        <div class="input-field">
-                            {{form.client.label}}
-                            {{form.client}}
-                        </div>
-                        <div class="input-field">
-                            {{form.category.label}}
-                            {{form.category}}
-                        </div>
-
-                        <div class="input-field">
-                            {{form.title.label}}
-                            {{form.title}}
-                        </div>
-
-                        <div class="input-field">
-                            {{form.description.label}}
-                            {{form.description}}
-                        </div>
-                        <div class="input-field">
-                            {{form.Proposed_price.label}}
-                            {{form.Proposed_price}}
-                        </div>
-                        <div class="input-field">
-                            {{form.deadline.label}}
-                            e.g mm/dd/yyyy hh:mm (AM/PM)
-                            {{form.deadline}}
-                        </div>
-
-                        <br>
-                        <div>
-                            <p style="color: red;">Attach any files or image necessary to do the work effeciently Below</p>
-                            <br></br>
-                            {{form.file.label}}
-                            {{form.file}}
-                        </div>
-                    </div>
-
-                    <button class="nextBtn">
-                        <span class="btnText">Submit</span>
-                        <i class="uil uil-navigator"></i>
-                    </button>
-                    <br>
-
-
-                    {{form.errors}}
-                </div>
-
-            </form>
-        </div>
-
+        </form>
     </div>
-</div>
 
 
-</div>
 
 
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    {{form.errors}}
 
-<script src="{%static 'js/script.js'%}"></script>
 
-<script>
-  
-</script>
 
+
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
 
 
 {%endblock %}

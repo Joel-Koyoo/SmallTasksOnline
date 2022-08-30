@@ -1,67 +1,61 @@
 {%load static%}
-
 {%block content%}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
 
-{%include 'tasks/main.html'%}
-n="anonymous">
 
 
-<style>
-    .profile-pic {
-        max-width: 200px;
-        max-height: 200px;
-        margin: 0 auto;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-    }
 
-    .profile {
 
-        margin-left: 35%;
-    }
 
-    input {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border-radius: 15px;
-
-    }
-</style>
-
-<div class="main">
+<body>
+    {%include 'tasks/main.html'%} 
     {%include 'tasks/topbar.html'%}
-   
-    <h3 style="text-align:center">Account Settings</h3>
-    {% if request.user.client.picture %}
-    <img src="{{request.user.client.picture.url}}" alt="" class="profile-pic">
-
-    {%else%}
-
-    <img src="{{profile_pic.jpg}}" alt="" class="profile-pic">
-
-    {%endif%}
-    <div class="profile">
-        <form action="" method="POST" enctype="multipart/form-data" class="">
-            {%csrf_token%}
-
-            <form method="POST" action="">
-                {%csrf_token%}
-                <div class="input-group">
-
-                    {{form.as_p}}
-                    <input type="submit" name="Update Information" class="btn btn-primary">
 
 
-                </div>
+
+    <!--Contact form-->
+
+    <div class="items-center w-5/6 mx-2 my-2 md:w-1/2 mt-12 mx-auto md:ml-[310px]" id="Profile">
+
+        <h2 class="text-center text-2xl">Account Settings</h2>
+        <div class="flex justify-center">
+            {% if request.user.client.picture %}
+            <img src="{{request.user.client.picture.url}}" alt="" class="max-w-xs max-h-xs ">
+
+            {%else%}
+
+            <img src="{{profile_pic.jpg}}" alt="" class="max-w-xs max-h-xs ">
+
+            {%endif%}
+        </div>
+        <form method="POST" enctype="multipart/form-data" class="w=5/6">
+            {% csrf_token %}
+            {{form|crispy}}
+
+            <button
+                class="bg-brightRedLight hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="button">
+                Submit
+            </button>
+
+
+        </form>
+
     </div>
-</div>
-</div>
-
-</form>
 
 
 
-{%endblock%}
+
+    {{form.errors}}
+
+
+
+
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
+
+
+{%endblock %}

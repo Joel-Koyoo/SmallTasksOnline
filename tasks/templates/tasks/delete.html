@@ -1,22 +1,74 @@
 {%load static%}
 {%block content%}
-<br>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="card card-body">
-            <p>Are you sure you want to delete "{{task}}"</p>
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
 
 
-            <form action="{%url 'delete_Task' task.id %}" method="POST">
-                {%csrf_token%}
-                <a class="btn btn-warning" href="{%url 'dashboard' %}">Cancel</a>
-                
-                <input class="btn btn-danger" type="submit" name="Delete">
-            </form>
 
-            {%endblock%}
+<!DOCTYPE html>
+<html lang="en">
 
-        </div>
-    </div>
-</div>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
+
+
+    {%include 'tasks/main.html'%}
+    {%include 'tasks/topbar.html'%}
+
+
+
+    <div class="max-w-4xl md:ml-[330px] text-left bg-white" id="claimed-container">
+        <button
+            class="hidden md:block bg-brightRedLight  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
+            type="button"><a class="btn btn-info" href="{%url 'taskpool'%}">Back to Taskpool</a>
+
+        </button>
+
+        <!-- The grid parent -->
+        <div class="mt-12 auto container grid grid-cols-5">
+
+
+            <!-- Header section -->
+            <header class="col-span-5 p-10 bg-amber-200">
+                <h2 class="text-center text-2xl">DELETE PAGE</h2>
+
+            </header>
+
+            <main class="col-span-10 md:col-span-5 h-96 p-10 bg-blue-200">
+                <h1 class="text-center text-2xl">Are you sure you want to delete "{{task}}"</h1>
+
+
+
+                <form action="{%url 'delete_Task' task.id %}" class="mt-12 flex justify-center" method="POST">
+
+                    {%csrf_token%}
+                    <div class="m">
+                        <button class="max-w-6xl p-3 px-6 pt-2 place-content-center ">
+                            <a class="p-3 px-6 pt-2  block text-white bg-gray-500 focus:shadow-outline focus:outline-none text-white rounded-none"
+                                type="button" href="{%url 'dashboard' %}">Cancel</a>
+                        </button>
+    
+                    </div>
+                 
+                    <div class="max-w-6xl p-3 px-6 pt-2 place-content-center">
+                        <input class="p-3 px-6 pt-2 block text-white bg-gray-500 focus:shadow-outline focus:outline-none text-white rounded-none" value="Delete" type="submit" >
+                    </div>
+                </form>
+
+
+
+
+            </main>
+
+
+            {%endblock %}

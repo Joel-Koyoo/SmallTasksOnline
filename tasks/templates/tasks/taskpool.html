@@ -1,69 +1,107 @@
-{%block content%}
 {%load static%}
-{%include 'tasks/main.html'%}
-
-<style>
-    form {
-        all: initial;
-    }
-</style>
+{%block content%}
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 
 
-<!-- main -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
 
 
-
-<div class="main">
+    {%include 'tasks/main.html'%}
     {%include 'tasks/topbar.html'%}
-    <div class="details">
-        <form action="" method="get">
+    <div class="md:ml-[200px] text-center bg-white mt-12" id="taskpool-container">
+
+        <form id="form" class="hidden lg:block " action="" method="get">
+
             {{myFilter.form}}
-            <input type="submit" value="Search" class="btn btn-primary">
+
+            <input type="submit" value="Search"
+                class=" px-4 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">
         </form>
-        <div class="recentOrders">
-            <div class="cardHeader">
-                <h2>Welcome to the TaskPool {{request.user}}, Below are available tasks</h2>
-            </div>
-            <table class="table-1">
-
-                {%if not tasks%}
-                <thead>
-                    <h2>We apologize, there are no tasks as of the moment, Do check back in a short while, they will appear here</h2>
-                </thead>
-                {%else%}
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Deadline</th>
-                        <th>Proposed Price</th>
-                        <th>Status</th>
-                        <th>View</th>
-                    </tr>
-                </thead>
-
-                {%endif%}
-                <tbody>
-                    {%for task in tasks%}
-
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'viewtasks' task.id %}">View-Task</a></td>
-
-                    </tr>
-
-                    {%endfor%}
-                </tbody>
 
 
-            </table>
-        </div>
+
+        <h2 class="mx-auto text-2xl mt-8 underline">Welcome to the TaskPool {{request.user}}, Below are available tasks
+        </h2>
+
+
+        <table class="w-5/6 mx-auto" id="table">
+
+            {%if not tasks%}
+            <thead>
+                <h2 class= "text-xl underline">We apologize, there are no tasks as of the moment, Do check back in a short
+                    while,
+                    they will appear here</h2>
+            </thead>
+            {%else%}
+
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                <tr>
+                    <th
+                        class="hidden w-20 md:table-cell w-20 md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Title</th>
+                    <th class="md:table-cell p-3 text-base text-center font-semibold tracking-wide">
+                        Category</th>
+                    <th
+                        class="hidden md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Deadline</th>
+                    <th id="proposed-price"
+                        class="hidden md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Proposed Price</th>
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">Status
+                    <th
+                        class="table-cell w-20 md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        View</th>
+            </thead>
+
+            {%endif%}
+            <tbody>
+                {%for task in tasks%}
+
+                <tr>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.title}}</td>
+                    <td class="w-20 text-center whitespace-nowrap p-3 text-base text-gray-700">{{task.category}}</td>
+                    <td id="deadline"
+                        class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.deadline}}</td>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.Proposed_price}}</td>
+                    <td class="w-25 text-center p-3 text-base text-gray-700" id="status">{{task.status}}</td>
+
+                    <td class="w-25 text-center p-0 px-0 mx-0 text-gray-700  rounded-none  baseline" id="status">
+                        <a class="whitespace-nowrap text-white bg-blue p-2 rounded-full"
+                            href="{%url 'viewtasks' task.id %}">
+                            View-Task</a>
+                    </td>
+
+                </tr>
+
+                {%endfor%}
+            </tbody>
+
+
+        </table>
     </div>
-</div>
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
+
+</html>
 
 
 

@@ -9,6 +9,8 @@ from django.dispatch import receiver
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import AbstractUser
 import sys
+from django.db import models
+from ckeditor.fields import RichTextField 
 
 
 
@@ -17,6 +19,7 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class Client(models.Model):
+   
     user = models.OneToOneField(
         User, null=True, blank=True, on_delete=models.CASCADE)
     FirstName = models.CharField(max_length=200, null=True)
@@ -30,7 +33,7 @@ class Client(models.Model):
     birth_date = forms.DateField(widget=DateInput)
     
     def __str__(self):
-        return str(self.user)
+        return str(self.id)
     
     
     
@@ -52,11 +55,12 @@ class Task(models.Model):
         ('Available', 'Available'),
         ('Claimed', 'Claimed'), 
         ('Under Review', 'Under Review'), 
+        ('Flagged', 'Flagged'), 
         ('Submitted', 'Submitted'),
         ('Paid', 'Paid'),
     )
     title = models.CharField(max_length=200, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    description = RichTextField(blank=True,null=True)
     created = models.DateTimeField(auto_now_add=True)
     deadline= models.DateTimeField(blank=True, null=True)   
     Proposed_price = models.FloatField(null=True)
@@ -66,12 +70,15 @@ class Task(models.Model):
     file = models.FileField(null=True, blank=True, upload_to="files")
 
     #data for any complaints
-    Submit_Description_report=models.TextField(null=True, blank=True)
+    Submit_Description_report=RichTextField(blank=True,null=True)
+
+    #data for client complaints
+    client_complaint=RichTextField(blank=True,null=True)
 
     # FILES FOR SUBMIT
     Submit_Files= models.FileField(null=True, blank=True, upload_to="files")
     Submit_Image= models.ImageField(default="profile_pic.jpg",null=True, blank=True, upload_to="files")
-    Submit_Description=models.TextField(null=True, blank=True)
+    Submit_Description=RichTextField(blank=True,null=True)
  
     
 

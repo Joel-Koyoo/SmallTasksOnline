@@ -1,64 +1,102 @@
-{%block content%}
 {%load static%}
-{%include 'tasks/main.html'%}
-
-<style>
-    form {
-        all: initial;
-    }
-</style>
+{%block content%}
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 
 
-<!-- main -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
 
 
-
-<div class="main">
+    {%include 'tasks/main.html'%}
     {%include 'tasks/topbar.html'%}
-    <div class="details">
-     
-        <div class="recentOrders">
-        
-            <table class="table-1">
 
-                {%if not tasks%}
-                <thead>
-                    <h2>None of your tasks has any complaint. If any they will appear here</h2>
-                </thead>
-                {%else%}
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Deadline</th>
-                        <th>Proposed Price</th>
-                        <th>Status</th>
-                        <th>View</th>
-                    </tr>
-                </thead>
+    <button
+        class="bg-brightRedLight md:ml-[300px]  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
+        type="button"><a class="btn btn-info" href="{%url 'dashboard'%}">Back to dashboard</a>
+    </button>
 
-                {%endif%}
-                <tbody>
-                    {%for task in tasks%}
-
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'Reportviewtasks' task.id %}">View-Task</a></td>
-
-                    </tr>
-
-                    {%endfor%}
-                </tbody>
+    <div class="md:ml-[200px] text-left bg-white" id="Report-container">
 
 
-            </table>
-        </div>
+        <h2 class="mx-auto text-2xl text-center mt-8 underline">Welcome to the Report Page {{request.user}}, Below are
+            tasks with issues
+        </h2>
+
+        <table class="w-5/6 md:ml-[150px]" id="table">
+
+            {%if not tasks%}
+            <thead>
+                <h2 class="text-xl mt-8 text-center">NB/ None of your tasks has any complaint. If any they will appear
+                    here</h2>
+            </thead>
+            {%else%}
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                <tr>
+                    <th
+                        class="hidden w-20 md:table-cell w-20 md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Title</th>
+                    <th class="md:table-cell p-3 text-base text-center font-semibold tracking-wide">
+                        Category</th>
+                    <th
+                        class="hidden md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Deadline</th>
+                    <th id="proposed-price"
+                        class="hidden md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Proposed Price</th>
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">Status
+                    <th
+                        class="table-cell w-20 md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        View</th>
+            </thead>
+
+            {%endif%}
+            <tbody>
+                {%for task in tasks%}
+
+                <tr>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.title}}</td>
+                    <td class="w-20 text-center whitespace-nowrap p-3 text-base text-gray-700">{{task.category}}</td>
+                    <td id="deadline"
+                        class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.deadline}}</td>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{task.Proposed_price}}</td>
+                    <td class="w-25 text-center p-3 text-base text-gray-700" id="status">{{task.status}}</td>
+
+                    <td class="w-25 text-center p-0 px-0 mx-0 text-gray-700  rounded-none  baseline" id="status">
+                        <a class="whitespace-nowrap text-white bg-blue p-2 rounded-full"
+                            href="  {%url 'Reportviewtasks' task.id %}">
+                            View-Task</a>
+                    </td>
+
+                </tr>
+
+                {%endfor%}
+
+
+
+        </table>
     </div>
-</div>
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
+
+</html>
 
 
 

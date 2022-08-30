@@ -1,58 +1,125 @@
-<div class="cardbox">
+{%load static%}
+{%block content%}
+{% load static tailwind_tags %}
 
-    <div class="card">
-        <div>
-            <div class="numbers">{{tasks_submitted}}</div>
-            <div class="cardName">Number of Given tasks</div>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{%static 'images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{%static 'images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{%static 'images/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    {% tailwind_css %}
+</head>
+
+
+<body class="bg-white font-[Poppins]">
+
+    <section class="py-4 md:ml-[300px] text-center sm:items-center bg-white" id="cardbox">
+
+        <div class="mx-auto px-6 sm:px-8 md:px-16">
+
+            <!-- Grid 2 begins -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-5  ">
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+                        <i class="bi bi-eye-fill float-right"></i>
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{tasks_submitted}}</div>
+                        <div class="text-base text-black2 mt-5 ">Number of Given tasks</div>
+                    </div>
+
+
+                </div>
+
+                {%if tasks_total.total%}
+
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">${{tasks_total.total}}</div>
+                        <div class="text-base text-black2 mt-5 ">Total Task Amount</div>
+                    </div>
+
+
+                </div>
+                {%else%}
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">$0</div>
+                        <div class="text-base text-black2 mt-5 ">Total Task Amount</div>
+                    </div>
+
+
+                </div>
+                {%endif%}
+
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'create_Task'%}" class="hover:text-white">
+                        <div>
+                            <div class="relative font-medium text-6xl">
+                                <i class="bi bi-question-lg hover:text-white"></i>
+                            </div>
+                            <div class="text-base text-black2 mt-5 ">Give us a task</div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="animate-bouce p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'ReportPoolPage'%}">
+                        {%if total > 0%}
+                        <div>
+                            <div class="relative font-medium text-6xl">
+                                <i class="animate-ping bi bi-flag-fill" style="color:red;"></i>
+                            </div>
+                            {%else%}
+                            <div class="relative font-medium text-6xl">
+                                <i class="bi bi-flag-fill" style="color:red;"></i>
+                            </div>
+                            {%endif%}
+
+
+                            <div class="text-base text-black2 mt-5 ">Reported Tasks</div>
+                        </div>
+                        {%if total > 0%}
+
+                        <div class="fill-black2">
+                            <h2 class="animate-ping" style="color:red;">{{total}}</h2>
+                        </div>
+
+                        {%else%}
+
+                        {%endif%}
+                    </a>
+                </div>
+
+            </div>
+
         </div>
+    </section>
+</body>
 
-        <div class="iconBx">
-            <ion-icon name="eye-outline"></ion-icon>
-        </div>
-    </div>
-    <div class="card">
-        <div>
-            <div class="numbers">{{tasks_total.total}}</div>
-            <div class="cardName">Total Task Amount</div>
-        </div>
-
-        <div class="iconBx">
-            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-        </div>
-    </div>
-    <div class="card">
-
-        <div>
-            <a href="{% url 'create_Task'%}" style="text-decoration:none;">
-                <div class="numbers"> + </div>
-                <div class="cardName">Give us a task</div>
-            </a>
-        </div>
-
-        <div class="iconBx">
-            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-        </div>
-
-    </div>
-    <div class="card">
-
-        <div>
-           
-            <a href="{% url 'ReportPoolPage'%}" style="text-decoration:none;">
-                <i style="color:red;"
-                class="fa fa-flag fa-3x" aria-hidden="true"></i>
-                <div class="cardName">Reported Tasks</div>
-            </a>
-        </div>
-
-        <div class="iconBx">
-           <h2 style="color:red ;">{{total}}</h2> 
-        </div>
-
-    </div>
-
-</div>
-
+<script src="{%static 'js/script.js'%}"></script>
 
 <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
 <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+
+</html>
+
+{%endblock%}

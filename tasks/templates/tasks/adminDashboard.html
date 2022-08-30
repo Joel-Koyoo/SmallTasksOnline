@@ -1,60 +1,220 @@
-{%block content%}
 {%load static%}
-{%include 'tasks/main.html'%}
+{%block content%}
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 
 
-<!-- main -->
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="main">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
+
+
+    {%include 'tasks/main.html'%}
     {%include 'tasks/topbar.html'%}
-    <div class="details">
-        <div class="recentOrders">
-            <div class="cardHeader">
-                <h2>Welcome</h2>
+
+
+    <section class="py-4 md:ml-[300px] text-center sm:items-center bg-white" id="cardbox">
+
+        <div class="mx-auto px-6 sm:px-8 md:px-16">
+
+            <!-- Grid 2 begins -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-5  ">
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+                        <i class="bi bi-eye-fill float-right"></i>
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{TasksNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">All Tasks</div>
+                    </div>
+
+                </div>
+
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{FlaggedNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">FlaggedNo</div>
+                    </div>
+
+
+                </div>
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{PaidNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">Paid Tasks</div>
+                    </div>
+
+
+                </div>
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{AvailableNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">Available Tasks</div>
+                    </div>
+
+
+                </div>
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{Under_ReviewNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">Under Review</div>
+                    </div>
+
+
+                </div>
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <div class="fill-black2">
+
+                    </div>
+                    <div>
+                        <div class="relative font-medium text-5xl">{{ClaimedNo}}</div>
+                        <div class="text-base text-black2 mt-5 ">Claimed Tasks</div>
+                    </div>
+
+
+                </div>
+
+                <div class="p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'create_Task'%}">
+                        <div>
+                            <div class="relative font-medium text-6xl">{{ClientNo}}</div>
+                            <div class="text-base text-black2 mt-5 ">Total Users</div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div
+                    class="animate-bouce p-30 shadow-2xl bg-white text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'ReportPoolPage'%}">
+                        {%if total > 0%}
+                        <div>
+                            <div class="relative font-medium text-6xl">
+                                <i class="animate-ping bi bi-flag-fill" style="color:red;"></i>
+                            </div>
+                            {%else%}
+                            <div class="relative font-medium text-6xl">
+                                <i class="bi bi-flag-fill" style="color:red;"></i>
+                            </div>
+                            {%endif%}
+
+
+                            <div class="text-base text-black2 mt-5 ">Reported Tasks</div>
+                        </div>
+                        {%if total > 0%}
+
+                        <div class="fill-black2">
+                            <h2 class="animate-ping" style="color:red;">{{total}}</h2>
+                        </div>
+
+                        {%else%}
+
+                        {%endif%}
+                    </a>
+                </div>
 
             </div>
 
-            <div class="dashboardbuttons">
-                <a class="btn-2" href="{{client_list}}">{{client_list}}</a>
-
-                <a class="btn-2" href="">Task List</a>
-
-                <a class="btn-2" href="">paid task list</a>
-
-            </div>
-         
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>Status</th>
-                        <th>View</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {%for client in Clients%}
-
-                    <tr>
-                        <td>{{client.FirstName}}</td>
-                        <td>{{client.LastName}}</td>
-                        <td>{{client.is_taskhandler}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'ClientsDetail' client.id%}">View</a></td>
-
-                    </tr>
-
-                    {%endfor%}
-                </tbody>
-
-
-            </table>
-        
-         
         </div>
+    </section>
+    <div class="md:ml-[200px] text-center bg-white mt-12" id="taskpool-container">
+
+        <form id="form" class="hidden lg:block " action="" method="get">
+
+            {{myFilter.form}}
+
+            <input type="submit" value="Search"
+                class=" px-4 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">
+        </form>
+
+
+
+        <h2 class="mx-auto text-2xl mt-8 underline">Welcome to Admin Dashboard
+        </h2>
+
+
+        <table class="w-5/6 mx-auto" id="table">
+
+
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                <tr>
+                    <th
+                        class="hidden w-20 md:table-cell w-20 md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        FirstName</th>
+                    <th class="md:table-cell p-3 text-base text-center font-semibold tracking-wide">
+                        LastName</th>
+                    <th
+                        class="hidden md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Email</th>
+
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">
+                        is_taskhandler</th>
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">
+                        ID</th>
+                    <th
+                        class="table-cell w-20 md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        View</th>
+            </thead>
+
+
+            <tbody>
+                {%for client in Clients%}
+
+                <tr>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{client.FirstName}}</td>
+                    <td class="w-20 text-center whitespace-nowrap p-3 text-base text-gray-700">{{client.LastName}}</td>
+                    <td id="deadline"
+                        class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{client.email}}</td>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{client.is_taskhandler}}</td>
+                    <td class="hidden md:table-cell md:table-cell md:w-20 text-center p-3 text-base text-gray-700">
+                        {{client.id}}</td>
+
+                    <td class="w-25 text-center p-0 px-0 mx-0 text-gray-700  rounded-none  baseline" id="status">
+                        <a class="whitespace-nowrap text-white bg-blue p-2 rounded-full"
+                            href="{% url 'userData' client.id%}">
+                            View-Week Work</a>
+                    </td>
+
+                </tr>
+
+                {%endfor%}
+            </tbody>
+
+
+        </table>
     </div>
-</div>
+
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
+
+</html>
 
 
 

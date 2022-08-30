@@ -21,6 +21,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Sum
 import json
 from django.core.mail import send_mail
+import random
 
 from .filters import TaskFilter
 # Create your views here.
@@ -37,16 +38,18 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            userCreation = form.save(commit=False)
+            userCreation.username=request.POST.get('username')
+            
+            userCreation.save()
 
-            username = form.cleaned_data.get('username')
 
-            messages.success(request, 'Account was created for ' + username)
+            messages.success(request, 'Account was created for ' + userCreation.username)
             return redirect('login')
 
         else:
 
-            print('error')
+            print('problem with form')
 
     context = {'form': form}
     return render(request, 'tasks/register.html', context)
@@ -79,7 +82,7 @@ def logoutUser(request):
     return redirect('login')
 
 def valueTasks(user):
-    tasks = user.task_set.all().filter(status='Under Review')
+    tasks = user.task_set.all().filter(status='Flagged')
 
     tasks_reported_total=tasks.count()
     return tasks_reported_total, tasks
@@ -90,38 +93,57 @@ def ReportPoolPage(request):
   
     client = request.user.client
     total, tasks = valueTasks(client)
+
+    print(tasks)
     myFilter = TaskFilter(request.GET, queryset=tasks)
     tasksFilter = myFilter.qs.order_by('deadline', 'created')
 
     context = {'total':total,'tasks': tasks,'tasksFilter': tasksFilter, 'myFilter': myFilter, 'navbar': 'taskpool'
         }
     return render(request, 'tasks/ReportPoolPage.html', context)
-   
+
+
+
+def ClientTasks(user):
+    tasks = Task.objects.all()
+    taskhandler=tasks.filter(taskhandler=user)
+    tasksUnd = taskhandler.filter(status='Under Review')
+    tasks_reported_total=tasksUnd.count()
+    return tasks_reported_total, tasksUnd
 
 
 @login_required(login_url="login")
 def DashboardPage(request):
     user = Client.objects.get_or_create(user=request.user)
     client = request.user.client
-    tasks = client.task_set.all()
+    tasks = client.task_set.all().order_by("-status")
     clients = Client.objects.all()
     tasks_submitted = client.task_set.all().count()
 
     total, tasks_complaints = valueTasks(client)
-    print(total)
+    totalC,tasks_clientC=ClientTasks(client)
+    
 
     if tasks_complaints:
          messages.success(
-                request, 'You have problems flagged  on your tasks, click the flag to sort them ')
+                request, 'You have problems flagged on your task, Go to Reported tasks to sort them')
     else:
         pass
 
+    if totalC>0:
+         if (request.user.client.is_taskhandler == True):
+             messages.success(
+                request, 'Kindly click the blinking area to sort the clients complain')
+    else:
+        pass
+    
     myFilter = TaskFilter(request.GET, queryset=tasks)
-    tasks = myFilter.qs.order_by('status', 'created')
+    tasksFilter = myFilter.qs.order_by('status', 'created')
 
     tasks_total = client.task_set.all().aggregate(total=Sum('Proposed_price'))
+
     context = {'total':total,'tasks_complaints':tasks_complaints,
-        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted, 'tasks_total': tasks_total, "myFilter": myFilter, "client": client, 'navbar': 'dashboard'
+        'tasks': tasks,  'clients': clients, 'tasks_submitted': tasks_submitted, 'tasks_total': tasks_total, "myFilter": myFilter, "client": client, 'navbar': 'dashboard','tasksFilter':tasksFilter,'totalC':totalC,'tasks_clientC':tasks_clientC
     }
 
     return render(request, "tasks/dashboard.html", context)
@@ -134,13 +156,11 @@ def ClaimedTasks(request):
         tasks_1 = tasks.filter(taskhandler=request.user.client)
         Total_amount = tasks_1.aggregate(total=Sum('Proposed_price'))
 
-        myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasksFilter = myFilter.qs.order_by('status')
-        context = {' tasksFilter': tasksFilter,'tasks_1': tasks_1,  'myFilter': myFilter,'Total_amount': Total_amount}  
-        return render(request, 'tasks/claimed_tasks.html', context)
-    else:
-        return render(request, 'tasks/unauthorized.html')
 
+        context = {'tasks_1': tasks_1, 'Total_amount': Total_amount,'tasks':tasks} 
+
+        return render(request, 'tasks/claimed_tasks.html', context)
+   
 
 def SubmittedTasks(request):
 
@@ -149,33 +169,92 @@ def SubmittedTasks(request):
 
         tasks_1 = tasks.filter(
             status="Submitted", taskhandler=request.user.client)
+
         Total_amount = tasks_1.aggregate(total=Sum('Proposed_price'))
+
+        
+        
+
+        # payable_amount=Total_amount *.25
+
         context = {"tasks_1": tasks_1, 'Total_amount': Total_amount}
+
+       
         return render(request, 'tasks/Submitted_tasks.html', context)
     else:
         return render(request, 'tasks/unauthorized.html')
+
+
 
 
 @login_required(login_url="login")
 def AdminDashboardPage(request):
 
     if (request.user.client.is_admin == True):
-        Clients = Client.objects.all()
-        Task_1 = Task.objects.all()
-        Tasks = Task.objects.filter(status='Paid')
 
-        client_list = request.GET.get('Client_List')
-        Task_List = request.GET.get('Task_List')
-        paid_task_list = request.GET.get('paid_task_list')
+
+        Clients = Client.objects.all().order_by("-is_taskhandler")
+        Tasks = Task.objects.all()
+        TasksNo=Tasks.count()
+        ClientNo=Clients.count()
+
+        Flagged=Tasks.filter(status='Flagged')
+        FlaggedNo=Tasks.filter(status='Flagged').count()
+        Paid =Tasks.filter(status='Paid')
+        PaidNo =Tasks.filter(status='Paid').count()
+        Available=Tasks.filter(status='Available')
+        AvailableNo=Tasks.filter(status='Available').count()
+        Under_Review =Tasks.filter(status='Under Review')
+        Under_ReviewNo =Tasks.filter(status='Under Review').count()
+        Claimed=Tasks.filter(status='Claimed')
+        ClaimedNo=Tasks.filter(status='Claimed').count()
+    
+
+      
+
 
         # total_tasks_given = Client.task_set.all().count()
 
         return render(request, 'tasks/adminDashboard.html', {
-            'Clients': Clients, "Tasks": Tasks, "Task_1": Task_1, 'client_list': client_list
+            'Clients': Clients, "Tasks": Tasks,'TasksNo':TasksNo,'ClientNo':ClientNo,'Flagged':Flagged,'Paid':Paid,'Available':Available,'Under_Review':Under_Review,'Claimed':Claimed,'FlaggedNo':FlaggedNo,'PaidNo':PaidNo,'AvailableNo':AvailableNo,'Under_ReviewNo':Under_ReviewNo,'ClaimedNo':ClaimedNo
         })
-    else:
-        return render(request, 'tasks/unauthorized.html')
+  
 
+def userData(request,pk):
+    client=Client.objects.get(id=pk)
+
+    tasks = client.task_set.all()
+    
+    tasksSubmitted = tasks.filter(
+            status="Submitted", taskhandler=client)
+
+    tasksPaid = tasks.filter(
+            status="Paid", taskhandler=client)
+
+    tasksClaimed = tasks.filter(
+            status="Claimed", taskhandler=client)
+
+    tasksUnderReview = tasks.filter(
+            status="UnderReview", taskhandler=client)
+
+
+    Total_amount = tasksPaid.aggregate(total=Sum('Proposed_price'))
+
+    Total_amount_owed = tasks.aggregate(total=Sum('Proposed_price'))
+
+    if request.method == "POST":
+        tasksPaid.delete()
+
+
+
+    
+            
+    context={'client':client,'tasks':tasks,'tasksSubmitted':tasksSubmitted,'tasksClaimed':tasksClaimed,'tasksUnderReview':tasksUnderReview,'tasksPaid':tasksPaid,'Total_amount':Total_amount,'Total_amount_owed':Total_amount_owed}
+
+    return render(request,'tasks/userData.html',context)
+
+
+    
 
 def updateClientDetail(request, pk):
     client = Client.objects.get(id=pk)
@@ -207,6 +286,7 @@ def createTask(request):
             task.client = request.user.client
             task.deadline.strftime("%Y-%m-%d %H:%M")
             task.save()
+
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
             return redirect('/dashboard')
@@ -234,12 +314,14 @@ def updateTask(request, pk):
         if form.is_valid():
             task.status = 'Available'
             form.save()
+
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
             return redirect('dashboard')
         else:
             form = TaskForm()
             print('error1')
+   
 
     context = {'form': form}
     return render(request, 'tasks/tasksForm.html', context)
@@ -258,14 +340,15 @@ def deleteTask(request, pk):
 @login_required(login_url="login")
 def TaskPoolPage(request):
     if (request.user.client.is_taskhandler == True):
-        clients = Client.objects.all()
-        tasks = Task.objects.filter(status='Available')
+        allTasks=Task.objects.all()
+      
+        tasks = allTasks.filter(status='Available').order_by('deadline')
 
         myFilter = TaskFilter(request.GET, queryset=tasks)
-        tasksFilter = myFilter.qs.order_by('deadline', 'created')
+        tasks = myFilter.qs.order_by('deadline', 'created')
 
 
-        context = {'tasksFilter':tasksFilter,
+        context = {
             'tasks': tasks, 'myFilter': myFilter, 'navbar': 'taskpool'
         }
         return render(request, 'tasks/taskpool.html', context)
@@ -275,8 +358,11 @@ def TaskPoolPage(request):
 
 def viewtasks(request, pk):
     task = Task.objects.get(id=pk)
+    task_id=task.id
 
-    context = {'task': task}
+    print(task.description)
+
+    context = {'task': task,'task_id':task_id}
 
     return render(request, 'tasks/viewtasks.html', context)
 
@@ -309,7 +395,11 @@ def SubmitTask(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
         if form.is_valid():
-            task.status = "Submitted"
+            if task.status == "Under Review":
+                task.status="Paid"
+            else:
+                task.status = "Submitted"
+        
             form.save()
             messages.success(
                 request, 'Your task has been submitted  check Your dashboard for progress ')
@@ -329,7 +419,7 @@ def acceptTask(request, pk):
 
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
-        task.taskhandler = request.user.client
+        task.taskhandler = request.user.client.id
         task.status = 'Claimed'
         task.save()
 
@@ -389,6 +479,43 @@ def ContactUs(request):
         messages.success(
                 request, 'Thank you for submitting the form, we will be in touch soon ')
         return redirect('/dashboard')
+
+    if request.method =='POST':
+
+        name=request.POST.get('full-name') 
+        email=request.POST.get('email')
+        Country=request.POST.get('Country')
+        Age=request.POST.get('Age')
+        Education=request.POST.get('Education')
+        field=request.POST.get('field')
+        years=request.POST.get('years')
+        file=request.POST.get('file')
+
+        data={
+            'name':name,
+            'email':email,
+            'Country':Country,
+            'Age':Age,
+            'Education':Education,
+            'field':field,
+            'years':years,
+            'file':file
+
+        }
+
+        message='''
+        New message:{}
+        
+
+        From:{}
+        
+        '''.format(data['message'],data['email'])
+
+
+        send_mail(data['message'],message,'',['support@smalltasksonline.com'])
+        messages.success(
+                request, 'Thank you for submitting the form, we will be in touch soon ')
+        return redirect('/dashboard')
       
     
     client = request.user.client
@@ -408,7 +535,7 @@ def reportPage(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
         if form.is_valid():
-            task.status = 'Under Review'
+            task.status = 'Flagged'
             form.save()
             messages.success(
                 request, 'Your complaint has been submitted. Kindly go to taskpool for more tasks')
@@ -449,3 +576,105 @@ def Reportviewtasks(request, pk):
     return render(request, 'tasks/ReportViewtasks.html', context)
 
 
+def ClientPage(request, pk):
+
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
+        if form.is_valid():
+            task.status = 'Under Review'
+            form.save()
+            messages.success(
+                request, 'Your complaint has been submitted.The issue is being handles. Check the Task Progress Bar for details')
+            return redirect('dashboard')
+          
+        else:
+            form = TaskForm()
+            print('error1')
+
+    context = {'form': form, 'task': task}
+    return render(request,  'tasks/ClientPage.html', context)
+
+def ComplainedTasks(request):
+
+    if (request.user.client.is_taskhandler == True):
+        tasks = Task.objects.all()
+
+        tasks_1 = tasks.filter(
+            status="Under Review", taskhandler=request.user.client)
+
+        context = {"tasks_1": tasks_1}
+
+       
+        return render(request, 'tasks/ComplainedTasks.html', context)
+
+
+   
+
+@login_required(login_url="login")
+def ClientPoolPage(request):
+  
+    taskhandler = request.user.client
+    
+    tasks_reported_total, tasksUnd = ClientTasks(taskhandler)
+    print(tasksUnd)
+    print(taskhandler)
+    print(request.user)
+    print(tasks_reported_total)
+
+    context = {'tasksUnd': tasksUnd,'tasks_reported_total':tasks_reported_total,'taskhandler': taskhandler,
+        }
+    return render(request, 'tasks/ClientPoolPage.html', context)
+
+
+def viewClientReportPage(request, pk):
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
+        if form.is_valid():
+            task.status = 'Available'
+            task.Submit_Description_report=None
+            form.save()
+            messages.success(
+                request, 'Your Task has been submitted, check the dashboard for progress')
+            return redirect('dashboard')
+          
+        else:
+            form = TaskForm()
+            print('error1')
+    
+
+    context = {'form': form,'task': task}
+
+    return render(request, 'tasks/viewClientReportPage.html', context)
+
+
+
+
+
+def ClientTasks(user):
+    tasks = user.task_set.all().filter(status='Under Review')
+
+    tasks_reported_total=tasks.count()
+    return tasks_reported_total, tasks
+
+
+
+@login_required(login_url="login")
+def ClientReportPage(request):
+   
+  
+    client = request.user.client
+    total, tasks = ClientTasks(client)
+    
+    myFilter = TaskFilter(request.GET, queryset=tasks)
+    tasksFilter = myFilter.qs.order_by('deadline', 'created')
+
+    context = {'total':total,'tasks': tasks,'tasksFilter': tasksFilter, 'myFilter': myFilter, 'navbar': 'taskpool'
+        }
+    return render(request, 'tasks/ClientReportPage.html', context)
+   
