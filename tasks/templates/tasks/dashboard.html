@@ -52,38 +52,6 @@
         {%endif%}
 
 
-
-        {%if client.is_taskhandler == True%}
-        <div id="nav-buttons"
-            class="max-w-6xl px-5 mx-auto text-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-5 w-1/2 md:ml-[240px] md:flex justify-center mt-1 space-x-2 place-content-center">
-
-            <a class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md  baseline hover:bg-brightRedLight "
-                href="{%url 'ClientReportPage'%}">Tasks Complained</a>
-
-            <a class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md baseline hover:bg-brightRedLight "
-                href="{% url 'ClaimedTasks'%}">Tasks claimed</a>
-
-            <a class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md baseline hover:bg-brightRedLight "
-                href="{% url 'SubmittedTasks'%}">tasks submitted</a>
-
-            {%if totalC > 0%}
-
-            <a class="animate-ping p-3 px-6 pt-2 text-white bg-brightRed rounded-md  baseline hover:bg-brightRedLight "
-                href="{% url 'ClientPoolPage'%}">Client Complained Tasks</a>
-
-            {%else%}
-            <a class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md  baseline hover:bg-brightRedLight "
-                href="{% url 'ClientPoolPage'%}">Client Complained Tasks</a>
-            {%endif%}
-        </div>
-        {%else%}
-        <div class="mt-12">
-
-            <a class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md  baseline hover:bg-brightRedLight "
-                href="{%url 'ClientReportPage'%}">Tasks Complained</a>
-        </div>
-
-        {%endif%}
         <div class="mt-12">
             <h2 class="text-2xl underline">Task Progress Bar</h2>
         </div>
@@ -92,8 +60,7 @@
         <table class="w-1/2 md:w-5/6 mx-auto md:ml-[120px]" id="table">
             {%if not tasks%}
             <thead>
-                <h2 text-2xl underline>No Tasks Given at the moment <a href="{% url 'create_Task'%}"
-                        style="text-decoration:none;">
+                <h2 text-2xl underline>No Tasks Given at the moment <a class="underline" href="{% url 'create_Task'%}">
                         Click Here </a>to submit a task and the task progress will display here</h2>
             </thead>
             {%else%}
