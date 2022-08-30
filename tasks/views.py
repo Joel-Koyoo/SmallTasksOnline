@@ -23,7 +23,7 @@ import json
 from django.core.mail import send_mail
 import random
 
-from .filters import TaskFilter
+from .filters import TaskFilter,PeopleFilter
 # Create your views here.
 
 
@@ -209,14 +209,15 @@ def AdminDashboardPage(request):
         Claimed=Tasks.filter(status='Claimed')
         ClaimedNo=Tasks.filter(status='Claimed').count()
     
-
+        myFilter = PeopleFilter(request.GET, queryset=Clients )
+        Clients = myFilter.qs
       
 
 
         # total_tasks_given = Client.task_set.all().count()
 
         return render(request, 'tasks/adminDashboard.html', {
-            'Clients': Clients, "Tasks": Tasks,'TasksNo':TasksNo,'ClientNo':ClientNo,'Flagged':Flagged,'Paid':Paid,'Available':Available,'Under_Review':Under_Review,'Claimed':Claimed,'FlaggedNo':FlaggedNo,'PaidNo':PaidNo,'AvailableNo':AvailableNo,'Under_ReviewNo':Under_ReviewNo,'ClaimedNo':ClaimedNo
+            'Clients': Clients, "Tasks": Tasks,'TasksNo':TasksNo,'ClientNo':ClientNo,'Flagged':Flagged,'Paid':Paid,'Available':Available,'Under_Review':Under_Review,'Claimed':Claimed,'FlaggedNo':FlaggedNo,'PaidNo':PaidNo,'AvailableNo':AvailableNo,'Under_ReviewNo':Under_ReviewNo,'ClaimedNo':ClaimedNo,'myFilter':myFilter
         })
   
 

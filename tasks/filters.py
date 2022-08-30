@@ -9,4 +9,10 @@ class TaskFilter(django_filters.FilterSet):
     class Meta:
         model=Task
         fields=['title','category']
+
+
+class PeopleFilter(django_filters.FilterSet):
+    class Meta:
+        model=Client
+        fields=['email','id']
         

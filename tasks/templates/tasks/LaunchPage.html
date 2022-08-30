@@ -22,8 +22,9 @@
 
 		<div class="flex item-center justify-between">
 			<!-- logo -->
-			<div class="pt-2">
-				<img src="{%static 'images/logo.svg'%}" class="" alt="">
+			<div class="max-w-xs max-h-0">
+				<img src="{%static 'images/Smalltasksonline1.png'%}" class="" alt="">
+				<!-- <img src="{%static 'images/logo.svg'%}" class="max-w-xs max-h-0.5" alt=""> -->
 			</div>
 
 			<div class="hidden md:flex space-x-6 mt-3">
@@ -37,11 +38,7 @@
 
 			</div>
 
-			<!-- button -->
 
-			<a href="{%url 'register'%}"
-				class="hidden md:block p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
-				Started</a>
 
 			<!-- humburger icon -->
 			<button id="menu-btn" class="block hamburger md:hidden focus:outline-none">
@@ -69,7 +66,7 @@
 
 	<section id="features">
 		<!-- flex container -->
-		<div class="container flex flex-col px-4 mx-auto mt-10 items-center space-y-12 md:space-y-0 md:flex-row">
+		<div class="container flex flex-col px-4 mx-auto mt-6 items-center space-y-12 md:space-y-0 md:flex-row">
 			<!-- whats different -->
 			<div class="flex flex-col space-y-12 md:w-1/2">
 				<h2 class="max-w-md text-4xl font-bold text-center md:text-left"> What do we do at SmallTasksOnline?
@@ -80,6 +77,15 @@
 					dedicated to helping you complete academic or work-based tasks, such as assignments, essays,school
 					problems, term-papers, and reports
 				</p>
+
+				<!-- button -->
+				<div class="max-w-xs text-center">
+
+					<a href="{%url 'register'%}"
+						class="hidden md:block p-2 px-4 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
+						Started</a>
+				</div>
+
 			</div>
 			<!--numbered list  -->
 
@@ -275,7 +281,7 @@
 			</div>
 			<!-- button -->
 			<div class="my-16">
-				<a href="{url 'register'}"
+				<a href="{%url 'register'%}"
 					class="p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
 					Started</a>
 			</div>
@@ -295,30 +301,24 @@
 					Copyright &copy; 2022,All Rights Reserved
 				</div>
 				<!-- logo -->
-				<div>
-					<img src="{%static 'images/logo.svg'%}" class="h-8" alt="">
-				</div>
 
 				<!-- social links container -->
 				<div class="flex justify-center space-x-4">
 					<!-- link 1 -->
-					<a href="">
+					<a href="https://www.facebook.com/SmallTasksOnline">
 						<img src="{%static 'images/icon-facebook.svg'%}" class="h-8" alt="">
 					</a>
-					<!-- link 2-->
-					<a href="">
-						<img src="{%static 'images/icon-youtube.svg'%}" class="h-8" alt="">
-					</a>
+				
 					<!-- link 1 -->
-					<a href="">
+					<a href="https://twitter.com/Small_Tasks">
 						<img src="{%static 'images/icon-twitter.svg'%}" class="h-8" alt="">
 					</a>
 					<!-- link 1 -->
-					<a href="">
+					<a href="https://www.pinterest.com/smalltasks/">
 						<img src="{%static 'images/icon-pinterest.svg'%}" class="h-8" alt="">
 					</a>
 					<!-- link 1 -->
-					<a href="">
+					<a href="https://www.instagram.com/smalltasksonline/">
 						<img src="{%static 'images/icon-instagram.svg'%}" class="h-8" alt="">
 					</a>
 				</div>
@@ -333,25 +333,16 @@
 
 				</div>
 				<div class="flex flex-col space-y-3 text-white">
-					<a href="#" class="hover:text-brightRed">Sign Up</a>
-					<a href="#" class="hover:text-brightRed">Login</a>
-					<a href="#" class="hover:text-brightRed">Contact Us</a>
+					<a href="{%url 'register'%}" class="hover:text-brightRed">Sign Up</a>
+					<a href="{%url 'login'%}" class="hover:text-brightRed">Login</a>
+					<a href="{%url 'register'%}" class="hover:text-brightRed">Contact Us</a>
 
 				</div>
 			</div>
 
 			<!-- input container -->
 			<div class="flex flex-col justify-between">
-				<form action="">
-					<div class="flex space-x-3">
-						<input type="text" class="flex-1 px-4 rounded-full focus:outline-none"
-							placeholder="Updates in your inbox">
-						<button
-							class="px-6 py-2 text-white rounded-full bg-brightRed hover-bg-brightRedLight focus:outline-none">
-							Go
-						</button>
-					</div>
-				</form>
+			
 				<div class="hidden text-white md:block">
 					Copyright &copy; 2022,All Rights Reserved
 				</div>

@@ -36,7 +36,7 @@
                     </div>
                     <div>
                         <div class="relative font-medium text-5xl">{{tasks_submitted}}</div>
-                        <div class="text-base text-black2 mt-5 ">Number of Given tasks</div>
+                        <div class="text-base text-black2 mt-5 ">Number of tasks</div>
                     </div>
 
 
@@ -81,6 +81,90 @@
 
                 </div>
 
+
+
+                {%if client.is_taskhandler == True%}
+
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'SubmittedTasks'%}" class="hover:text-white">
+                        <div class="relative font-medium text-6xl">
+                            <i class="bi bi-check-lg hover:text-white"></i>
+                        </div>
+
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Submitted Tasks</div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{%url 'ClientReportPage'%}" class="hover:text-white">
+                        <div class="relative font-medium text-6xl">
+                            <i class="bi bi-exclamation-lg hover:text-white"></i>
+                        </div>
+
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Tasks Complained</div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'ClaimedTasks'%}" class="hover:text-white">
+                        <div class="font-medium text-4xl">
+                            <i class="bi bi-list-task hover:text-white"></i>
+                        </div>
+
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Tasks claimed</div>
+                        </div>
+                    </a>
+
+                </div>
+
+
+
+                {%if totalC > 0%}
+                <div class="animate-bouce p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'ClientPoolPage'%}">
+                        <div class="relative font-medium text-6xl">
+                            <i class="bi bi-radioactive hover:text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Client Complained Tasks</div>
+                        </div>
+                    </a>
+                </div>
+
+                {%else%}
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{% url 'ClientPoolPage'%}">
+                        <div class="relative font-medium text-6xl">
+                            <i class="bi bi-radioactive hover:text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Client Complained Tasks</div>
+                        </div>
+                    </a>
+                </div>
+                {%endif%}
+
+
+                {%else%}
+                <div class="p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
+                    <a href="{%url 'ClientReportPage'%}">
+                        <div class="relative font-medium text-6xl">
+                            <i class="bi bi-radioactive hover:text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-base text-black2 mt-5 ">Tasks Complained</div>
+                        </div>
+                    </a>
+                </div>
+
+                {%endif%}
+
                 <div class="animate-bouce p-30 shadow-2xl text-lg font-bold rounded-2xl hover:bg-blue hover:text-white">
                     <a href="{% url 'ReportPoolPage'%}">
                         {%if total > 0%}
@@ -109,17 +193,9 @@
                     </a>
                 </div>
 
-            </div>
 
-        </div>
+
+
     </section>
-</body>
 
-<script src="{%static 'js/script.js'%}"></script>
-
-<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
-<script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
-
-</html>
-
-{%endblock%}
+    {%endblock%}
