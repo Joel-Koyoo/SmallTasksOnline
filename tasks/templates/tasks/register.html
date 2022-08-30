@@ -2,7 +2,6 @@
 {%block content%}
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,12 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{%static 'css/style2.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
 
     <title>SmallTasksOnline</title>
-	<link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+
     <title>
-   
+
     </title>
 </head>
 
@@ -23,45 +22,54 @@
     <div id="container" class="container">
         <!-- FORM SECTION -->
         <form method="POST" action="">
+
             {%csrf_token%}
             <div class="row">
                 <!-- SIGN UP -->
                 <div class="col align-items-center flex-col sign-up">
                     <div class="form-wrapper align-items-center">
                         <div class="form sign-up">
-                            <img class="image" src="{%static 'images/SmallTasksLogo.png'%}">
+                           
                             <div class="input-group">
                                 <i class='bx bxs-user'></i>
-                                {{form.username}}
+                                <div class="in">
+                                    <input type="text" name="username" placeholder="username" required>
+                                   
+                                </div>
                             </div>
                             <div class="input-group">
                                 <i class='bx bx-mail-send'></i>
-                                {{form.email}}
+                                
+                                 
+                                    {{form.email}}
+                            
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
-                                {{form.password1}}
+                                
+                                   
+                                    {{form.password1}}
+                            
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
-                                {{form.password2}}
+                                
+                                    
+                                    {{form.password2}}
+                            
                             </div>
                             <button>
-                                <div class="d-flex justify-content-center mt-3 login_container">
-                                    <input style="background-color:  #0047AB; border: none;" class="btn login_btn" type="submit"
-                                        value="SIGN UP">
-                                </div>
+                                Sign up
                             </button>
                             <p>
                                 <span>
                                     Already have an account?
                                 </span>
                                 <b onclick="toggle()" class="pointer">
-                                    <a href="{% url 'login' %}" class="ml-2">Login</a>
+
+                                    <a href="{% url 'login' %}" class="ml-2">Sign In</a>
                                 </b>
                             </p>
-
-                            {{form.errors}}
                         </div>
                     </div>
                     <div class="form-wrapper">
@@ -82,6 +90,8 @@
                     </div>
                 </div>
                 <!-- END SIGN UP -->
+
+
                 <!-- SIGN IN -->
                 <div class="col align-items-center flex-col sign-in">
                     <div class="form-wrapper align-items-center">
@@ -108,7 +118,7 @@
                                 </span>
                                 <b onclick="toggle()" class="pointer">
 
-                                    <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
+                                    <a href="" class="ml-2">Sign Up</a>
 
                                 </b>
                             </p>
@@ -152,6 +162,7 @@
                     </div>
                 </div>
                 <!-- END SIGN IN CONTENT -->
+
                 <!-- SIGN UP CONTENT -->
                 <div class="col align-items-center flex-col">
                     <div class="img sign-up">
@@ -176,7 +187,7 @@
 
     <script>
 
-        //Query All input fields
+        // Query All input fields
         var form_fields = document.getElementsByTagName('input')
         form_fields[1].placeholder = 'Username..';
         form_fields[2].placeholder = 'Email..';
@@ -192,8 +203,8 @@
         let container = document.getElementById('container')
 
         toggle = () => {
-            container.classList.toggle('sign-up')
             container.classList.toggle('sign-in')
+            container.classList.toggle('sign-up')
         }
 
         setTimeout(() => {
@@ -204,4 +215,4 @@
 
 </html>
 
-{%endblock %}
+{%endblock%}

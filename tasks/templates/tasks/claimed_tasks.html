@@ -1,82 +1,141 @@
-{%block content%}
 {%load static%}
-{%include 'tasks/main.html'%}
+{%block content%}
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 
 
-<!-- main -->
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="main">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
+
+
+    {%include 'tasks/main.html'%}
     {%include 'tasks/topbar.html'%}
-    {{myFilter.form}}
-    <div class="details">
-        <div class="recentOrders">
-            <div class="cardHeader">
-                <h2>Tasks Claimed</h2>
-                <br>
-                <a href="{%url 'dashboard'%}" class="btn btn-warning">&#8592;Back to dashboard</a>
 
-            </div>
+    
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Deadline</th>
-                        <th>Proposed Price</th>
-                        <th>Status</th>
-                        <th>Submit Task</th>
-                    </tr>
-                </thead>
+    <div class="md:ml-[330px] text-left bg-white" id="claimed-container">
 
-                <tbody>
-                    {%for task in tasks_1%}
+    <button>
+        <a class="hidden md:block bg-brightRedLight  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
+            type="button" href="{%url 'dashboard'%}">Back to dashboard</a>
+    </button>
+
+        
+
+        <h2 class="mx-auto text-2xl text-center mt-8 underline">Welcome to the Claimed Tasks Page {{request.user}}, Below are
+            available tasks
+        </h2>
+        <h1 class="mt-2 text-center underline">TOTAL AMOUNT: {{Total_amount.total}} </h1>
+
+        <table class="w-5/6 mx-auto" id="table">
+
+            {%if not tasks_1%}
+            <thead>
+                <h2 class="text-xl underline">We apologize, there are no tasks as of the moment, Do check back in a
+                    short
+                    while,
+                    they will appear here</h2>
+            </thead>
+            {%else%}
+
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                <tr>
+                    <th
+                        class="hidden w-20 md:table-cell w-20 md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Title</th>
+                    <th class="md:table-cell p-3 text-base text-center font-semibold tracking-wide">
+                        Category</th>
+                    <th
+                        class="hidden md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Deadline</th>
+                    <th id="proposed-price"
+                        class="hidden md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                        Proposed Price</th>
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">Status
+                    </th>
+                    <th class="table-cell p-3 text-base w-20 text-center font-semibold tracking-wide text-center">Submit
+                        Task
+                    </th>
+
+            </thead>
+
+            {%endif%}
+            <tbody>
+                {%for task in tasks_1%}
 
 
-                    {%if task.status == "Submitted"%}
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" style="background:green;">Completed</a></td>
-                    </tr>
+                {%if task.status == "Submitted"%}
+                <tr>
+                    <td class="hidden md:table-cell md:w-20 text-left p-3 text-base text-gray-700">{{task.title}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700 whitespace-nowrap">{{task.category}}</td>
+                    <td class="hidden md:table-cell md:w-25 text-left p-3 text-base text-gray-700">{{task.deadline}}
+                    </td>
+                    <td class="hidden md:table-cell md:w-15 text-left p-3 text-base text-gray-700">
+                        {{task.Proposed_price}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700" id="status">{{task.status}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700"><a
+                            class="w-20 whitespace-nowrap p-1.5 text-base font-medium uppercase tracking-wider bg-green-700 rounded-lg bg-opacity-50">Submitted</a>
+                    </td>
+                </tr>
 
-                    {%elif task.status == "Paid"%}
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td><a class="btn btn-info" style="background:green;">Completed</a></td>
-                    </tr>
+                {%elif task.status == "Paid"%}
+                <tr>
+                    <td class="hidden md:table-cell md:w-20 text-left p-3 text-base text-gray-700">{{task.title}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700">{{task.category}}</td>
+                    <td class="hidden md:table-cell md:w-25 text-left p-3 text-base text-gray-700">{{task.deadline}}
+                    </td>
+                    <td class="hidden md:table-cell md:w-15 text-left p-3 text-base text-gray-700">
+                        {{task.Proposed_price}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700" id="status">{{task.status}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700"><a
+                        class="w-20 whitespace-nowrap p-1.5 text-base font-medium uppercase tracking-wider bg-green-500 rounded-lg bg-opacity-50">PAID-TASK</a>
+                </td>
+                </tr>
 
 
-                    {%else%}
+                {%else%}
 
 
-                    <tr class="tasks">
-                        <td>{{task}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td id="status">{{task.status}}</td>
-                        <td><a class="btn btn-info" id="view" href="{%url 'submit_task' task.id %}">Submit Task</a></td>
+                <tr class="tasks">
+                    <td class="hidden md:table-cell md:w-20 text-left p-3 text-base text-gray-700">{{task.title}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700">{{task.category}}</td>
+                    <td class="hidden md:table-cell md:w-25 text-left p-3 text-base text-gray-700">{{task.deadline}}
+                    </td>
+                    <td class="hidden md:table-cell md:w-15 text-left p-3 text-base text-gray-700">
+                        {{task.Proposed_price}}</td>
+                    <td class="w-20 text-left p-3 text-base text-gray-700" id="status">{{task.status}}</td>
+                    <td class="w-20 whitespace-nowrap text-left p-3 text-base text-gray-700"><a
+                            class="p-1.5 text-base font-medium uppercase tracking-wider bg-Red rounded-lg bg-opacity-50"
+                            href="{%url 'submit_task' task.id %}">Submit Task</a></td>
 
-                    </tr>
-                    {%endif%}
-                    {%endfor%}
-                </tbody>
 
-            </table>
+                </tr>
+                {%endif%}
+                {%endfor%}
+            </tbody>
 
-            <h1>TOTAL AMOUNT: {{Total_amount.total}} </h1>
-        </div>
+        </table>
+
+
     </div>
-</div>
 
+    <script src="{%static 'js/script.js'%}"></script>
+
+</body>
+
+</html>
 
 
 

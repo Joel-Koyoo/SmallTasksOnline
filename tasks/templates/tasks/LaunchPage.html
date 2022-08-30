@@ -1,5 +1,6 @@
 {%load static%}
 {%block content%}
+{% load static tailwind_tags %}
 
 
 
@@ -8,231 +9,365 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SmallTasksOnline</title>
-	<link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
-	<link rel="stylesheet" href="{%static 'css/style.css'%}">
-	<link rel="stylesheet" href="{%static 'css/fixed.css'%}">
-	<link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
-
+	{% tailwind_css %}
 </head>
 
-<body data-spy="scroll" data-target="#navbarResponsive">
+<body>
+	<nav class="relative container mx-auto p-6">
+		<!-- flex container -->
 
-	<!-- start home section -->
-	<div id="home">
-		<!-- navigation -->
+		<div class="flex item-center justify-between">
+			<!-- logo -->
+			<div class="pt-2">
+				<img src="{%static 'images/logo.svg'%}" class="" alt="">
+			</div>
 
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-			<a href="#" class="navbar-brand"><img src="{%static 'images/SmallTasksLogo.png'%}"></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-				<span class="navbar-toggler-icon"></span>
+			<div class="hidden md:flex space-x-6 mt-3">
+
+				<!-- menu items -->
+				<a href="#" class="hover:text-darkGrayishBlue">Home</a>
+				<a href="#" class="hover:text-darkGrayishBlue">About-Us</a>
+				<a href="#" class="hover:text-darkGrayishBlue">Our Skills</a>
+				<a href="#" class="hover:text-darkGrayishBlue">Contact Us</a>
+
+
+			</div>
+
+			<!-- button -->
+
+			<a href="{%url 'register'%}"
+				class="hidden md:block p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
+				Started</a>
+
+			<!-- humburger icon -->
+			<button id="menu-btn" class="block hamburger md:hidden focus:outline-none">
+				<span class="hamburger-top"></span>
+				<span class="hamburger-middle"></span>
+				<span class="hamburger-bottom"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-link"><a href="#home" class="nav-link">Home</a></li>
-					<li class="nav-link"><a href="#about" class="nav-link">About</a></li>
-					<li class="nav-link"><a href="#team-skills" class="nav-link">Team Skills</a></li>
-					<li class="nav-link"><a href="#contact" class="nav-link">Contact</a></li>
-				</ul>
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-link"><a href="{% url 'login'%}" class="nav-link">Log In</a></li>
-					<li class="nav-link"><a href="{% url 'register'%}" class="nav-link">Sign Up</a></li>
+		</div>
+		<!-- mobile menu -->
+		<div class="md:hidden">
+			<div id="menu"
+				class="absolute flex-col items-center self-end hidden py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
+				<a href="#" class="hover:text-darkGrayishBlue">Home</a>
+				<a href="#" class="hover:text-darkGrayishBlue">About-Us</a>
+				<a href="#" class="hover:text-darkGrayishBlue">Our Skills</a>
+				<a href="#" class="hover:text-darkGrayishBlue">Log-In</a>
+				<a href="#" class="hover:text-darkGrayishBlue">Sign-Up</a>
 
-				</ul>
-			</div>
-
-		</nav>
-		<!-- end of navigation -->
-		<!-- start landing page section -->
-		<div class="landing">
-			<div class="home-wrap">
-				<div class="home-inner">
-
-				</div>
 			</div>
 		</div>
+	</nav>
 
-		<div class="caption text-center">
-			<h1>Welcome to SmallTasksOnline</h1>
-			<h3>All your tasks sorted</h3>
-			<a href="{% url 'create_Task'%}" class="btn btn-light btn-lg">Give us a task</a>
-		</div>
 
-		<!-- end landing page section -->
-	</div>
-	<!-- end home section -->
-	<!-- start about section -->
-	<div id="about" class="offset">
+	<!-- feature section -->
 
-		<!-- start of jumbotron -->
-		<div class="jumbotron">
-			<div class="narrow text-center">
-				<div class="col-12">
-					<h3 class="heading">About us</h3>
-					<div class="heading-underline"></div>
-				</div>
+	<section id="features">
+		<!-- flex container -->
+		<div class="container flex flex-col px-4 mx-auto mt-10 items-center space-y-12 md:space-y-0 md:flex-row">
+			<!-- whats different -->
+			<div class="flex flex-col space-y-12 md:w-1/2">
+				<h2 class="max-w-md text-4xl font-bold text-center md:text-left"> What do we do at SmallTasksOnline?
+				</h2>
 
-				<div class="row text-center">
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="fa fa-book fa-4x" data-fa-transform="shrink-3 up-5"></i>
-							<h3>Assignment Tasks</h3>
-							<p>SmalltasksOnline team are highly performing individuals who ensure that all assignments
-								given are done with utmost concentration and rechecked. We ensure that you get your
-								assignment back on time and furthermore score highly on it!</p>
+				<p class="max-w-sm text-center text-darkGrayishBlue md:text-left">
+					SmallTasksOnline is a community of academically skilled individuals from all over ther world
+					dedicated to helping you complete academic or work-based tasks, such as assignments, essays,school
+					problems, term-papers, and reports
+				</p>
+			</div>
+			<!--numbered list  -->
+
+			<div class="flex flex-col space-y-8 md:w-1/2">
+				<h1 class="hidden underline mb-4 text-lg text-center font-bold md:block"> WHY USE SMALLTASKSONLINE</h1>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+
+						<div class="flex items-center space-x-2">
+
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								01
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								World Class Team
+							</h3>
 						</div>
 					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> World Class Team</h3>
+						<p class="text-darkGrayishBlue">
+							SmallTasksOnline team are all vetted based on academic and work progress, they have an
+							average experience of more than three years with more than 50 clients and ensure to provide
+							quality service
+						</p>
+					</div>
+				</div>
 
+				<!-- list item two -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								02
 
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="fas fa-pen fa-4x" data-fa-transform="shrink-4.5 up-4.5"></i>
-							<h3>Academic Writing</h3>
-							<p>Essays and any form of academic writing are done following the given writing style
-								provided and we ensure that the work is plagiarism free, submitted on time and
-								thoroughly researched. The team has a mean of over five years of experience in these
-								tasks</p>
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Flexible and Fast Services
+							</h3>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="fas fa-laptop-code fa-4x" data-fa-transform="shrink-4.5 up-4.5"></i>
-							<h3>Computer Science tasks</h3>
-							<p>Programming, Statistical analysis, networking , and ethical hacking and reseach also fall
-								amidst our category of skills. The team with over 5 years experience in the field are
-								highly efficient in these tasks and submit clear, concise and thorough work.</p>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Flexible and Fast Services</h3>
+						<p class="text-darkGrayishBlue">
+							Based on specified deadline, the team handles and delivers the task on time and incase of
+							any problem with the task, comminicated feedback back to the client to ensure the work is as
+							per clients requirement
+						</p>
+					</div>
+				</div>
+
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								03
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Payment Friendy
+							</h3>
 						</div>
 					</div>
-				</div>
-			</div>
-
-
-		</div>
-		<!-- end narrow -->
-	</div>
-
-	<!-- end jumbotron -->
-	</div>
-	<!-- end about section -->
-	<!-- start team-skills section -->
-	<div id="team-skills" class="offset">
-		<!-- start of fixed background -->
-		<div class="fixed-background">
-			<div class="row dark text-center">
-				<div class="col-12">
-					<h3 class="heading">Our Proficient stacks</h3>
-					<div class="heading-underline"> </div>
-				</div>
-				<div class="col-md-4">
-					<h3>Computer Programming</h3>
-					<div class="feature">
-						<i class="fas fa-laptop-code fa-3x"></i>
-						<p class="lead">Languages e.g Java,Python,Elixir,R</p>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Payment Friendy</h3>
+						<p class="text-darkGrayishBlue">
+							Payment is negotiable between our team and the client to ensure that it is friendly. It is
+							done in dollars as the standard payment platform in the world
+						</p>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<h3>Statistical Analysis</h3>
-					<div class="feature">
-						<i class="fa fa-calculator fa-3x"></i>
-						<p class="lead">Languages,R</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Business</h3>
-					<div class="feature">
-						<i class="fas fa-business-time fa-3x"></i>
-						<p class="lead">Business And all its environs</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Web Tasks</h3>
-					<div class="feature">
-						<i class="fas fa-code fa-3x"></i>
-						<p class="lead">Web development languages</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Android Tasks</h3>
-					<div class="feature">
-						<i class="fas fa-mobile-alt fa-3x"></i>
-						<p class="lead">Mobile/android development languages</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Microsoft Office</h3>
-					<div class="feature">
-						<i class="fa fa-table fa-3x"></i>
-						<p class="lead">Microsoft office Package e.g Microsoft Excel </p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Operating system tasks</h3>
-					<div class="feature">
-						<i class="fa-brands fa-windows fa-3x"></i>
-
-						<p class="lead">Operating system e.g Windows and Linux</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<h3>Typing and Cyber Cafe services</h3>
-					<div class="feature">
-						<i class="fa fa-coffee fa-3x"></i>
-						<p class="lead">Music, Typing</p>
-					</div>
-				</div>
-
-			</div>
-			<!-- end of row dark -->
-			<div class="fixed-wrap">
-				<div class="fixed"> </div>
-
 			</div>
 		</div>
+	</section>
 
 
-	</div>
-	<!-- end of fixed background -->
+	<!-- Testimonials -->
 
-	</div>
-	<!-- end team-skills section -->
-	<!-- start team-skills section -->
-	<div id="contact" class="offset">
-		<footer>
-			<div class="row justify-content-center">
-				<div class="col-md-5 text-center">
-					<img src="{%static 'images/SmallTasksLogo.png'%}" alt="">
-					<p>  Welcome to SmallTasksOnline!!! We are a team from all over the world
-						dedicated to delivering high end tasks for all our clients. Welcome, Join the team.</p>
-					<strong>Contact info</strong>
-					<p>+254753100665 <br>support@smalltasksonline.com</p>
-					<a href="" target="_blank"><i class="fab fa-facebook-square"></i></a>
-					<a href="" target="_blank"><i class="fab fa-twitter-square"></i></a>
-					<a href="" target="_blank"><i class="fab fa-instagram"></i></a>
+	<section id="testimonials">
+		<!-- Container to heading and testimonial blocks -->
+
+		<div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+			<!-- heading -->
+
+			<h2 class="text-4xl font-bold text-white pt-5 underline text-center">
+				What are our teams skills?
+			</h2>
+			<!-- Testimonials container -->
+			<div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+				<!-- Testimonial 1 -->
+
+				<div class="flex-col items-center p-6 space-y-6 mt-24 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-laptop-code fa-3x"></i>
+					<h5 class="text-lg font-bold">Computer Programming</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Our team is proficient in languages such as Java, Elixir, Relational
+						databases,R,Javascript,Python.
+
+					</p>
 				</div>
-				<hr class="socket">
-				&copy;SmallTasksOnline. 2021
+				<!-- Testimonial 2 -->
+
+				<div class="flex-col items-center p-6 space-y-6 mt-24 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-business-time fa-3x"></i>
+					<h5 class="text-lg font-bold">Business</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Balance sheets, trial balances and all that pertains business courses, our team is equipped
+
+					</p>
+				</div>
+				<!-- Testimonial 3 -->
+
+				<div class="mt-24  flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fa fa-calculator fa-3x"></i>
+					<h5 class="text-lg font-bold">Statistical Analysis</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Statistics both mathematics and with languages such as R
+
+					</p>
+				</div>
+			</div>
+			<div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+				<!-- Testimonial 4 -->
+
+				<div class="flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3">
+					<i class="fas fa-code fa-3x"></i>
+					<h5 class="text-lg font-bold">Web development</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Languages in Web development and also design of the applications
+
+					</p>
+				</div>
+				<!-- Testimonial 5 -->
+
+				<div class="hidden  flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-mobile-alt fa-3x"></i>
+					<h5 class="text-lg font-bold">Android Tasks</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Languages such as Java, Kotlin, or mobile application development in general
+
+					</p>
+				</div>
+				<!-- Testimonial 6 -->
+
+				<div class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fa fa-table fa-3x"></i>
+					<h5 class="text-lg font-bold">Microsoft Office</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						It includes all the Microsoft office stack tasks, such as Microsoft Word
+
+					</p>
+				</div>
+			</div>
+			<div class="flex flex-col mt-12 md:flex-row md:space-x-6">
+				<!-- Testimonial 7 -->
+
+				<div class="mt-24 flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fa-brands fa-windows fa-3x"></i>
+					<h5 class="text-lg font-bold">Operating Systems</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Computer based tasks general from different operating systems
+
+					</p>
+				</div>
+				<!-- Testimonial 8 -->
+
+				<div class="mt-24 flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fa fa-coffee fa-3x"></i>
+					<h5 class="text-lg font-bold">Essay Writin Services</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						Transcription and Essay Writing
+
+					</p>
+				</div>
+				<!-- Testimonial 3 -->
+
 
 			</div>
-		</footer>
+			<!-- button -->
+			<div class="my-16">
+				<a href="{url 'register'}"
+					class="p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
+					Started</a>
+			</div>
+		</div>
+	</section>
 
-	</div>
-	<!-- end contact section -->
+	<footer class="bg-veryDarkBlue">
+		<div
+			class="container flex flex-col-reverse justify-between px-6 py-10 mx-auto space-y-8 md:flex-row md:space-y-0">
+
+			<!-- logo and social links container -->
+
+			<div
+				class="flex flex-col-reverse items-center justify-between space-y-12 md:flex-col md:space-y-0 md:items-start">
+
+				<div class="mx-auto my-6 text-center text-white md:hidden">
+					Copyright &copy; 2022,All Rights Reserved
+				</div>
+				<!-- logo -->
+				<div>
+					<img src="{%static 'images/logo.svg'%}" class="h-8" alt="">
+				</div>
+
+				<!-- social links container -->
+				<div class="flex justify-center space-x-4">
+					<!-- link 1 -->
+					<a href="">
+						<img src="{%static 'images/icon-facebook.svg'%}" class="h-8" alt="">
+					</a>
+					<!-- link 2-->
+					<a href="">
+						<img src="{%static 'images/icon-youtube.svg'%}" class="h-8" alt="">
+					</a>
+					<!-- link 1 -->
+					<a href="">
+						<img src="{%static 'images/icon-twitter.svg'%}" class="h-8" alt="">
+					</a>
+					<!-- link 1 -->
+					<a href="">
+						<img src="{%static 'images/icon-pinterest.svg'%}" class="h-8" alt="">
+					</a>
+					<!-- link 1 -->
+					<a href="">
+						<img src="{%static 'images/icon-instagram.svg'%}" class="h-8" alt="">
+					</a>
+				</div>
+			</div>
+
+			<!-- List container -->
+			<div class="flex justify-around space-x-32">
+				<div class="flex flex-col space-y-3 text-white">
+					<a href="#" class="hover:text-brightRed">Home</a>
+					<a href="#" class="hover:text-brightRed">Our Skills</a>
+					<a href="#" class="hover:text-brightRed">About-Us</a>
+
+				</div>
+				<div class="flex flex-col space-y-3 text-white">
+					<a href="#" class="hover:text-brightRed">Sign Up</a>
+					<a href="#" class="hover:text-brightRed">Login</a>
+					<a href="#" class="hover:text-brightRed">Contact Us</a>
+
+				</div>
+			</div>
+
+			<!-- input container -->
+			<div class="flex flex-col justify-between">
+				<form action="">
+					<div class="flex space-x-3">
+						<input type="text" class="flex-1 px-4 rounded-full focus:outline-none"
+							placeholder="Updates in your inbox">
+						<button
+							class="px-6 py-2 text-white rounded-full bg-brightRed hover-bg-brightRedLight focus:outline-none">
+							Go
+						</button>
+					</div>
+				</form>
+				<div class="hidden text-white md:block">
+					Copyright &copy; 2022,All Rights Reserved
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<!--- Script Source Files -->
+	<script src="{%static 'js/script.js'%}"></script>
+	<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+	<script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+
 
 </body>
-<!--- Script Source Files -->
-<script src="{%static 'js/jquery-3.3.1.min.js'%}"></script>
-<script src="{%static '/js/bootstrap.min.js'%}"></script>
-<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
-<script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
-
-
- 
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
-
-<!--- End of Script Source Files -->
 
 </html>
 

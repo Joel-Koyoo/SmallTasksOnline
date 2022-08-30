@@ -1,84 +1,158 @@
-{%block content%}
 {%load static%}
+{%block content%}
+{% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 
-{%include 'tasks/main.html'%}
-<!-- cards -->
-<div class="main">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
+</head>
+
+<body>
+
+
+    {%include 'tasks/main.html'%}
     {%include 'tasks/topbar.html'%}
-    <div class="details">
-        <div class="recentOrders">
-            <div class="cardHeader">
-                <td><a class="btn btn-info" href="{%url 'taskpool'%}">Back</a></td>
-            </div>
-           
-
-            <div>
-                <a style="text-decoration: none;" id="view" href="{%url 'reportPage' task.id %}"> <i style="color:red;"
-                            class="fa fa-flag fa-3x" aria-hidden="true"></i>Click Flag to Report problem with Task</a>
-            </div>
-
-            <h1> {{task.title}}</h1>
-            <br>
-            <h2>TASK DESCRIPTION</h2>
-
-            {{task.description}}
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Deadline</th>
-                        <th>Proposed Price</th>
-                        <th>Status</th>
-                        <th>Download documents</th>
 
 
-                    </tr>
 
-                </thead>
+    <div class="max-w-4xl md:ml-[330px] text-left bg-white" id="claimed-container">
 
-                <tbody>
-
-
-                    <tr>
-                        <td>{{task.deadline}}</td>
-                        <td>{{task.Proposed_price}}</td>
-                        <td>{{task.status}}</td>
-                        <td>
-                            {% if task.file %}
-                            <a href=" {{task.file.url}}" class="btn">Donwload Documents</a>
-                            {% else %}
-                            <p>The work has no files attached</p>
-                            {%endif%}
-
-
-                        </td>
-                    </tr>
-
-
-                </tbody>
+        <button>
+            <a class="hidden md:block bg-brightRedLight  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
+                type="button" href="{%url 'taskpool'%}">Back to Taskpool</a>
+        </button>
+        <!-- The grid parent -->
+        <div class="mt-12 auto container grid grid-cols-5">
+            <!-- Header section -->
+            <header class="col-span-5 p-10 bg-amber-200">
+                <h1 class="text-right text-2xl">TASK ID: {{task_id}}</h1>
+                <h1 class="text-center text-2xl">TITLE: {{task.title}}</h1>
+                <div>
+                    <a href="{%url 'reportPage' task.id %}">
+                        <i style="color:red;" class="fa fa-flag fa-3x" aria-hidden="true"></i>
+                        <span class="underline text-xl hover:text-2xl">
+                            Flag this task in order to change price or inform the owner of a problem
+                        </span>
+                    </a>
+                </div>
 
 
-            </table>
 
+
+            </header>
+
+
+            <!-- Main content -->
+            <main class="col-span-10 md:col-span-5 h-96 p-10 bg-blue-200">
+                <h1 class="text-center text-2xl">Description</h1>
+                <p class="text-xl"> {{task.description|safe}}</p>
+
+                <hr class="my-2 text-black">
+                <hr class="my-2 text-black">
+                <h1 class="text-center text-2xl">Details</h1>
+
+                <table class="mt-4 w-full mx-auto" id="table">
+                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                        <tr>
+
+                            <th
+                                class="hidden md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                                Category</th>
+                            <th
+                                class="md:table-cell  md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                                Deadline</th>
+                            <th id="proposed-price"
+                                class="md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                                Proposed Price</th>
+                            <th id="proposed-price"
+                                class="hidden md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                                Status</th>
+                            <th id="proposed-price"
+                                class="md:table-cell md:p-3 text-base text-center font-semibold tracking-wide text-center">
+                                Download documents</th>
+
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+
+                            <td class="hidden md:table-cell md:w-25 text-left p-3 text-base text-gray-700">
+                                {{task.category}}
+                            </td>
+                            <td class="md:table-cell md:w-25 text-left p-3 text-base text-gray-700">
+                                {{task.deadline}}
+                            </td>
+                            <td class="md:table-cell md:w-15 text-left p-3 text-base text-gray-700">
+                                {{task.Proposed_price}}</td>
+                            <td class="hidden md:table-cell md:w-15 text-left p-3 text-base text-gray-700">
+                                {{task.status}}</td>
+                            <td class="w-20 text-left p-3 text-base text-gray-700">
+                                {% if task.file %}
+                                <a href=" {{task.file.url}}"
+                                    class="w-20 p-1.5 text-base font-medium whitespace-nowrap uppercase tracking-wider bg-green-700 rounded-lg bg-opacity-50">Donwload
+                                    Documents</a>
+                                {% else %}
+                                <p>The work has no files attached</p>
+                                {%endif%}
+
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+                </table>
+
+
+
+            </main>
+
+
+
+            <!-- Footter -->
+            <footer class="col-span-5 p-10 bg-blue-200">
+                <h1 class="text-center text-2xl underline">ACCEPT TASK</h1>
+
+                <form action="{%url 'accept_task' task.id%}" method="POST">
+                    {% csrf_token %}
+                    <h2 class="text-Red">
+                        <P>WARNING!!!</P> KINDLY ENSURE YOU CAN HANDLE THE TASK BEFORE CLICKING ACCEPT. THE ACTION IS
+                        NOT
+                        REVERSABLE
+                    </h2>
+                    <button
+                        class="bg-brightRedLight hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        type="submit">
+                        ACCEPT TASK
+                    </button>
+
+                </form>
+            </footer>
         </div>
-        <form action="{%url 'accept_task' task.id%}" method="POST">
-            {% csrf_token %}
-            <h2 style="color:red;">
-                <P>WARNING!!!</P> KINDLY ENSURE YOU CAN HANDLE THE TASK BEFORE CLICKING ACCEPT. THE ACTION IS NOT
-                REVERSABLE
-            </h2>
-            <button type="submit">ACCEPT Task</button>
-        </form>
-
-    </div>
 
 
+        <script src="{%static 'js/script.js'%}"></script>
 
-    <script src="{%static 'js/script.js'%}"></script>
+        <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+        <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
 
-    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
-    <script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+</body>
 
+</html>
 
-
-    {%endblock %}
+{%endblock%}

@@ -1,41 +1,45 @@
 {%load static%}
+{%block content%}
+{% load static tailwind_tags %}
 
-<html>
+
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{%static 'css/style1.css'%}">
+    <title>SmallTasksOnline</title>
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+    <title>Manage landing page</title>
+    {% tailwind_css %}
 </head>
 
-
 <body>
-    <div class="topbar">
-        <div class="cardHeader">
-            <div class="toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-            </div>
-            <div class="toggle1">
-                <span class="hello-msg">Hello, {{request.user}}</span>
-                <span><a class="hello-msg btn" href="{% url 'logout'%}">Logout</a></span>
-            </div>
+    <div class="flex justify-end mx-24 mt-12 bg-white" id="TopBar">
 
-
+        <div class="absolute top-0 right-0 md:px-10 md:pt-2 md:text-brightRedLight text-2xl">Hello, {{request.user}}
         </div>
+        <div class="hidden md:flex md:justify-center">
+            {% if request.user.client.picture %}
+            <img src="{{request.user.client.picture.url}}" alt="" class="max-w-xs max-h-20">
 
+            {%else%}
 
+            <img src="{{profile_pic.jpg}}" alt="" class="max-w-xs max-h-12 ">
+
+            {%endif%}
+        </div>
 
     </div>
 
 
 
+    <script src="{%static 'js/script.js'%}"></script>
 
 </body>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-<script src="{%static 'js/script.js'%}"></script>
-
 
 </html>
+{%endblock%}

@@ -57,5 +57,12 @@ urlpatterns = [
     path('complete/', views.paymentComplete, name='complete'),
 
 
-   
+    path('ClientPage/<str:pk>/', views.ClientPage, name='ClientPage'),  
+    path('ClientPoolPage/', views.ClientPoolPage, name='ClientPoolPage'),
+    path('ClientReportPage/', views.ClientReportPage, name='ClientReportPage'),
+
+    path('viewClientReportPage/<str:pk>/', views.viewClientReportPage, name='viewClientReportPage'),
+
+    path('userData/<str:pk>/', views.userData, name='userData'),
+
 ]
