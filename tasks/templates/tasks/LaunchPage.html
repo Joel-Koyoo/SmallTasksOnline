@@ -1,3 +1,4 @@
+
 {%load static%}
 {%block content%}
 {% load static tailwind_tags %}
@@ -12,6 +13,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
 	<title>SmallTasksOnline</title>
 	{% tailwind_css %}
 </head>
@@ -82,8 +84,11 @@
 				<div class="max-w-xs text-center">
 
 					<a href="{%url 'register'%}"
-						class="hidden md:block p-2 px-4 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
+						class="block p-2 px-4 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Get
 						Started</a>
+						<br>
+					<a href="{%url 'login'%}"
+						class="block p-2 px-4 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight">Login</a>
 				</div>
 
 			</div>
