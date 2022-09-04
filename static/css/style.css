@@ -67,6 +67,8 @@ body {
 }
 
 .input-group {
+    
+    align-items: center;
     position: relative;
     width: 100%;
     margin: 1rem 0;
@@ -75,14 +77,14 @@ body {
 .input-group i {
     position: absolute;
     top: 50%;
-    left: 1rem;
+    left: 2rem;
     transform: translateY(-50%);
     font-size: 1.4rem;
     color: var(--gray-2);
 }
 
 .input-group input {
-    width: 100%;
+    width: 70%;
     padding: 1rem 3rem;
     font-size: 1rem;
     background-color: var(--gray);

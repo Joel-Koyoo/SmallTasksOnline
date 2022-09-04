@@ -679,3 +679,4 @@ def ClientReportPage(request):
         }
     return render(request, 'tasks/ClientReportPage.html', context)
    
+
