@@ -26,13 +26,15 @@
     <span class="absolute text-white text-4xl top-5 left-4 cursor-pointer" onclick="Open()">
         <i class="bi bi-filter-left px-2 bg-gray-900 rounded-md md:hidden"></i>
     </span>
-    <span id="Open-Bar" class="hidden md:block absolute text-white text-4xl top-5 left-4 cursor-pointer" onclick="alljoined()">
+    <span id="Open-Bar" class="hidden md:block absolute text-white text-4xl top-5 left-4 cursor-pointer"
+        onclick="alljoined()">
         <i class="bi bi-list px-2 bg-gray-900 rounded-md"></i>
     </span>
 
     <div class="sidebar-parent">
 
-        <div class="sidebar text-center fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto z-50 text-center bg-gray-900">
+        <div
+            class="sidebar text-center fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto z-50 text-center bg-gray-900">
 
 
             <div class="text-gray-100 text-xl">
@@ -110,8 +112,15 @@
 
     </div>
     <script>
-        function Open() {
+       function Open() {
             document.querySelector('.sidebar').classList.toggle('left-[-300px]');
+            document.querySelector('.sidebar').style.width="300px"
+
+        }
+        window.onload = function hide() {
+            document.querySelector('.sidebar').style.width="0px"
+            document.querySelector('.sidebar').classList.toggle('left-[-300px]');
+            document.querySelector('.sidebar').style.width="300px"
         }
     </script>
 

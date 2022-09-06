@@ -27,7 +27,7 @@ function claimed_container() {
 
    openBar.addEventListener('click', () => {
 
-
+      
       SidebarParent.appendChild(removed)
       claimed_container.className = "md:ml-[330px] text-left bg-white"
 
@@ -100,7 +100,8 @@ function Close() {
 
 
    CloseBar.addEventListener('click', () => {
-
+      
+     
       // SidebarParent.removeChild(Sidebar);
       dashboard_container.className = "w-5/6 mx-auto text-center bg-white"
 
@@ -294,6 +295,7 @@ if (document.URL.includes("/taskpool/")) {
 else if (document.URL.includes("/dashboard/")) {
    function alljoined() {
       Close();
+      
    }
 }
 
