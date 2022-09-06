@@ -1,11 +1,12 @@
-from django.urls import path
+from django.urls import path,include
 from django.contrib.auth import views as auth_views
 
 from . import views
 
 
 urlpatterns = [
-    path('', views.launchPage, name="LaunchPage"),
+    path('',views.launchPage, name="launchpage"),
+    path('launchpage/',views.launchPage, name="launchpage"),
     path('register/', views.registerPage, name="register"),
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
@@ -64,5 +65,9 @@ urlpatterns = [
     path('viewClientReportPage/<str:pk>/', views.viewClientReportPage, name='viewClientReportPage'),
 
     path('userData/<str:pk>/', views.userData, name='userData'),
+
+
+    path('documentation/', views.documentation, name='documentation'),
+
 
 ]

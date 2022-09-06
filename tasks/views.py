@@ -80,7 +80,8 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
-
+    
+@login_required(login_url="login")
 def valueTasks(user):
     tasks = user.task_set.all().filter(status='Flagged')
 
@@ -103,7 +104,7 @@ def ReportPoolPage(request):
     return render(request, 'tasks/ReportPoolPage.html', context)
 
 
-
+@login_required(login_url="login")
 def ClientTasks(user):
     tasks = Task.objects.all()
     taskhandler=tasks.filter(taskhandler=user)
@@ -148,7 +149,7 @@ def DashboardPage(request):
 
     return render(request, "tasks/dashboard.html", context)
 
-
+@login_required(login_url="login")
 def ClaimedTasks(request):
 
     if (request.user.client.is_taskhandler == True):
@@ -161,7 +162,7 @@ def ClaimedTasks(request):
 
         return render(request, 'tasks/claimed_tasks.html', context)
    
-
+@login_required(login_url="login")
 def SubmittedTasks(request):
 
     if (request.user.client.is_taskhandler == True):
@@ -220,7 +221,7 @@ def AdminDashboardPage(request):
             'Clients': Clients, "Tasks": Tasks,'TasksNo':TasksNo,'ClientNo':ClientNo,'Flagged':Flagged,'Paid':Paid,'Available':Available,'Under_Review':Under_Review,'Claimed':Claimed,'FlaggedNo':FlaggedNo,'PaidNo':PaidNo,'AvailableNo':AvailableNo,'Under_ReviewNo':Under_ReviewNo,'ClaimedNo':ClaimedNo,'myFilter':myFilter
         })
   
-
+@login_required(login_url="login")
 def userData(request,pk):
     client=Client.objects.get(id=pk)
 
@@ -256,7 +257,7 @@ def userData(request,pk):
 
 
     
-
+@login_required(login_url="login")
 def updateClientDetail(request, pk):
     client = Client.objects.get(id=pk)
     form = ClientForm(instance=client)
@@ -276,7 +277,7 @@ def updateClientDetail(request, pk):
     context = {'client': client, 'clients': clients, 'form': form}
     return render(request, 'tasks/clientsDetail.html', context)
 
-
+@login_required(login_url="login")
 @login_required(login_url='login')
 def createTask(request):
     form = TaskForm()
@@ -303,7 +304,7 @@ def createTask(request):
 
     return render(request, 'tasks/tasksForm.html', context)
 
-
+@login_required(login_url="login")
 def updateTask(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -327,7 +328,7 @@ def updateTask(request, pk):
     context = {'form': form}
     return render(request, 'tasks/tasksForm.html', context)
 
-
+@login_required(login_url="login")
 def deleteTask(request, pk):
     task = Task.objects.get(id=pk)
 
@@ -356,7 +357,7 @@ def TaskPoolPage(request):
     else:
         return render(request, 'tasks/unauthorized.html')
 
-
+@login_required(login_url="login")
 def viewtasks(request, pk):
     task = Task.objects.get(id=pk)
     task_id=task.id
@@ -367,7 +368,7 @@ def viewtasks(request, pk):
 
     return render(request, 'tasks/viewtasks.html', context)
 
-
+@login_required(login_url="login")
 def ViewSubmittedTask(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -376,7 +377,7 @@ def ViewSubmittedTask(request, pk):
 
     return render(request, 'tasks/viewSubmittedtasks.html', context)
 
-
+@login_required(login_url="login")
 def paymentComplete(request):
     body = json.loads(request.body)
     task = Task.objects.get(id=body['TaskID'])
@@ -387,7 +388,7 @@ def paymentComplete(request):
     task.save()
     return JsonResponse('Payment Completed!', safe=False)
 
-
+@login_required(login_url="login")
 def SubmitTask(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -428,7 +429,7 @@ def acceptTask(request, pk):
 
     return render(request,  'tasks/viewtasks.html', context)
 
-
+@login_required(login_url="login")
 def userPage(request):
     person = request.user.client
     form = ClientForm(instance=person)
@@ -528,6 +529,7 @@ def launchPage(request):
     context = {}
     return render(request, 'tasks/LaunchPage.html', context)
 
+@login_required(login_url="login")
 def reportPage(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -550,7 +552,7 @@ def reportPage(request, pk):
     return render(request,  'tasks/ReportPage.html', context)
    
     
-
+@login_required(login_url="login")
 def Reportviewtasks(request, pk):
     task = Task.objects.get(id=pk)
     form = TaskForm(instance=task)
@@ -576,7 +578,7 @@ def Reportviewtasks(request, pk):
 
     return render(request, 'tasks/ReportViewtasks.html', context)
 
-
+@login_required(login_url="login")
 def ClientPage(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -598,6 +600,7 @@ def ClientPage(request, pk):
     context = {'form': form, 'task': task}
     return render(request,  'tasks/ClientPage.html', context)
 
+@login_required(login_url="login")
 def ComplainedTasks(request):
 
     if (request.user.client.is_taskhandler == True):
@@ -629,7 +632,7 @@ def ClientPoolPage(request):
         }
     return render(request, 'tasks/ClientPoolPage.html', context)
 
-
+@login_required(login_url="login")
 def viewClientReportPage(request, pk):
     task = Task.objects.get(id=pk)
     form = TaskForm(instance=task)
@@ -656,7 +659,7 @@ def viewClientReportPage(request, pk):
 
 
 
-
+@login_required(login_url="login")
 def ClientTasks(user):
     tasks = user.task_set.all().filter(status='Under Review')
 
@@ -679,4 +682,8 @@ def ClientReportPage(request):
         }
     return render(request, 'tasks/ClientReportPage.html', context)
    
+def documentation(request):
+    context={}
+    return render(request,'tasks/documentation.html',context)
+
 

@@ -1,0 +1,555 @@
+{%load static%}
+{%block content%}
+{% load static tailwind_tags %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{%static 'images/favicon.ico'%}">
+	<title>SmallTasksOnline</title>
+	{% tailwind_css %}
+</head>
+
+<body>
+	<nav class="relative container mx-auto p-6">
+		<!-- flex container -->
+		<button>
+			<a class="hidden md:block bg-brightRed hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-none"
+				type="button" href="{%url 'dashboard'%}">Back to dashboard</a>
+		</button>
+		<div class="flex item-center justify-between">
+			<!-- logo -->
+			<div class="max-w-xs max-h-0">
+				<img src="{%static 'images/Smalltasksonline1.png'%}" class="" alt="">
+				<!-- <img src="{%static 'images/logo.svg'%}" class="max-w-xs max-h-0.5" alt=""> -->
+			</div>
+
+			<div class="hidden md:flex space-x-6 mt-3">
+
+				<!-- menu items -->
+				<a href="#Dashboard" class="hover:text-darkGrayishBlue">Dashboard</a>
+				<a href="#Tasks" class="hover:text-darkGrayishBlue">Tasks</a>
+				<a href="#Navigation" class="hover:text-darkGrayishBlue">Navigation Bar</a>
+
+
+
+			</div>
+
+
+
+			<!-- humburger icon -->
+			<button id="menu-btn" class="block hamburger md:hidden focus:outline-none">
+				<span class="hamburger-top"></span>
+				<span class="hamburger-middle"></span>
+				<span class="hamburger-bottom"></span>
+			</button>
+		</div>
+		<!-- mobile menu -->
+		<div class="md:hidden">
+			<div id="menu"
+				class="absolute flex-col items-center self-end hidden py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
+				<a href="#Dashboard" class="hover:text-darkGrayishBlue">Dashboard</a>
+				<a href="#Tasks" class="hover:text-darkGrayishBlue">Tasks</a>
+				<a href="#Navigation" class="hover:text-darkGrayishBlue">Navigation Bar</a>
+			</div>
+		</div>
+	</nav>
+
+
+	<h2 class="mt-12 max-w-full text-4xl font-bold text-center md:text-center" id="Dashboard">Documentation
+	</h2>
+
+	<!-- feature section -->
+
+
+	<section id="features">
+
+		<!-- flex container -->
+		<div class="container flex flex-col px-4 mx-auto items-center md:flex-row">
+			<!--numbered list  -->
+
+			<div class="flex flex-col space-y-12 md:w-1/2">
+				<h1 class="underline mb-4 text-lg text-center font-bold md:block"> Dashboard Features</h1>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+
+						<div class="flex items-center space-x-2">
+
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								01
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Number of Tasks
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Number of Tasks</h3>
+						<p class="text-darkGrayishBlue">
+							These is the number of tasks you have submitted to our team to handle for you
+						</p>
+					</div>
+				</div>
+
+				<!-- list item two -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								02
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Total Task Amount
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Total Task Amount</h3>
+						<p class="text-darkGrayishBlue">
+							This items shows the total price of all the tasks submitted in dollars($). Do remember
+							payment is in dollars and via paypal
+						</p>
+					</div>
+				</div>
+
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								03
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Give us a task.
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Give us a task. </h3>
+						<p class="text-darkGrayishBlue">
+							Shortest path to the create task page where you fill a form of the the task you want
+							submitted
+						</p>
+					</div>
+				</div>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								04
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Tasks Complained
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Tasks Complained </h3>
+						<p class="text-darkGrayishBlue">
+							In rare occasion, some tasks may not be done as per wanted or perhaps our team missed a
+							requirement in which case the task may be returned to us in a form {}. The area redirects to
+							the list of tasks complained to check on the task after submission
+						</p>
+					</div>
+				</div>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								05
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Reported Tasks
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block">Reported Tasks </h3>
+						<p class="text-darkGrayishBlue">
+							These are flagged tasks by our team incase they need clarification on a certain part or a
+							document missing on the entire task given.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col space-y-12 md:w-1/2">
+
+				<h2 class="text-4xl font-bold text-black pt-5 underline text-center">
+					Dashboard Images
+				</h2>
+
+
+				<!-- button -->
+				<div class="mt-12">
+
+					<div class="hidden md:block ">
+						<img src="{%static 'images/dashboard.png'%}" class="" alt="">
+					</div>
+					<hr>
+					<div class="mt-12">
+						<img src="{%static 'images/ProgressBar.png'%}" class="" alt="">
+						<div>
+							<h3 class="text-lg font-bold md:block"> Progress Bar</h3>
+							<p class="mt-4 text-darkGrayishBlue">
+								This keeps you updated with status of your tasks. More explained below</p>
+
+						</div>
+					</div>
+					<div class="mt-4 block md:hidden">
+
+						<img src="{%static 'images/phonedashboard.png'%}" class="" alt="">
+					</div>
+
+
+				</div>
+			</div>
+			<!-- whats different -->
+
+
+		</div>
+	</section>
+
+
+
+
+	<!-- Testimonials -->
+
+	<section id="Tasks">
+		<!-- Container to heading and testimonial blocks -->
+
+		<div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+			<!-- heading -->
+
+			<h2 class="text-4xl font-bold text-white pt-5 underline text-center">
+				TASK STATUS
+			</h2>
+			<p class="mt-6 text-darkGrayishBlue">
+				Tasks go through stages as displayed by the dashboard as shown below
+			</p>
+			<!-- Testimonials container -->
+			<div class="flex flex-col mt-6 md:flex-row md:space-x-6">
+				<!-- Testimonial 1 -->
+
+				<div class="flex-col items-center p-6 space-y-6 mt-24 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="far fa-file-word fa-3x"></i>
+					<h5 class="text-lg font-bold">AVAILABLE</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						This is immediately after you have submitted your task. Informs our team your task is to be
+						done. Task can still be edited
+
+					</p>
+				</div>
+				<!-- Testimonial 2 -->
+
+				<div class="flex-col items-center p-6 space-y-6 mt-24 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-clock fa-3x"></i>
+					<h5 class="text-lg font-bold">Claimed</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						This means a member of the team is working on your task and the task is in progress. You cannot
+						edit the task at this stage.
+
+					</p>
+				</div>
+				<!-- Testimonial 3 -->
+
+				<div class="mt-24  flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-flag fa-3x"></i>
+					<h5 class="text-lg font-bold">Flagged</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						This means there is a problem with your task flagged from our team and required your immediate
+						attention
+
+					</p>
+				</div>
+			</div>
+			<div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+				<!-- Testimonial 4 -->
+
+				<div class="flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3">
+					<i class="fas fa-check fa-3x"></i>
+					<h5 class="text-lg font-bold">Submitted</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						This Means your task has been completed and submitted back to you
+
+					</p>
+				</div>
+				<!-- Testimonial 5 -->
+
+				<div class="flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-dollar-sign"></i>
+					<h5 class="text-lg font-bold">PAID</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						This means the task has already been paid for and can now be deleted or in rare cases complained
+						back to us
+
+					</p>
+				</div>
+				<!-- Testimonial 6 -->
+
+				<div class="flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3">
+					<i class="fas fa-search-plus fa-3x"></i>
+					<h5 class="text-lg font-bold">Under Review</h5>
+					<p class="text-sm text-darkGrayishBlue">
+
+						In rare cases, a task may have a problem after submission. The client can complain about the
+						task back to us and this status identifies all tasks with problems from a client
+
+					</p>
+				</div>
+			</div>
+
+
+			<!-- Testimonial 3 -->
+
+
+		</div>
+		</div>
+	</section>
+
+
+	<h2 class="mt-12 max-w-full text-4xl font-bold text-center md:text-center" id="About">Navigation Bar
+	</h2>
+
+	<!-- feature section -->
+
+
+	<section id="Navigation">
+
+
+
+		<!-- flex container -->
+		<div class="container flex flex-col max-w-6xl px-5 mx-auto mt-32  md:flex-row">
+			<!--numbered list  -->
+			<div class="flex flex-col px-4 max-h-1 md:w-3/4">
+
+				<h2 class="text-4xl font-bold text-black pt-5 underline text-center">
+					Navigation Bar Images
+				</h2>
+
+
+				<!-- button -->
+				<div class="mt-12">
+
+					<div class="hidden md:block max-h-3">
+						<img src="{%static 'images/ct.png'%}" class="max-h-1" alt="">
+					</div>
+					<hr>
+
+				</div>
+			</div>
+
+			<div class="flex flex-col space-y-12 md:w-1/2">
+				<h1 class="hidden underline mb-4 text-lg text-center font-bold md:block"> Navigation Bar Features</h1>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+
+						<div class="flex items-center space-x-2">
+
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								01
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Dashboard Page
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Dashboard Page</h3>
+						<p class="text-darkGrayishBlue">
+							Explained above, a platfrom to check on the task given and their progress
+						</p>
+					</div>
+				</div>
+
+				<!-- list item two -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								02
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Create-Task Page
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Create-Task Page</h3>
+						<p class="text-darkGrayishBlue">
+							This leads to a form where you get to provie information about the task to be done
+						</p>
+					</div>
+				</div>
+
+				{%if client.is_taskhandler == True%}
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								03
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								TaskPool Page
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> TaskPool Page </h3>
+						<p class="text-darkGrayishBlue">
+							This Page shows you the available tasks submitted to us by clients
+						</p>
+					</div>
+				</div>
+				{%else%}
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								03
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Reported Tasks
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Reported Tasks </h3>
+						<p class="text-darkGrayishBlue">
+							This contains all tasks with a problem flagged by our team
+						</p>
+					</div>
+				</div>
+				{%endif%}
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								04
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Contact Us
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block"> Contact Us </h3>
+						<p class="text-darkGrayishBlue">
+							This page contains details of ways of contacting us or if you want to join our team
+						</p>
+					</div>
+				</div>
+				<!-- list item one -->
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								05
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Profile
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block">Profile </h3>
+						<p class="text-darkGrayishBlue">
+							This page has information about the user. Kindly fill it fully for easier communication
+						</p>
+					</div>
+				</div>
+				<div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+					<!-- heading -->
+					<div class="rounded-l-full bg-brightRedSupLight md:bg-transparent">
+						<div class="flex items-center space-x-2">
+							<div class="px-4 py-2 text-white rounded-full md:py-1 bg-brightRed">
+								06
+
+							</div>
+							<h3 class="text-base font-bold md:mb-4 md:hidden">
+								Logout
+							</h3>
+						</div>
+					</div>
+					<div>
+						<h3 class="hidden mb-4 text-lg font-bold md:block">Logout </h3>
+						<p class="text-darkGrayishBlue">
+							Leave the account
+						</p>
+					</div>
+				</div>
+
+
+				<h1 class="text-base font-bold text-center underline">
+					Further information
+				</h1>
+
+				<p class="text-base font-bold text-center">
+					There are many more areas in the platform some of which have explanation in the page. Incase of any
+					problem contact us at support@smalltasksonline.
+				</p>
+			</div>
+
+			<!-- whats different -->
+
+
+		</div>
+	</section>
+
+
+
+
+
+	<!--- Script Source Files -->
+	<script src="{%static 'js/script.js'%}"></script>
+	<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+	<script src="https://kit.fontawesome.com/eee1c61c40.js" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
+
+{%endblock%}
