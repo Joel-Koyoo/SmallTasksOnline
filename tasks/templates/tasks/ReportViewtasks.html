@@ -28,9 +28,11 @@
 
 
     <div class="max-w-4xl md:ml-[330px] text-left bg-white" id="claimed-container">
-        <button
-            class="hidden md:block bg-brightRedLight  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
-            type="button"><a class="btn btn-info" href="{%url 'taskpool'%}">Back to Taskpool</a>
+
+        <button>
+            <a class="hidden md:block bg-brightRedLight  hover:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-3 mx-4 rounded-full"
+                type="button" href="{%url 'taskpool'%}">Back to Taskpool</a>
+        </button>
 
         </button>
         <h1 class="text-center text-2xl">Report Page</h1>
@@ -55,7 +57,7 @@
 
             <main class="col-span-10 md:col-span-5 h-96 p-10 bg-blue-200">
                 <h1 class="text-center text-2xl underline">Description</h1>
-                <p class="text-xl"> {{task.description}}</p>
+                <p class="text-xl"> {{task.description|safe}}</p>
 
                 <hr class="my-2 text-black">
                 <hr class="my-2 text-black">
@@ -193,9 +195,10 @@
                             </div>
 
                             <div class="mt-12">
-                                <button class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md baseline hover:bg-brightRedLight "
-                                >Ignore Complaint</button>
-            
+                                <button
+                                    class="p-3 px-6 pt-2 text-white bg-brightRed rounded-md baseline hover:bg-brightRedLight ">Ignore
+                                    Complaint</button>
+
                                 This button will ignore the complain and allow others to attempt the task
                             </div>
 

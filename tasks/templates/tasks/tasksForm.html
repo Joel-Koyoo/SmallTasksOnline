@@ -31,14 +31,14 @@
             <div>
                 {{form.title|as_crispy_field}}
             </div>
-            
-        
+
+
             <div class="">
                 {{form.media}}
                 {{form.description|as_crispy_field}}
             </div>
 
-        
+
             <div>
                 Currency($) i.e dollars
                 {{form.Proposed_price|as_crispy_field}}
@@ -58,13 +58,13 @@
             </button>
 
 
+            {{form.errors}}
+
         </form>
     </div>
 
 
 
-
-    {{form.errors}}
 
 
 

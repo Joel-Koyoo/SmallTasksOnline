@@ -1,6 +1,7 @@
 from email.policy import default
 from enum import auto
 from ssl import create_default_context
+from typing_extensions import Required
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
@@ -76,9 +77,9 @@ class Task(models.Model):
     client_complaint=RichTextField(blank=True,null=True)
 
     # FILES FOR SUBMIT
-    Submit_Files= models.FileField(null=True, blank=True, upload_to="files")
-    Submit_Image= models.ImageField(default="profile_pic.jpg",null=True, blank=True, upload_to="files")
-    Submit_Description=RichTextField(blank=True,null=True)
+    Submit_Files= models.FileField(null=True, blank=False, upload_to="files")
+    Submit_Image= models.ImageField(default="profile_pic.jpg",null=True, blank=False, upload_to="files")
+    Submit_Description=RichTextField(blank=False,null=True)
  
     
 
