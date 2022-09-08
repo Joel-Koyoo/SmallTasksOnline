@@ -188,7 +188,7 @@ def SubmittedTasks(request):
 
 
 
-@login_required(login_url="login")
+
 def AdminDashboardPage(request):
 
     if (request.user.client.is_admin == True):
