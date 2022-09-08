@@ -78,7 +78,7 @@ body {
 .input-group i {
     position: absolute;
     top: 50%;
-    left: 2rem;
+    left: 1rem;
     transform: translateY(-50%);
     font-size: 1.4rem;
     color: var(--gray-2);
