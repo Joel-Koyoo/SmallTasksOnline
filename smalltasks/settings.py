@@ -115,15 +115,15 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'smalltasksonline',
-        'USER': 'Joel',
-        'PASSWORD': '112358@Joel#',
-        'HOST': 'localhost',
-        'PORT': '',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'smalltasksonline',
+            'USER': 'joel',
+            'PASSWORD': '112358@Joel#',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
 
 
 # Password validation
