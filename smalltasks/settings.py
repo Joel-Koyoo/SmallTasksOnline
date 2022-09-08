@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u=)jnx53m#lzn3v0guapit8iu!(uf-*r4yrby0szl)+(f3_x@2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['164.92.157.113', 'smalltasksonline.works' ,'smalltasksonline.com','www.smalltasksonline.com']
 # ALLOWED_HOSTS = []
@@ -114,6 +114,14 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
         'default': {
             'ENGINE':  'django.db.backends.postgresql',
@@ -124,6 +132,8 @@ DATABASES = {
             'PORT': '',
         }
     }
+
+
 
 
 # Password validation
@@ -170,13 +180,14 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR ),"static_cdn","static_root")
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
 
-MEDIA_URL = 'media/'
+MEDIA_ROOT =  os.path.join(os.path.dirname(BASE_DIR ),"static_cdn","static_media")
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+
 
 
 
