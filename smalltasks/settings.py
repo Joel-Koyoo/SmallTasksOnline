@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE':  'django.db.backends.postgresql',
             'NAME': 'smalltasksonline',
             'USER': 'joel',
             'PASSWORD': '112358@Joel#',
