@@ -421,7 +421,7 @@ def acceptTask(request, pk):
 
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
-        task.taskhandler = request.user.client.id
+        task.taskhandler = request.user.client
         task.status = 'Claimed'
         task.save()
 
