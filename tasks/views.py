@@ -253,7 +253,7 @@ def userData(request,pk):
             
     context={'client':client,'tasks':tasks,'tasksSubmitted':tasksSubmitted,'tasksClaimed':tasksClaimed,'tasksUnderReview':tasksUnderReview,'tasksPaid':tasksPaid,'Total_amount':Total_amount,'Total_amount_owed':Total_amount_owed}
 
-    return render(request,'tasks/userData.html',context)
+    return render(request,'tasks/UserData.html',context)
 
 
     
