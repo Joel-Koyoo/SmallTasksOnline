@@ -120,15 +120,15 @@ WSGI_APPLICATION = 'smalltasks.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
-
+from dotenv import load_dotenv
+load_dotenv()
 DATABASES = {
         'default': {
-            'ENGINE':  'django.db.backends.postgresql',
-            'NAME': 'smalltasksonline',
-            'USER': 'joel',
-            'PASSWORD': '112358@Joel#',
-            'HOST': 'localhost',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME':os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': os.getenv('DATABASE_HOST'),
             'PORT': '',
         }
     }
@@ -191,12 +191,13 @@ MEDIA_URL = '/media/'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'smalltasksonline@gmail.com'
-EMAIL_HOST_PASSWORD = 'crozgqqdkqhxbfqs'
+
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND'),
+EMAIL_HOST = os.getenv('EMAIL_HOST'),
+EMAIL_PORT = os.getenv('EMAIL_PORT'),
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS'),
+EMAIL_HOST_USER =os.getenv('EMAIL_HOST_USER'),
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD '),
 
 
 TAILWIND_APP_NAME='theme'
